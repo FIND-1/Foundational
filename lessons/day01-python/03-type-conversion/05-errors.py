@@ -1,5 +1,6 @@
 """处理无效输入，避免程序因转换失败而直接中断。"""
 
+# 【补充】异常处理和字面量解析练习。
 from ast import literal_eval  # 从标准库 ast 导入字面量解析函数
 
 for value in ("12", "3.5", "abc"):

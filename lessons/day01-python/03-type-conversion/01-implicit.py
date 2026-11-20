@@ -1,3 +1,28 @@
+"""隐式类型转换。"""
+
+num_int = 123
+num_flo = 1.23
+
+num_new = num_int + num_flo
+
+print("num_int 数据类型为:",type(num_int))
+print("num_flo 数据类型为:",type(num_flo))
+
+print("num_new 值为:",num_new)
+print("num_new 数据类型为:",type(num_new))
+
+# 字符串与整数直接相加会抛 TypeError；取消注释可观察。
+# num_int = 123
+# num_str = "456"
+#
+# print("num_int 数据类型为:",type(num_int))
+# print("num_str 数据类型为:",type(num_str))
+#
+# print(num_int+num_str)
+
+
+
+# 【补充】以下保留原有扩展示例。
 """隐式转换：兼容的数字类型参与运算时，Python 会处理结果类型。"""
 
 integer = 123

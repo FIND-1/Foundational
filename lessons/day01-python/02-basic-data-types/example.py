@@ -1,3 +1,18 @@
+"""变量与数据类型综合示例。"""
+
+#!/usr/bin/python3
+
+counter = 100          # 整型变量
+miles   = 1000.0       # 浮点型变量
+name    = "runoob"     # 字符串
+
+print(counter)
+print(miles)
+print(name)
+
+
+
+# 【补充】以下保留原有扩展示例。
 """基本数据类型和常用操作。"""
 
 # 变量指向对象，类型属于对象。

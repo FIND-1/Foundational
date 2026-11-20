@@ -1,3 +1,5 @@
+# 自由实验区：原 lessons/day01-python/str.py（第一章的字符串练习）。
+# 系统整理的版本见 lessons/day01-python/01-basic-syntax/demo_strings.py。
 # #!/usr/bin/python3
 # (叫做 Shebang（或者 Hashbang）,
 # 告诉操作系统："请用 /usr/bin/python3 这个路径下的解释器来运行这个文件。"
@@ -10,7 +12,7 @@
 # print(str[0])              # 输出字符串第一个字符
 # print(str[2:5])            # 输出从第三个开始到第六个的字符（不包含）
 # print(str[2:])             # 输出从第三个开始后的所有字符
-# print(str[1:8:2])          # 输出从第二个开始到第五个且每隔一个的字符（步长为2）
+# print(str[1:8:2])          # 下标 1、3、5、7 的字符，输出 2468；不包含下标 8
 # print(str * 2)             # 输出字符串两次
 # print(str + '你好')         # 连接字符串
  
