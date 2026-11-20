@@ -104,9 +104,9 @@ print("这四个关键字都在列表中：", {"and", "or", "not", "elif"} <= se
 
 # ── 【进阶】用 compile() 与 try/except 验证缩进报错 ───────────────────
 # 缩进错误会在编译阶段直接卡住整个文件，所以用字符串 + compile() 单独编译演示。
-bad_code = "if True:\n    a = 1\n    b = 2\n"  # 第 3 行只有 2 个空格，既不对齐 a=1 也没退回顶格
-bad_code = "if True:\n    a = 1\n    b = 2\n"
-bad_code = "if True:\n    a = 1\n    b = 2\n" 
+bad_code = "if True:\n    a = 1\n  b = 2\n"  # 第 3 行只有 2 个空格，既不对齐 a=1 也没退回顶格
+bad_code = "if True:\n    a = 1\n  b = 2\n"
+bad_code = "if True:\n    a = 1\n  b = 2\n" 
 # python 变量不用 let / const 声明，每次写 bad_code = ... 都是用新值覆盖旧值（相当于 JS 里对 let 变量反复重新赋值），写再多遍也不会报错，最终只保留最后一次的值
 # try/except 类似 JS 的 try/catch；只编译不运行，没报错才会走 else
 try:

@@ -33,7 +33,7 @@ reversed_text = raw_text[::-1]     # 反转 raw_text，应得到 "987654321"
 floor_neg = -7 // 2      # 请写出计算 -7 向下整除 2 的表达式，应得到 -4
 win_path = r"C:\new\test"            # 请用原始字符串 r"..." 表示路径 C:\new\test（不发生转义）
 age_num = 18
-joined_age = f"age="+ str(age_num)          # 请用 "age=" 与 str(...) 拼接 age_num，应得到 "age=18"
+joined_age = "age=" + str(age_num)          # 请用 "age=" 与 str(...) 拼接 age_num，应得到 "age=18"
 
 
 # 基础题 4：从终端读一行名字，不显示提示语。输入为空时输出「访客」，
@@ -81,7 +81,7 @@ def is_palindrome(s):
 def describe_number(n):
     """【进阶】n > 0 返回 'positive'，n < 0 返回 'negative'，n == 0 返回 'zero'。"""
     if n > 0:
-        return  'positive',
+        return 'positive'
     if  n < 0:
         return 'negative'
     if  n == 0:
