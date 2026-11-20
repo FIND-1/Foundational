@@ -6,7 +6,7 @@
 
 | 顺序 | 原始资料 | 学习目录 | 完成条件 |
 | --- | --- | --- | --- |
-| 1 | [基础语法](source/01-basic-syntax_files.html) | [基础语法教程](lessons/day01-python/01-basic-syntax/README.md) | 能说明变量、缩进、切片和输出，并完成本章练习 |
+| 1 | [基础语法](source/01-basic-syntax_files.html) | [基础语法教程](lessons/day01-python/01-basic-syntax/README.md) | 能说明变量、缩进、切片和输出，并独立完成基础练习 |
 | 2 | [基本数据类型](source/02-basic-data-types.html) | [基本数据类型教程](lessons/day01-python/02-basic-data-types/README.md) | 能分辨主要类型与可变性，并完成本章练习 |
 | 3 | [数据类型转换](source/03-type-conversion.html) | [数据类型转换教程](lessons/day01-python/03-type-conversion/README.md) | 能区分隐式和显式转换，并完成本章练习 |
 | 4 | [解释器](source/04-interpreter.html) | [解释器教程](lessons/day01-python/04-interpreter/README.md) | 能进入并退出交互模式、运行脚本，并完成本章练习 |
@@ -16,10 +16,10 @@
 ## 怎么学习和运行
 
 1. 按上表顺序阅读原始资料和对应课程 README；先阅读概念，再运行该章示例。
-2. 在项目根目录打开 PowerShell，确认 Python 3.11：`python --version`。
-3. 安装测试工具：`python -m pip install -r requirements-dev.txt`（用法见 [pytest 教程](lessons/tooling/pytest/README.md)）。
-4. 运行示例，例如：`python .\lessons\day01-python\01-basic-syntax\demo_syntax.py`。其他文件的运行方式见各章 README。
-5. 练习：第 1 章完成 `exercises_01.py` 后运行 `python -m pytest lessons/day01-python/01-basic-syntax`；02～04 章暂时仍使用 `practice.md`（待迁移到新结构）。
+2. 在项目根目录打开 PowerShell，首次运行 `py -3.11 -m venv .venv` 创建虚拟环境。用 `.\.venv\Scripts\python.exe --version` 确认版本。
+3. 安装测试工具（推荐在 `.venv` 中）：`.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt`（用法见 [pytest 教程](lessons/tooling/pytest/README.md)）。
+4. 运行示例，例如：`.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_syntax.py`。其他文件的运行方式见各章 README。
+5. 练习：第 1 章完成 `exercises_01.py` 后运行 `.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -m basic -v`（只测进阶题用 `-m advanced`，全部用例则去掉 `-m basic`）；02～04 章暂时仍使用 `practice.md`（待逐章迁移）。
 6. 自由实验放在 `lessons/playground/`。
 
 四章的完成条件全部满足后，再按实际新增的 `source` 学习后续内容。

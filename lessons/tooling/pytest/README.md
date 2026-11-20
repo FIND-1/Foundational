@@ -6,15 +6,19 @@
 
 pytest 是 Python 事实上的标准测试框架，地位相当于前端的 Jest 或 Vitest。Python 自带的 `unittest` 也能写测试，但需要继承类、调用 `self.assertEqual`，写法繁琐；pytest 只需要写普通函数和普通 `assert`。
 
-## 2. 安装
+## 2. 安装（推荐在仓库根目录 `.venv` 中安装）
 
 ```powershell
-python -m pip install -r requirements-dev.txt   # 项目根目录执行，等价于 python -m pip install pytest
-python -m pytest --version
+# 若尚未创建虚拟环境，先执行：
+python -m venv .venv
+
+# 使用 .venv 中的 pip 安装开发依赖（不污染全局 Python）：
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest --version
 ```
 
-- 用 `python -m pytest` 而不是直接用 `pytest`，可以确保使用的是当前这个 Python 解释器（类似用 `npx` 而不是全局命令）。
-- 【了解】实际项目通常会为每个项目建立独立的虚拟环境（`python -m venv .venv`），作用类似每个项目各自的 `node_modules`。本仓库目前直接使用全局 Python 3.11。
+- 用 `.\.venv\Scripts\python.exe -m pytest` 而不是全局 `pytest`，可以确保使用项目隔离的虚拟环境（类似前端每个项目独立的 `node_modules`）。
+- 第 1 章只需掌握**安装、运行**以及输出中的 **`PASSED` / `FAILED` / `SKIPPED`** 三种状态；下文第 6～11 节的 `fixture`、装饰器、hook 等属于进阶内容，暂不需要提前掌握。
 
 ## 3. 第一个测试
 
@@ -40,8 +44,8 @@ def test_add_item_to_empty_cart():
 运行：
 
 ```powershell
-python -m pytest lessons/tooling/pytest          # 运行一个目录
-python -m pytest                                 # 运行全部（本项目的 pytest.ini 已限定在 lessons 下）
+.\.venv\Scripts\python.exe -m pytest lessons/tooling/pytest          # 运行一个目录
+.\.venv\Scripts\python.exe -m pytest                                 # 运行全部（本项目的 pytest.ini 已限定在 lessons 下）
 ```
 
 ## 4. 读懂输出
@@ -170,24 +174,25 @@ def test_total_with_fixture(fruit_cart):     # 参数名 = fixture 名
 | 文件 | 作用 |
 | --- | --- |
 | `pytest.ini` | 限定只在 `lessons` 下查找测试，并默认开启 `-ra` |
-| `lessons/conftest.py` | 练习函数仍是 `raise NotImplementedError` 时，把测试显示为 **SKIPPED（未完成）**，而不是 FAILED |
+| `lessons/conftest.py` | 配套练习文件仍抛出模板的 `NotImplementedError("练习待完成")` 时，把测试显示为 **SKIPPED（未完成）**，而不是 FAILED |
 | `requirements-dev.txt` | 开发依赖（pytest） |
 
-`conftest.py` 是 pytest 的特殊文件：会被自动加载，用来放共享的 fixture 和钩子（hook）。本项目的钩子在每个测试执行后检查异常类型，属于进阶用法，能看懂意图即可。
+`conftest.py` 是 pytest 的特殊文件：会被自动加载，用来放共享的 fixture 和钩子（hook）。本项目的钩子在每个测试执行后检查异常类型、专用消息和实际抛出异常的文件，属于进阶用法，能看懂意图即可。
 
 ## 12. 做练习的流程
 
-以第 1 章为例：
+以第 1 章为例（只测基础题加 `-m basic`，全部运行则去掉 `-m basic`）：
 
 ```powershell
-python -m pytest lessons/day01-python/01-basic-syntax -v
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -m basic -v
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v
 ```
 
-1. 第一次运行，所有测试都显示 `SKIPPED ... 未完成`。
-2. 在 `exercises_01.py` 中实现一个函数，再运行一次。
+1. 第一次运行，未完成的练习都会显示 `SKIPPED ... 未完成`。
+2. 在 `exercises_01.py` 中完成基础练习（写表达式并完成输入输出），再运行 `-m basic -v`。
 3. 对应的测试变成 `PASSED`，说明完成；显示 `FAILED` 时，阅读断言差异并修改。
-4. 想只看某一题，可以用 `-k`，例如 `-k palindrome`。
-5. 全部 `PASSED` 后，把收获写进 `notes.md`。
+4. 进阶练习（写函数）为可选；若暂未学函数语法，它们会保持 `SKIPPED`，不影响基础验收。
+5. 全部完成并理解后，把收获与错题复盘写进 `notes.md`。
 
 ## 13. VS Code 集成
 
@@ -217,7 +222,7 @@ python -m pytest lessons/day01-python/01-basic-syntax -v
 
 | 现象 | 原因与解决 |
 | --- | --- |
-| `No module named pytest` | 没有安装，或安装到了另一个 Python 中。用 `python -m pip install pytest` 安装 |
+| `No module named pytest` | 没有安装，或安装到了另一个 Python 中。从仓库根目录用 `.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt` 安装 |
 | 测试没有被收集（`collected 0 items`） | 文件名或函数名不符合 `test_` 命名约定 |
 | `import file mismatch` | 不同目录中有同名的测试文件或模块。本项目用章节号命名（如 `exercises_01.py`）来避免 |
 | `ModuleNotFoundError: No module named 'exercises_01'` | 没有从项目根目录运行，或文件被改名了 |

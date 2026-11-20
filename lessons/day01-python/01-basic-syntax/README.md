@@ -5,36 +5,63 @@
 ## 学习步骤
 
 1. **读原文**（约 15 分钟）：快速通读，不必记细节。
-2. **读本页**：看「要点」「和 JS 的差异」「原教程勘误」三节。
-3. **跑 demo**：运行 3 个 `demo_*.py`，再随手改错一个 `assert` 运行一次，熟悉 Python 的报错格式。
-4. **做练习**：完成 `exercises_01.py`，用 pytest 验证（pytest 用法见 [pytest 教程](../../tooling/pytest/README.md)）。
-5. **写笔记**：把疑问和踩坑写进 `notes.md`。
+2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，首次遇到的函数与方法查 [functions.md](functions.md)。
+3. **跑 demo**：运行 3 个 `demo_*.py`，观察终端的 `print()` 输出；进阶部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
+4. **做基础练习**：完成 `exercises_01.py` 的「基础练习」部分（先写变量表达式，再独立写一段带缩进的输入输出代码），用 pytest 验证（用法见 [pytest 教程](../../tooling/pytest/README.md)）。
+5. **选做进阶练习**：若已了解 `def` / `return` / `if-elif-else`，可继续挑战「进阶练习」。
+6. **错题复盘**：把疑问、报错和与 JS 的差异写进 `notes.md`。
+
+## 学习验收标准
+
+请按实际掌握情况勾选（不能仅凭跑通 demo 就勾选“本章完成”）：
+
+- [ ] 未开始
+- [ ] 阅读完成
+- [ ] 示例理解完成：能先预测一次切片和一次换行的结果，改动下标或 `end` 后能解释差异。
+- [ ] 基础练习通过：独立完成四组题，`-m basic` 全部显示 `PASSED`。
+- [ ] 进阶练习通过（可选）
+- [ ] 本章完成：读完原文、能解释示例、基础测试全过，并在 `notes.md` 记录易错点或自己的验证过程。
 
 ## 文件
 
 | 文件 | 内容 |
 | --- | --- |
-| `demo_syntax.py` | 编码、标识符、关键字、注释、缩进、多行语句、代码组、空行 |
+| `demo_syntax.py` | 编码、标识符、关键字、注释、缩进、多行语句 |
 | `demo_strings.py` | 数字类型、字符串引号、拼接、索引、切片、转义与原始字符串 |
-| `demo_io_import.py` | `print`、`input`、`sys.stdout.write`、`import` / `from...import`、命令行参数 |
-| `exercises_01.py` | 4 组练习（函数体是 `TODO`） |
+| `demo_io_import.py` | 空行、`input`、同行语句、代码组、`print`、`sys.stdout.write`、`import` / `from...import`、命令行参数 |
+| [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
+| `exercises_01.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
 | `test_exercises_01.py` | 练习的自动测试，不要修改 |
-| `notes.md` | 你自己的笔记 |
+| `notes.md` | 你自己的笔记与错题复盘 |
 
 ## 运行
 
-在项目根目录的 PowerShell 中：
+在仓库根目录打开 PowerShell。首次使用时执行以下两条命令。已有 Python 3.11 的 `.venv` 可以跳过第一条。
 
 ```powershell
-python .\lessons\day01-python\01-basic-syntax\demo_syntax.py
-python .\lessons\day01-python\01-basic-syntax\demo_strings.py
-python .\lessons\day01-python\01-basic-syntax\demo_io_import.py Rain 123   # 带命令行参数
-python .\lessons\day01-python\01-basic-syntax\demo_io_import.py --ask      # 体验 input()
-
-python -m pytest lessons/day01-python/01-basic-syntax -v                  # 检查练习
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 ```
 
-demo 全部通过时，每个文件只打印一行 `xxx: all passed`。
+```powershell
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_syntax.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_strings.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_io_import.py Rain 123   # 带命令行参数
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_io_import.py --ask      # 输入 18 后应看到「明年： 19」
+
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -m basic -v   # 只测基础练习
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v            # 测全部练习
+```
+
+每个 Demo 末尾的 `all passed` 表示示例自检通过。练习进度看 pytest 输出：
+
+| 结果 | 下一步 |
+| --- | --- |
+| `PASSED` | 该用例符合预期；继续检查同题的其他输入。 |
+| `FAILED` | 看失败项的实际值和期望值，回到自己的代码修改后重跑。 |
+| `SKIPPED` | 该项保留了待填标记。基础项仍需完成，进阶项可留到学过函数后。 |
+
+`-m basic` 只选择基础题；摘要里的 `deselected` 是本次未选择的用例。若出现 `ERROR`，先按报错定位文件和行号，例如缩进错误会阻止测试导入练习文件。
 
 ## 要点（按原文顺序）
 
@@ -43,16 +70,18 @@ demo 全部通过时，每个文件只打印一行 `xxx: all passed`。
 3. **关键字**：3.11 共 35 个，可用 `keyword.kwlist` 查看；`True`、`False`、`None` 首字母大写。
 4. **注释**：只有 `#`。三引号是字符串，放在模块、函数或类开头时是 docstring。
 5. **缩进**：用 `:` + 缩进代替 `{}`，统一使用 4 个空格；空代码块写 `pass`；缩进错误在编译阶段就会报错。
-6. **多行语句**：换行即语句结束；长表达式优先用括号续行，其次用 `\`；分号可以用，但不推荐。
-7. **数字**：`int`（无上限）、`float`、`bool`、`complex`；`/` 的结果总是 float，`//` 向下取整。
+6. **多行语句**：换行即语句结束；长表达式优先用括号续行，其次用反斜杠。
+7. **数字**：`int`（无上限）、`float`、`bool`、`complex`；两个整数用 `/` 相除得到 `float`，`//` 向下取整。
 8. **字符串**：单双引号等价，三引号表示多行；`+` 拼接、`*` 重复；没有隐式类型转换；索引越界会报错，切片越界不会；不可修改；`r"..."` 中的反斜杠不转义。
 9. **空行**：不是语法；PEP 8 约定顶层定义之间空两行。
-10. **input / print**：`input()` 总是返回 `str`；`print` 可以设置 `sep` 和 `end`，返回 `None`。
-11. **代码组**：`if` / `elif` / `else`、`while`、`def`、`class` 等复合语句的首行以冒号结尾，后面是缩进的代码块。
-12. **import**：`import m`、`from m import a, b`、`import m as n`；避免 `from m import *`。
-13. **命令行参数**：`sys.argv[0]` 是脚本路径，之后都是 `str` 类型的参数。
+10. **等待用户输入**：`input()` 读入一行，去掉行尾换行后返回 `str`。
+11. **同行多条语句**：分号可以分隔语句，日常优先分行写。
+12. **代码组**：`if` / `elif` / `else`、`while`、`def`、`class` 等复合语句的首行以冒号结尾，后面是缩进的代码块。
+13. **print 输出**：`print` 可以设置 `sep` 和 `end`，返回 `None`。
+14. **import**：`import m`、`from m import a, b`、`import m as n`；避免 `from m import *`。
+15. **命令行参数**：`sys.argv[0]` 是脚本路径，之后都是 `str` 类型的参数。
 
-## 和 JS 的差异
+## 【补充】和 JS 的差异
 
 | 主题 | JS | Python | 注意 |
 | --- | --- | --- | --- |
@@ -73,18 +102,18 @@ demo 全部通过时，每个文件只打印一行 `xxx: all passed`。
 | 负数索引 | `s.at(-1)` | `s[-1]` | JS 中 `s[-1]` 是 `undefined` |
 | 越界索引 | `undefined` | `IndexError` | 切片越界不会报错 |
 | 截取 | `s.slice(1, 5)` | `s[1:5]` | Python 还可以加步长 `s[1:5:2]` |
-| 整数 | 超过 `2**53` 会丢失精度 | 任意精度 | |
+| 整数 | `Number` 超过最大安全整数后无法保证精确，`BigInt` 可表示更大整数 | 任意精度 | |
 | 整除 | `Math.floor(7 / 2)` | `7 // 2` | `-7 // 2 == -4` |
 | 输出 | `console.log(a, b)` | `print(a, b)` | 可以设置 `sep`、`end` |
-| 输入 | `prompt()` | `input()` | 都返回字符串 |
+| 输入 | `prompt()` | `input()` | 正常输入都返回字符串；浏览器取消时返回 `null` |
 | 导入 | `import * as m from "m"` | `import m` | |
 | 命名导入 | `import { a } from "m"` | `from m import a` | |
 | 命令行参数 | `process.argv.slice(2)` | `sys.argv[1:]` | |
 
-## 原教程勘误与不推荐写法
+## 【补充】原教程勘误与不推荐写法
 
 - **cp-1252**：原文说它适用于俄语、保加利亚语等语言，实际上 cp-1252 是**西欧语言**编码，西里尔字母对应的是 cp-1251。
-- **`is_valid_identifier`**：用 `exec()` 执行拼接出来的代码，再用裸 `except:` 吞掉所有异常，既不安全，也是反面写法。正确做法：`name.isidentifier() and not keyword.iskeyword(name)`（见练习 1）。
+- **`is_valid_identifier`**：用 `exec()` 执行拼接出来的代码，再用裸 `except:` 吞掉所有异常，既不安全，也是反面写法。做进阶练习时要分别考虑拼写规则和保留字，可查本章的函数速查。
 - **`str = '123456789'`**：会覆盖内置的 `str` 类型，之后 `str(1)` 就会报错。不要用内置名称（`str`、`list`、`input`、`type` 等）作变量名。
 - **`print ("x")`**：PEP 8 规定函数名和括号之间不加空格，应写成 `print("x")`。
 - **“三引号多行注释”**：三引号其实是字符串表达式，只是没有被使用；Python 没有真正的多行注释。

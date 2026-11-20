@@ -47,3 +47,12 @@ python .\lessons\day01-python\04-interpreter\example.py Rain
 【补充】`sys.version` 是描述当前解释器版本的字符串，`.split()` 默认按空白字符拆成列表，`[0]` 取第一项，即示例中打印的版本号。
 
 Linux 和 macOS 上直接执行脚本（例如 `./example.py`）时，需要文件具备执行权限，并设置合适的 Shebang；通过 `python example.py` 或 `python3 example.py` 运行则由命令直接指定解释器。
+
+## 学习验收
+
+- [ ] 未开始
+- [ ] 阅读完成
+- [ ] 示例理解完成：能分清 PowerShell 与 Python 的 `>>>` 提示符。
+- [ ] 基础练习通过：独立完成 [本章练习](practice.md)，按其中的验收条件核对结果。
+- [ ] 进阶练习通过（可选，分层题待迁移）
+- [ ] 本章完成：能回答理解检查中的问题，并独立得到基础练习要求的结果。
