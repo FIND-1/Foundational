@@ -11,7 +11,7 @@
 | 3 | [数据类型转换](source/03-type-conversion.html) | [数据类型转换教程](lessons/day01-python/03-type-conversion/README.md) | 能区分隐式和显式转换，并完成本章练习 |
 | 4 | [解释器](source/04-interpreter.html) | [解释器教程](lessons/day01-python/04-interpreter/README.md) | 能进入并退出交互模式、运行脚本，并完成本章练习 |
 
-原文链接见 [source 索引](source/INDEX.md)。本地 HTML 保留现状：有的文件是浏览器保存的源代码视图，不一定能像原网页一样呈现；可以打开索引中的原文阅读。
+在本地浏览器中打开上表的 HTML 文件，即可按章节标题阅读正文和代码示例。在线原文链接见 [source 索引](source/INDEX.md)。
 
 ## 怎么学习和运行
 

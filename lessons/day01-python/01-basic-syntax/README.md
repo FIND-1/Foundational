@@ -18,7 +18,7 @@
 - [ ] 未开始
 - [ ] 阅读完成
 - [ ] 示例理解完成：能先预测一次切片和一次换行的结果，改动下标或 `end` 后能解释差异。
-- [ ] 基础练习通过：独立完成四组题，`-m basic` 全部显示 `PASSED`。
+- [ ] 基础练习通过：独立完成四组题，`-m basic` 全部显示 `PASSED`，并能用自己的话说明每题用了什么语法、为什么这样写。例如，做完题 1 后，能解释两项检查分别回答什么问题。
 - [ ] 进阶练习通过（可选）
 - [ ] 本章完成：读完原文、能解释示例、基础测试全过，并在 `notes.md` 记录易错点或自己的验证过程。
 
@@ -32,6 +32,7 @@
 | [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
 | `exercises_01.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
 | `test_exercises_01.py` | 练习的自动测试，不要修改 |
+| `test_demos_01.py` | 语法和字符串 Demo 的自检；运行全章 pytest 时执行 |
 | `notes.md` | 你自己的笔记与错题复盘 |
 
 ## 运行
@@ -53,7 +54,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v            # 测全部练习
 ```
 
-每个 Demo 末尾的 `all passed` 表示示例自检通过。练习进度看 pytest 输出：
+前两个 Demo 直接展示结果；第三个 Demo 在【进阶】部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。练习进度看标记为 `basic` 或 `advanced` 的用例。
 
 | 结果 | 下一步 |
 | --- | --- |

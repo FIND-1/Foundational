@@ -109,9 +109,10 @@
 
 ---
 
-## 【补充】【了解】`keyword.iskeyword()`
+## 【补充】【必会】用 `keyword.iskeyword()` 判断保留关键字
 
-- **函数用途**：判断给定字符串是否是当前 Python 版本的硬保留关键字（不包含软关键字如 `match`）。
+- **基础练习 1**：传入一个字符串，读懂返回的布尔值。`isidentifier()` 检查名字的拼写，`keyword.iskeyword()` 检查它是否为保留关键字。
+- 【了解】软关键字只在特定语境中有特殊含义，例如 `keyword.iskeyword("match")` 返回 `False`。
 - **Python 3.11 完整签名**：`keyword.iskeyword(s, /)`（需先 `import keyword`）
 - **全部参数与默认值**：`s`（必填位置参数，`str`）。
 - **参数限制**：只能按位置传入。
@@ -126,13 +127,14 @@
 
 ---
 
-## 【补充】【了解】`str()`
+## 【补充】【必会】用 `str()` 将数字转为字符串
 
 把对象转为文本，或用指定编码把字节解码为文本。返回 `str`，类似 JS 的 `String(x)` 和 `TextDecoder.decode()`。
 
-- `str(object='')` 返回对象的可读文本；不传参数得到空串。
-- `str(object=b'', encoding='utf-8', errors='strict')` 中，`object` 是字节类对象，`encoding` 是编码名，`errors` 是解码错误处理名。默认严格报错，`'replace'` 用替代字符继续解码。两种形式的显式参数都可按位置或关键字传入。
-- `str(18)` 得到 `"18"`；`str(b'ABC', encoding='ascii')` 得到 `"ABC"`。给已有字符串再指定编码会抛 `TypeError`，未知编码会抛 `LookupError`，字节与编码不符可能抛 `UnicodeDecodeError`。
+- **基础练习 3**：`str(42)` 得到字符串 `"42"`，可以用 `+` 与其他字符串拼接。直接用 `+` 拼接字符串和整数会抛 `TypeError`。
+- 【了解】完整签名 `str(object='')` 返回对象的可读文本，省略参数得到空串。
+- 【了解】字节解码形式为 `str(object=b'', encoding='utf-8', errors='strict')`。`object` 是字节类对象，`encoding` 是编码名，`errors` 是解码错误处理名。默认严格报错，`'replace'` 用替代字符继续解码。两种形式的显式参数都可按位置或关键字传入。
+- 解码示例：`str(b'ABC', encoding='ascii')` 得到 `"ABC"`。给已有字符串再指定编码会抛 `TypeError`，未知编码会抛 `LookupError`，字节与编码不符可能抛 `UnicodeDecodeError`。
 
 ## 【补充】【了解】`int()`
 

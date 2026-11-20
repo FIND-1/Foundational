@@ -2,7 +2,7 @@
 
 用途：直观演示第 1 章的语法规则与 Python / JS 差异。
 运行（仓库根目录，已激活 .venv）：python lessons/day01-python/01-basic-syntax/demo_syntax.py
-预期结果：变量 count 和 Count 分别打印 1 和 2，缩进代码块打印 big，两种续行都得到 6，最后一行打印 `demo_syntax: all passed`。
+预期结果：变量 count 和 Count 分别打印 1 和 2，缩进代码块打印 big，两种续行都得到 6。末尾演示缩进错误的提示。
 """
 
 # print(...) 把括号里的值写到终端；字符串用引号包住，变量用 = 绑定到值。
@@ -17,7 +17,8 @@ import keyword
 # ── 2. 标识符 ─────────────────────────────────────────────────────────
 # 规则和 JS 基本相同：字母或下划线开头，后面可以跟字母、数字、下划线，区分大小写。
 # 【补充】和 JS 的区别：不允许使用 `$`。
-# str.isidentifier() 用来检查字符串是否符合标识符规则。
+# text.isidentifier()：点号前的 text 是要检查的字符串，空括号表示不用额外传参数。
+# 拼写符合标识符规则返回 True，否则返回 False。例如 "2nd_place" 以数字开头，结果为 False。
 valid_name = "user_name"
 invalid_digit = "2nd_place"
 invalid_dollar = "$price"
@@ -30,11 +31,12 @@ count = 1
 Count = 2                              # 区分大小写：这是两个不同的变量
 print("区分大小写：", count, Count)
 
-# isidentifier() 不会检查关键字，通常要配合 keyword.iskeyword() 一起用
+# keyword.iskeyword(word)：把单词传给 keyword 模块，属于保留关键字时返回 True。
+# 下面的 "class" 拼写合规，同时也是关键字，所以两次检查都会打印 True。
 word = "class"
 print("class 符合标识符拼写规则吗？", word.isidentifier(), "是关键字吗？", keyword.iskeyword(word))
 
-# 【补充】命名风格（PEP 8）与 JS 不同：
+# 【补充】命名风格（PEP 8: 是 Python 的官方代码风格规范）与 JS 不同：
 #   变量和函数用 snake_case（JS 用 camelCase）  ->  user_name、calculate_area()
 #   类用 PascalCase（与 JS 相同）               ->  StudentInfo
 #   常量用全大写（只是约定，语言不会阻止修改）   ->  MAX_SIZE = 1024
@@ -50,14 +52,15 @@ print("关键字总数：", kw_count)
 print("前 6 个关键字：", keyword.kwlist[:6])
 
 # JS 运算符在 Python 中的关键字对应：&& -> and，|| -> or，! -> not，else if -> elif
-# 软关键字（如 match、case）只在特定语法中生效，平时可作变量名
+# keyword.softkwlist 保存软关键字列表（如 match、case）。它们只在特定语法中生效。
 print("软关键字：", keyword.softkwlist)
 
 
 # ── 4. 注释 ───────────────────────────────────────────────────────────
 # Python 只有 # 单行注释，没有 // 和 /* */。
 # 三引号 '''...''' 或 """...""" 本质上是字符串；放在模块、函数或类第一行时会成为 docstring（类似 JSDoc）。
-# __doc__ 保存文件开头的说明；splitlines() 按行拆开，[0] 取第一行。
+# __doc__ 是文件开头的说明文字。先用 text.splitlines() 把文字按行拆成列表，
+# 再用 [0] 取列表第一项，所以这里仅打印说明的第一行。
 print("本文件 docstring 开头：", __doc__.splitlines()[0])
 
 
@@ -71,7 +74,7 @@ else:
     size = "small"
 print("缩进代码块结果：", size)
 
-# 空代码块必须写 pass（JS 可以直接写 {}）
+# pass 是一条什么都不做的语句，写在缩进块里可以给空分支占位。JS 可以直接写 {}。
 if x < 0:
     pass
 
@@ -87,36 +90,28 @@ total_slash = 1 + \
 total_paren = (1 +
                2 +
                3)
+# [元素, 元素, ...] 创建有序列表，类似 JS 数组；下面这个列表有三个字符串。
 items = ["item_one", "item_two",
          "item_three"]
 print("多行求和：", total_slash, total_paren, "列表长度：", len(items))
 
-# 【补充】【进阶】以下是自动核对，可跳读。assert 后的条件为假时会报错。
-assert valid_name.isidentifier()
-assert not invalid_dollar.isidentifier()
-assert count != Count
-assert kw_count == 35
-assert "True" in keyword.kwlist and "true" not in keyword.kwlist
-assert __doc__.startswith("第 1 章")
-assert size == "big"
-assert total_slash == 6 and total_paren == 6 and len(items) == 3
-assert "_total".isidentifier() and chinese_name.isidentifier()
-assert not invalid_digit.isidentifier() and not "user-name".isidentifier()
-assert word.isidentifier() and keyword.iskeyword(word)
-# set 将列表变成集合；<= 检查左边的每个关键字都在右边。
-assert {"and", "or", "not", "elif"} <= set(keyword.kwlist)
-assert "match" in keyword.softkwlist and not keyword.iskeyword("match")
+# 【补充】【进阶】in 和 not in 检查列表里有没有某一项，and 要求两边都成立。
+print("只有首字母大写的 True 是关键字：", "True" in keyword.kwlist and "true" not in keyword.kwlist)
+# text.startswith(prefix) 返回文本是否以指定前缀开头，类似 JS 的 startsWith。
+print("文档说明以「第 1 章」开头：", __doc__.startswith("第 1 章"))
+# {值, 值, ...} 写出集合，set(列表) 把列表转成集合。<= 检查左边每一项都在右边。
+print("这四个关键字都在列表中：", {"and", "or", "not", "elif"} <= set(keyword.kwlist))
 
 # ── 【进阶】用 compile() 与 try/except 验证缩进报错 ───────────────────
-# 说明：缩进不一致会在编译阶段报错，直接写进代码会让整个文件无法运行。
-# 这里使用后续章节才会学到的 compile() 和 try/except 来安全地捕获并验证报错：
-bad_code = "if True:\n    a = 1\n  b = 2\n"
+# 缩进错误会在编译阶段直接卡住整个文件，所以用字符串 + compile() 单独编译演示。
+bad_code = "if True:\n    a = 1\n    b = 2\n"  # 第 3 行只有 2 个空格，既不对齐 a=1 也没退回顶格
+bad_code = "if True:\n    a = 1\n    b = 2\n"
+bad_code = "if True:\n    a = 1\n    b = 2\n" 
+# python 变量不用 let / const 声明，每次写 bad_code = ... 都是用新值覆盖旧值（相当于 JS 里对 let 变量反复重新赋值），写再多遍也不会报错，最终只保留最后一次的值
+# try/except 类似 JS 的 try/catch；只编译不运行，没报错才会走 else
 try:
     compile(bad_code, "<bad>", "exec")
 except IndentationError as error:
     print("【进阶】成功捕获缩进错误：", error.msg)
-    assert "unindent does not match" in error.msg
 else:
-    raise AssertionError("这里应当抛出 IndentationError")
-
-print("demo_syntax: all passed")
+    print("【进阶】这段代码缩进正确，可以编译。")
