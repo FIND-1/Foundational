@@ -5,7 +5,8 @@
 预期结果：变量 count 和 Count 分别打印 1 和 2，缩进代码块打印 big，两种续行都得到 6。末尾演示缩进错误的提示。
 """
 
-# print(...) 把括号里的值写到终端；字符串用引号包住，变量用 = 绑定到值。
+# 【必会】print(a, b) 依次输出括号里的值，默认用空格隔开并在末尾换行。
+# 字符串用引号包住，变量用 = 绑定到值。
 # import 把模块载入当前文件，随后可用“模块名.名称”读取它提供的内容。
 import keyword
 
@@ -17,7 +18,7 @@ import keyword
 # ── 2. 标识符 ─────────────────────────────────────────────────────────
 # 规则和 JS 基本相同：字母或下划线开头，后面可以跟字母、数字、下划线，区分大小写。
 # 【补充】和 JS 的区别：不允许使用 `$`。
-# text.isidentifier()：点号前的 text 是要检查的字符串，空括号表示不用额外传参数。
+# 【必会】text.isidentifier()：点号前的 text 是要检查的字符串，空括号表示不用额外传参数。
 # 拼写符合标识符规则返回 True，否则返回 False。例如 "2nd_place" 以数字开头，结果为 False。
 valid_name = "user_name"
 invalid_digit = "2nd_place"
@@ -31,7 +32,7 @@ count = 1
 Count = 2                              # 区分大小写：这是两个不同的变量
 print("区分大小写：", count, Count)
 
-# keyword.iskeyword(word)：把单词传给 keyword 模块，属于保留关键字时返回 True。
+# 【补充】【必会】keyword.iskeyword(word) 检查单词是否为保留关键字。
 # 下面的 "class" 拼写合规，同时也是关键字，所以两次检查都会打印 True。
 word = "class"
 print("class 符合标识符拼写规则吗？", word.isidentifier(), "是关键字吗？", keyword.iskeyword(word))
@@ -51,7 +52,8 @@ kw_count = len(keyword.kwlist)
 print("关键字总数：", kw_count)
 print("前 6 个关键字：", keyword.kwlist[:6])
 
-# JS 运算符在 Python 中的关键字对应：&& -> and，|| -> or，! -> not，else if -> elif
+# 【补充】【必会】not 取反，and 在左边为真时才检查右边。两个布尔条件都成立时结果为 True。
+# JS 的 &&、||、!、else if 分别对应 and、or、not、elif。
 # keyword.softkwlist 保存软关键字列表（如 match、case）。它们只在特定语法中生效。
 print("软关键字：", keyword.softkwlist)
 
@@ -65,7 +67,7 @@ print("本文件 docstring 开头：", __doc__.splitlines()[0])
 
 
 # ── 5. 行与缩进 ───────────────────────────────────────────────────────
-# if 在条件为 True 时执行缩进块，其他情况执行 else 的缩进块。
+# 【必会】if 在条件为真时执行缩进块，其他情况执行 else 的缩进块。这里 10 > 5 为真，得到 "big"。
 # 用 `:` + 缩进代替 JS 的 `{}`；同一代码块的缩进必须一致，PEP 8 约定使用 4 个空格。
 x = 10
 if x > 5:
@@ -86,16 +88,19 @@ total_slash = 1 + \
               2 + \
               3
 
-# 方式 B：括号内自然换行（推荐，PEP 8 建议）
-total_paren = (1 +
-               2 +
-               3)
+# 【补充】同一个和也可以放进括号，解释器会继续读到右括号，两种写法都得到 6。
+# 长表达式推荐这样换行，每行可以加注释，也不用担心反斜杠后多出空格。
+total_paren = (
+    1
+    + 2
+    + 3
+)
 # [元素, 元素, ...] 创建有序列表，类似 JS 数组；下面这个列表有三个字符串。
 items = ["item_one", "item_two",
          "item_three"]
 print("多行求和：", total_slash, total_paren, "列表长度：", len(items))
 
-# 【补充】【进阶】in 和 not in 检查列表里有没有某一项，and 要求两边都成立。
+# 【补充】【进阶】in 和 not in 分别检查列表中是否包含、是否缺少某一项。
 print("只有首字母大写的 True 是关键字：", "True" in keyword.kwlist and "true" not in keyword.kwlist)
 # text.startswith(prefix) 返回文本是否以指定前缀开头，类似 JS 的 startsWith。
 print("文档说明以「第 1 章」开头：", __doc__.startswith("第 1 章"))
@@ -103,12 +108,12 @@ print("文档说明以「第 1 章」开头：", __doc__.startswith("第 1 章")
 print("这四个关键字都在列表中：", {"and", "or", "not", "elif"} <= set(keyword.kwlist))
 
 # ── 【进阶】用 compile() 与 try/except 验证缩进报错 ───────────────────
-# 缩进错误会在编译阶段直接卡住整个文件，所以用字符串 + compile() 单独编译演示。
-bad_code = "if True:\n    a = 1\n  b = 2\n"  # 第 3 行只有 2 个空格，既不对齐 a=1 也没退回顶格
+# 字符串里的 \n 代表换行。下面的源码共有三行，第三行的两个空格无法与前面的层级对齐。
+# 【补充】变量可以重新赋值。先绑定到正确缩进的源码，再换成缩进有误的源码，编译时取最后的值。
+bad_code = "if True:\n    a = 1\n    b = 2\n"
 bad_code = "if True:\n    a = 1\n  b = 2\n"
-bad_code = "if True:\n    a = 1\n  b = 2\n" 
-# python 变量不用 let / const 声明，每次写 bad_code = ... 都是用新值覆盖旧值（相当于 JS 里对 let 变量反复重新赋值），写再多遍也不会报错，最终只保留最后一次的值
-# try/except 类似 JS 的 try/catch；只编译不运行，没报错才会走 else
+# compile(源码, 报错时显示的文件名, "exec") 尝试把多行语句编译成代码对象。
+# try 中发生缩进错误就进入 except；as error 给异常命名，error.msg 保存原因。成功时才进入 else。
 try:
     compile(bad_code, "<bad>", "exec")
 except IndentationError as error:

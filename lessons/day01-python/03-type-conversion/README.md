@@ -9,10 +9,10 @@
 原文章节顺序为隐式转换 → 显式转换。先掌握这两节，再阅读下方【补充】。示例函数的完整参数和错误见 [函数速查](functions.md)，阅读后完成 [本章练习](practice.md)。
 
 ```powershell
-python .\lessons\day01-python\03-type-conversion\example.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\example.py
 ```
 
-`example.py` 是汇总示例。下面的文件按知识点分别练习，在项目根目录运行时，将命令中的文件名替换为相应文件即可：
+在仓库根目录先运行以下主题脚本，再用 `example.py` 复习。将上面命令中的文件名换成对应脚本即可。
 
 1. `01-implicit.py`：数字的隐式转换，以及字符串与数字不能直接相加。
 2. `02-numbers-and-strings.py`：数字、字符串、布尔值与进制之间的转换。
@@ -23,7 +23,7 @@ python .\lessons\day01-python\03-type-conversion\example.py
 每个文件都可以独立运行，例如：
 
 ```powershell
-python .\lessons\day01-python\03-type-conversion\01-implicit.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\01-implicit.py
 ```
 
 ## 隐式转换
@@ -32,7 +32,7 @@ python .\lessons\day01-python\03-type-conversion\01-implicit.py
 
 ## 显式转换
 
-通过类型名调用构造函数，转换后通常得到新对象，原变量不会自动改变。
+转换表达式返回一个值。观察 `example.py` 的两种赋值方式：原教程将转换结果写回同一个名字；【补充】示例同时保留原始输入和可计算的数量。试着预测哪一行输出会保留 `"0456"` 开头的零。
 
 | 写法 | 作用 | 示例 |
 | --- | --- | --- |

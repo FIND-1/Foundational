@@ -1,19 +1,19 @@
-"""变量与数据类型综合示例。"""
+"""第 2 章 · 复习基本数据类型。
 
-#!/usr/bin/python3
+在仓库根目录执行：./.venv/Scripts/python.exe lessons/day01-python/02-basic-data-types/example.py
+依次观察变量类型、集合去重后的数量 2，以及 UTF-8 字节解码得到的“你好”。各项用法见本章四个主题脚本。
+"""
+
 
 counter = 100          # 整型变量
-miles   = 1000.0       # 浮点型变量
-name    = "runoob"     # 字符串
+miles = 1000.0         # 浮点型变量
+name = "runoob"        # 字符串
 
 print(counter)
 print(miles)
 print(name)
 
-
-
-# 【补充】以下保留原有扩展示例。
-"""基本数据类型和常用操作。"""
+# 【补充】基本数据类型和常用操作。
 
 # 变量指向对象，类型属于对象。
 age, height, name = 18, 1.75, "Rain"

@@ -60,22 +60,31 @@ def is_valid_name(name):
     提示：参考 demo_syntax.py 中的 str.isidentifier() 和 keyword.iskeyword()。
     """
     return name.isidentifier() and not keyword.iskeyword(name)
+    # 其他等价写法：
+    # return name.isidentifier() and name not in keyword.kwlist  # 用 not in 检查关键字列表
 
 
 
 def every_other(s):
     """【进阶】从下标 1 开始，每隔一个字符取一个。例如 '123456789' -> '2468'。只用一次切片。"""
     return s[1::2]
+    # 其他等价写法：
+    # return s[slice(1, None, 2)]                                # slice() 对象写法，等价于 s[1::2]
+    # return "".join(s[i] for i in range(1, len(s), 2))          # 生成器表达式 + range 步长
 
 
 def strip_brackets(s):
     """【进阶】去掉首尾各一个字符。例如 '[abc]' -> 'abc'。只用一次切片。"""
     return s[1:-1]
+    # 其他等价写法：
+    # return s[slice(1, -1)]                                     # slice() 对象写法，等价于 s[1:-1]
 
 
 def is_palindrome(s):
     """【进阶】判断 s 是否是回文（正着读和反着读一样）。例如 'level' -> True。不用循环。"""
     return s == s[::-1]
+    # 其他等价写法：
+    # return s == "".join(reversed(s))                           # 内置 reversed() 反转后再拼接
 
 
 def describe_number(n):
@@ -86,6 +95,20 @@ def describe_number(n):
         return 'negative'
     if  n == 0:
         return 'zero'
+    # 其他等价写法（无需引入模块）：
+    # 1) 常规 if / elif / else：
+    # if n > 0:
+    #     return "positive"
+    # elif n < 0:
+    #     return "negative"
+    # else:
+    #     return "zero"
+    
+    # 2) Python 3.10+ match-case 模式匹配（带守卫条件 if）：
+    # match n:
+    #     case x if x > 0: return "positive"
+    #     case x if x < 0: return "negative"
+    #     case _: return "zero"
 
 
 def print_row(a, b, c):
@@ -94,4 +117,10 @@ def print_row(a, b, c):
     例如 print_row(1, 2, 3) 输出 '1 | 2 | 3'。提示：sep 和 end 参数。
     """
     print(a, b, c, sep=" | ", end="")
+    # 其他等价写法（无需引入模块）：
+    # print(f"{a} | {b} | {c}", end="")                  # f-string（Python 3.6+ 常用）
+    # print("{} | {} | {}".format(a, b, c), end="")       # str.format()
+    # print(" | ".join(map(str, (a, b, c))), end="")      # 类似 JS 的 [a, b, c].join(" | ")
+    # print(f"{a} | {b} | {c}", end="")
+    # print("{} | {} | {}".format(a, b, c), end="") 
 

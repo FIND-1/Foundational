@@ -142,6 +142,14 @@
 - `int(x, /, base=10)` 按进制解析文本。`x` 必填且必须是 `str`、`bytes` 或 `bytearray`；`base` 可按位置或关键字传入，取 2～36，或用 0 根据前缀判断进制。
 - `int("18") + 1` 得到 `19`，`int("ff", base=16)` 得到 `255`。格式或进制错误会抛 `ValueError`，例如 `int("3.5")`；传入 `None` 或给数值指定进制会抛 `TypeError`。JS 的 `parseInt("3.5", 10)` 会读到小数点为止。
 
+## 【补充】【了解】用 Decimal 保存十进制数
+
+在 `from decimal import Decimal` 后调用 `Decimal(value='0', context=None)`，得到不可变的 `Decimal` 对象。两个参数均可省略，可按位置或关键字传入。
+
+- `value` 是初始值，支持整数、十进制字符串、浮点数、另一个 `Decimal`，或表示符号、数字序列和指数的三元组。省略时得到十进制零。
+- `context` 可传 `decimal.Context`，默认使用当前上下文。构造时保留字符串中的有效数字。在默认上下文中，无效数字文本会抛 `decimal.InvalidOperation`；将 `None` 作为数值会抛 `TypeError`。
+- `Decimal("0.1") + Decimal("0.2")` 得到 `Decimal('0.3')`。JS 的 `Number` 和 Python 的 `float` 都用二进制浮点表示这两个小数。
+
 ## 【补充】【了解】`sys.stdout.write()`
 
 - **方法用途**：向标准输出流直接写入字符串，不会像 `print()` 那样自动添加空格和换行。

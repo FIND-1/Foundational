@@ -15,17 +15,18 @@ n_bool = True
 n_complex = 1 + 2j                     # 复数：实部 + 虚部j，前端开发中很少用到
 print("数字类型：", type(n_int), type(n_float), type(n_bool), type(n_complex))
 
-# 【补充】int 没有大小上限，不像 JS 超过 2**53 就会丢失精度；** 是幂运算
+# 【补充】** 表示乘方。Python 整数可按内存扩展，JS Number 超出安全整数范围后无法精确表示每个整数。
 big_int = 2 ** 64
 print("2 的 64 次方：", big_int)
 
-# 【补充】两个整数用 / 相除得到 float；// 是向下取整（JS 中 Math.trunc(-3.5) 是 -3，Python -7 // 2 是 -4）
+# 【补充】【必会】两个整数用 / 相除得到 float；// 向下取整，所以 -7 // 2 得到 -4。
 print("除法对比：", 7 / 2, 7 // 2, -7 // 2)
 
 # 【补充】这个例子与 JS 的 Number 一样，二进制浮点数无法精确表示十进制的 0.1。
 print("0.1 + 0.2 =", 0.1 + 0.2)
 
-# 【补充】 精确十进制计算（如金额场景，使用标准库 decimal）：
+# 【补充】【了解】from decimal import Decimal 从标准库取出 Decimal，后面可以直接写这个名字。
+# 把十进制文本传给 Decimal，再相加；这里能精确得到 0.3。若先传入浮点数，就会带入其二进制近似值。
 from decimal import Decimal
 
 print('Decimal("0.1") + Decimal("0.2") =', Decimal("0.1") + Decimal("0.2"))
@@ -45,18 +46,21 @@ print("多行换行数：", paragraph.count("\n"))
 
 # 相邻字符串字面量会在编译时自动拼接
 auto_joined = "this " "is " "string"
-# 【补充】f"文字{表达式}" 会把花括号里的值填入字符串，类似 JS 模板字符串的 `${表达式}`。
 name = "runoob"
-greeting = f"hi {name}, {1 + 1}"
 print("自动拼接：", auto_joined)
-print("f-string：", greeting)
 
 # 运算：+ 拼接、* 重复（JS 为 'ab'.repeat(3)）
 print("两个字符串相加：", "ab" + "cd")
 repeated = "ab" * 3
-# str(值) 返回文本。先把整数 1 转为 "1"，再和 "a" 拼接，得到 "a1"。
+# 【必会】str(值) 返回文本。先把整数 1 转为 "1"，再和 "a" 拼接，得到 "a1"。
 explicit_join = "a" + str(1)
 print("重复与拼接：", repeated, explicit_join)
+
+# 【补充】把变量或计算结果嵌入一句话时，f-string 可以保留整句的阅读顺序。
+# 先看显式拼接，再读 f"文字{表达式}"：花括号里的表达式会求值并格式化，类似 JS 的模板字符串。
+print("拼接问候语：", "hi " + name + ", " + str(1 + 1))
+greeting = f"hi {name}, {1 + 1}"
+print("f-string：", greeting)
 
 
 # ── 3. 字符串：索引与切片 ─────────────────────────────────────────────
@@ -67,7 +71,7 @@ s = "123456789"
 print("第 1 个字符 s[0]：", s[0])
 print("最后 1 个字符 s[-1]：", s[-1])
 
-# s[start:end:step] 从 start 开始，每次移动 step 个位置，在 end 之前停下。
+# 【必会】s[start:end:step] 从 start 开始，每次移动 step 个位置，在 end 之前停下。
 # 【补充】省略 step 时步长为 1，类似 JS 的 s.slice(start, end)；负步长表示从右往左取。
 print("s[0:-1] =", s[0:-1])
 print("s[2:5]  =", s[2:5])             # 下标 2、3、4
@@ -77,13 +81,13 @@ print("s[1:5:2]=", s[1:5:2])           # 下标 1、3，步长为 2
 print("s[::-1] =", s[::-1])            # 步长为 -1 实现反转（JS 需 [...s].reverse().join('')）
 print("s[2:100]=", s[2:100])           # 切片越界不会报错，只取到末尾
 
-# len(text) 返回字符串的字符数。取出一个字符仍然得到 str，长度为 1。
+# 取出一个字符仍然得到 str，长度为 1。len 的首次示例见 demo_syntax.py 的「关键字」。
 first_char = s[0]
 print("单字符类型与长度：", type(first_char), len(first_char))
 
 
 # ── 4. 转义与原始字符串 ───────────────────────────────────────────────
-# 在普通字符串里，\n 表示一个换行符。r"..." 保留反斜杠，因此下面的原始字符串有四个字符。
+# 【必会】r"..." 保留反斜杠，因此下面的原始字符串有四个字符；普通字符串只有三个。
 # 【补充】JS 可用 String.raw`a\nb` 保留这段文字中的反斜杠。
 normal_str = "a\nb"
 raw_str = r"a\nb"

@@ -14,7 +14,7 @@ import sys
 # 空行帮助分清代码段。顶层的函数或类定义之间通常空两行，类内方法之间空一行。
 
 # ── input 输入 ─────────────────────────────────────────────────────
-# input(prompt) 会阻塞等待用户输入，返回值永远是 str（类似浏览器的 prompt()）。
+# 【必会】input() 等待一行输入，回车后返回去掉行尾换行符的字符串。input(prompt) 会先显示提示语。
 # 带 --ask 时才会询问年龄，请输入整数，如 18。【补充】这里的成员检查类似 JS 的 args.includes("--ask")。
 if "--ask" in sys.argv:
     age_text = input("你的年龄：")
@@ -25,9 +25,12 @@ if "--ask" in sys.argv:
     print("明年：", next_year)
 
 
-# 一行写多条语句可以用分号分隔，但不推荐
+# 分号可以分隔同一行的两条语句。这里先给 a 赋值，再给 b 赋值。
 a = 1; b = 2
 print("同行分号：", a + b)
+# 【补充】普通脚本推荐每行一条语句，执行顺序与上例一样，调试时能分别在两行设断点。
+a = 1
+b = 2
 
 
 # ── 代码组（子句） ───────────────────────────────────────────
@@ -49,9 +52,7 @@ print("代码组函数结果：", grade(95), grade(70), grade(30))
 
 
 # ── print 输出 ─────────────────────────────────────────────────────
-# print(*objects, sep=" ", end="\n")：参数之间用 sep 连接，最后补上 end。
-# *objects 表示可以传零个或多个值；调用时直接写这些值。sep= 和 end= 按名字指定选项。
-# 【补充】和 JS console.log 的区别：Python 可以直接指定分隔符 sep 和结尾字符 end。
+# 给 print 传 sep=" | " 会把两个值之间的空格换成竖线和空格。下面两行对照看分隔符。
 first = "a"
 second = "b"
 
@@ -76,7 +77,7 @@ print("写入字符数：", written_count)
 
 
 # ── import 与 from...import ────────────────────────────────────────
-# from 模块 import 名称：导入后可以直接写 argv 和 path。sys.path 是查找模块时使用的路径列表。
+# 这次从 sys 同时导入 argv 和 path，用法见 demo_strings.py 的 Decimal 示例。sys.path 保存模块搜索路径。
 # import 模块 as 别名：给模块取个短名，下面用 kw 访问 keyword 模块。
 # 【补充】与 ES Module 的对应关系：
 #   import sys                     ≈ import * as sys from "sys"
@@ -107,15 +108,16 @@ print("命令行参数：", user_args)
 # ── 【补充】【进阶】断言与输出捕获验证 ─────────────────────────────
 # assert 是 Python 的断言语句，读作“这里的条件应该成立”：
 #   条件成立 -> 没有额外输出，继续执行
-#   条件失败 -> 抛出 AssertionError，脚本停在失败的那一行 ,
-#   *( 目的让python 进行自我检查,日常可以不写)
+#   条件失败 -> 抛出 AssertionError；这里没有捕获它，脚本会停在失败的那一行。
+# 【必会】== 比较两边的值。a + b 得到 3，第一条断言成立。
 assert a + b == 3
 assert grade(95) == "A" and grade(70) == "B" and grade(30) == "C"
-# 这里用 is None 检查前面那次 print 的返回值。
+# is 检查两边是否为同一对象。判断前面的返回值是否为 None 时用 is None。
 assert return_value is None
 assert written_count == 7
 assert argv is sys.argv              # 导入的是同一个列表对象，不是副本
 assert path is sys.path
+# 需要验证返回值恰为布尔对象 True 时，is True 会同时检查这一点。
 assert kw.iskeyword("def") is True
 # isinstance(值, 类型) 返回 True 或 False；这里检查脚本路径是否为字符串。
 assert isinstance(script_path, str)
@@ -142,6 +144,7 @@ assert captured(lambda: print("a", "b")) == "a b\n"
 assert captured(lambda: print("a", "b", sep=" | ")) == "a | b\n"
 assert captured(lambda: print("a", end=" ")) == "a "
 assert captured(lambda: print()) == "\n"
+# 嵌套调用从内向外：先打印 x，再把内层返回的 None 交给外层打印。
 assert captured(lambda: print(print("x"))) == "x\nNone\n"
 
 # with ... as buffer 把这里用于接收输出的文本流命名为 buffer，方便稍后取回写入的内容。

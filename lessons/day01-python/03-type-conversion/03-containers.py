@@ -1,9 +1,14 @@
-"""容器转换：可迭代对象可以转换为列表、元组或集合。"""
+"""第 3 章 · 观察容器转换与去重。
+
+在仓库根目录执行：./.venv/Scripts/python.exe lessons/day01-python/03-type-conversion/03-containers.py
+列表转为集合后含三个不同的数，原列表仍有四项。
+"""
 
 # 【补充】容器转换练习。
 text = "abc"
 print("列表：", list(text))       # ['a', 'b', 'c']
-print("元组：", tuple(text))      # ('a', 'b', 'c')
+# tuple(text) 按原顺序把每个字符作为元组的一项，得到三个字符。
+print("元组：", tuple(text))
 print("集合：", set("aab"))      # 去重，显示顺序不固定
 
 numbers = [1, 2, 2, 3]

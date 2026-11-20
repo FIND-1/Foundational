@@ -4,10 +4,10 @@
 
 ## 【必会】数字和字符串
 
-- `int([x])` 或 `int(x, base=10)`：方括号表示 `x` 可省略，省略得 0；`x` 只能按位置传入，`base` 可按位置或名称传入。数字转整数时向零截断。`base` 指定字符串、bytes 或 bytearray 的进制，范围为 2～36 或 0；显式提供 `base` 时 `x` 必须是前述文本形式。返回整数；类型错误抛 `TypeError`，内容或进制不合法抛 `ValueError`，无穷大转整数抛 `OverflowError`。例 `int("101", 2)` 为 5。
+- 【必会】`int("101", 2)` 按二进制解析得到 5。浮点数向零截断，无穷大转整数抛 `OverflowError`。`int` 和 `str` 的重载、默认值与关键字限制见[第 1 章函数速查](../01-basic-syntax/functions.md)。
 - `float(x=0.0, /)`：接受数字或可解析的字符串等，返回浮点数；类型不合适抛 `TypeError`，文本格式错误抛 `ValueError`。例 `float("3.5")`。
-- `str(object='', /)` 或 `str(object=b'', encoding='utf-8', errors='strict')`：无参数返回空字符串；仅传对象返回可读字符串；提供编码时对象必须是字节类对象，按 `encoding` 解码，`errors` 为错误处理策略。返回字符串；类型错误抛 `TypeError`，编码未知抛 `LookupError`，解码失败可抛 `UnicodeDecodeError`。例 `str(12)` 得 `"12"`。
-- `bool(x=False, /)`：根据对象的真假规则返回 `True` 或 `False`；无参数为 `False`。最多一个位置参数，传入过多或关键字参数抛 `TypeError`。例 `bool("False")` 为 `True`。
+- `str(12)` 得到文本 `"12"`；若指定编码，输入须是字节类对象。
+- `bool("False")` 为 `True`。真假规则、参数和例子见[第 2 章函数速查](../02-basic-data-types/functions.md)。
 - `complex(real=0, imag=0)`：【了解】数字表示实部和虚部；`real` 是字符串时不得同时提供 `imag`。返回复数；类型错误抛 `TypeError`，字符串格式错误抛 `ValueError`。例 `complex(2, 3)` 得 `(2+3j)`。
 - `repr(obj, /)`：【了解】返回表示对象的字符串；缺少参数抛 `TypeError`，对象自定义表示也可能抛异常。例 `repr("hi")` 包含引号。
 
@@ -15,8 +15,8 @@
 
 - `tuple(iterable=(), /)`：省略时为空元组，否则从可迭代对象构造元组；返回元组，参数不可迭代抛 `TypeError`。例 `tuple([1, 2])`。
 - `frozenset(iterable=(), /)`：省略时创建空的不可变集合，否则从可迭代对象构造并去重；返回 `frozenset`，输入不可迭代或元素不可哈希时抛 `TypeError`。例 `frozenset([1, 1])` 得 `frozenset({1})`。
-- `dict(**kwargs)`、`dict(mapping, **kwargs)` 或 `dict(iterable, **kwargs)`：可选一个映射或键值对序列，加任意关键字键值对；后提供的同名键覆盖前面的值。返回新字典；参数类型或键不可哈希抛 `TypeError`，键值对长度错误抛 `ValueError`。例 `dict([("a", 1)])`。
-- `list`、`set`、`bytes`、`bytearray`、`len`、`type` 及字符串编码与字节解码的完整调用方式见[第二章速查](../02-basic-data-types/functions.md)；`print` 见[官方文档](https://docs.python.org/zh-cn/3.11/library/functions.html#print)。
+- `dict([("a", 1)])` 接收键值对，若键重复，最后一个值生效。签名与限制见[第 2 章函数速查](../02-basic-data-types/functions.md)。
+- `list`、`bytes`、`bytearray` 及编码和解码见[第 2 章速查](../02-basic-data-types/functions.md)；`set`、`len`、`type` 和 `print` 见[第 1 章速查](../01-basic-syntax/functions.md)。
 - `dict.items()`：无参数，返回键值对视图；额外参数抛 `TypeError`。例 `list({"a": 1}.items())`。
 - `str.lower()`：无参数，返回转换为小写的新字符串；额外参数抛 `TypeError`。例 `"FALSE".lower()` 得 `"false"`。
 

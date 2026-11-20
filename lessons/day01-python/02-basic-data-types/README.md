@@ -9,10 +9,10 @@
 【补充】[函数与方法速查](functions.md) 说明示例的完整调用方式；先掌握【必会】，其余按需查阅。阅读后完成 [本章练习](practice.md)。
 
 ```powershell
-python .\lessons\day01-python\02-basic-data-types\example.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\example.py
 ```
 
-`example.py` 是综合示例，下面的文件按知识点独立练习。在项目根目录执行时，将上面命令中的 `example.py` 替换为对应文件名：
+先按下列顺序运行主题示例，最后用 `example.py` 复习。在仓库根目录执行时，将上面命令中的 `example.py` 换成对应文件名。
 
 - `01-variables-numbers.py`：赋值、类型判断、数值运算和布尔值。
 - `02-strings-bools-sequences.py`：字符串、布尔值、列表与元组。
@@ -23,7 +23,7 @@ python .\lessons\day01-python\02-basic-data-types\example.py
 
 ## 变量与赋值
 
-变量名指向对象，赋值前需要先创建。`a = b = 1` 可以让多个名字指向同一个对象；`a, b = 1, 2` 可以同时赋不同的值。`type(value)` 查看对象的具体类型，`isinstance(value, int)` 判断是否属于某类型或其子类。
+第一次赋值就会把名字绑定到对象。`a = b = 1` 让多个名字指向同一个对象，`a, b = 1, 2` 则按位置分别赋值。
 
 ## 数字和布尔值
 
@@ -31,7 +31,7 @@ python .\lessons\day01-python\02-basic-data-types\example.py
 
 `type(x) is int` 判断具体类型是否恰为 `int`；`isinstance(x, int)` 也接受 `int` 的子类，例如 `bool`。`del name` 删除变量名的绑定，之后不能再通过该名字访问对象，除非重新赋值。
 
-数字类型实例还提前使用了类和继承：`class A` 定义类 A，`class B(A)` 定义继承 A 的类 B，`A()`、`B()` 分别创建对象，`pass` 表示这里暂时不写其他内容。`isinstance(B(), A)` 会考虑继承关系，结果为 `True`；`type(B()) == A` 比较具体类型，结果为 `False`。`issubclass(bool, int)` 判断 `bool` 是否是 `int` 的子类，结果为 `True`。类和继承在后续课程深入学习，这里先观察结果。
+【补充】【进阶】在 `01-variables-numbers.py` 中，先预测 `child` 的两次判断。需要接受继承 A 的实例时该选哪一种？类的定义和实例化见代码上方的说明。
 
 原教程还展示了 `True == 1` 和 `False == 0`；`==` 比较值。`is` 判断两个名字是否指向同一个对象，与值相等含义不同。为避免 Python 3.11 对 `1 is True` 形式的警告，代码中先将数字赋给变量再进行身份比较。
 
@@ -45,7 +45,7 @@ python .\lessons\day01-python\02-basic-data-types\example.py
 
 列表用 `[]` 创建，有序、可重复、可修改；可以通过下标读取和修改，使用 `append()` 添加元素。元组通常用 `()` 表示，有序、可重复，但不能直接修改元素。只有一个元素的元组需要逗号，例如 `(1,)`。
 
-原文的“单词反转”例子会用到后续知识：`def` 定义函数，`return` 返回结果；`split(" ")` 按空格把字符串拆成列表，`[-1::-1]` 倒序取列表，`" ".join(...)` 再用空格连接。`if __name__ == "__main__":` 表示直接运行此文件时执行下面的代码；`==` 是比较是否相等。原文把参数叫 `input`，会暂时遮住同名的内置输入函数；这里为了保持原例不改名。暂时看懂输入和输出即可，函数及条件语句可在后续继续学习。函数和方法的调用说明见[函数速查](functions.md)。
+【补充】【进阶】单词反转例子按“拆分 → 列表倒序 → 拼接”阅读。原文 `reverseWords(input)` 的参数遮住了内置函数 `input`。脚本里的 `reverse_words(text)` 采用 `snake_case` 命名，并保留原例按普通空格拆分的行为。可以把两个单词之间改成两个空格，再观察结果。完整参数见[函数速查](functions.md)。
 
 ## 集合 set 和字典 dict
 
@@ -53,7 +53,7 @@ python .\lessons\day01-python\02-basic-data-types\example.py
 
 集合的 `|`、`&`、`-`、`^` 分别表示并集、交集、差集、对称差集。字典的 `keys()` 和 `values()` 分别提供键和值的视图；访问不存在的键可使用 `get()` 设置默认值。
 
-原文的交互实例还使用字典推导式 `{x: x**2 for x in (2, 4, 6)}`：`for` 依次取出元组中的数作为 `x`，`x**2` 计算该数的平方，冒号左右分别是字典的键和值。运行结果为 `{2: 4, 4: 16, 6: 36}`；推导式属于后续知识，这里先观察结果即可。
+【补充】【进阶】在 `03-sets-dictionaries.py` 中，先跟着 `for` 循环写入三个键值对，再读原教程的字典推导式。逐项核对两次输出里的键和值。
 
 【补充】示例中的 `in` 用于判断元素是否属于集合，`len()` 返回容器的元素数量。由于集合的显示顺序不固定，`sorted({3, 1})` 可返回排序后的新列表 `[1, 3]`，不会修改原集合。`person.items()` 返回字典键值对的视图，`list(person.items())` 可将其转换为列表；`list(person)` 则得到键的列表。
 
