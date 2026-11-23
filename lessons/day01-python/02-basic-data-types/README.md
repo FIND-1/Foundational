@@ -60,7 +60,7 @@
 
 1. **变量赋值**：变量不需要声明，第一次赋值时创建；变量没有类型，类型属于它指向的对象。
 2. **多个变量赋值**：`a = b = c = 1` 让三个名字指向同一个对象；`a, b, c = 1, 2, "runoob"` 按位置分别赋值。
-3. **标准数据类型**：Number、String、bool、List、Tuple、Set、Dictionary。前四种不可变，后三种可变；`bytes` 是另一种不可变类型。
+3. **标准数据类型**：6 种标准类型 + `bool`（`int` 的子类，常单列）。不可变：`Number`（`int`、`float`、`bool`、`complex`）、`String`、`Tuple`（以及 `bytes`）；可变：`List`、`Set`、`Dictionary`。
 4. **数字**：`int`（只有一种，长度不受固定位数限制）、`float`、`bool`、`complex`。`type()` 只认具体类型，`isinstance()` 把子类也算作父类。
 5. **bool 与 int**：`bool` 是 `int` 的子类，`True == 1`、`True + 1 == 2`；`is` 比较对象身份，不比较值。
 6. **del**：`del a, b` 删除名字的绑定，之后再访问会抛 `NameError`。
