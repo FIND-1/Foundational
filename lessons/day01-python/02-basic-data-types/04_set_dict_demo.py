@@ -38,6 +38,7 @@ print("排序后的交集、对称差集：", sorted(a & b), sorted(a ^ b))
 first = {1, 2, 3, 3}
 print("去重后的数量：", len(first))
 
+
 # 【必会】空集合必须写 set()，因为 {} 创建的是空字典。两者都是假值。
 print("set() 和 {} 的类型：", type(set()), type({}))
 print("空集合、空字典的真假：", bool(set()), bool({}))
@@ -63,15 +64,15 @@ print(tinydict.values())    # dict_values(['runoob', 1, 'www.runoob.com'])
 
 
 # ── 4. dict() 构造与字典推导式 ────────────────────────────────────────
-# 【必会】dict(键值对序列) 把每一对的第一项作键、第二项作值。这里的每一对都是元组（见 03_list_tuple_demo.py）。
+# 【必会】dict(键值对序列) 把每一对（这里是元组，见 03_list_tuple_demo.py）的第一项作键、第二项作值，得到 {'Runoob': 1, ...}。
+#  格式 {键: 值, 键: 值}
 print(dict([('Runoob', 1), ('Google', 2), ('Taobao', 3)]))
 
 # 【补充】【进阶】for 变量 in 序列: 依次取出每一项执行缩进块，类似 JS 的 for (const x of [2, 4, 6])。
-# 下面每次取出一个数，把它和它的平方写入字典。
 squares = {}
 for x in (2, 4, 6):
-    squares[x] = x ** 2
-print("循环写入：", squares)
+    squares[x] = x ** 2  
+print("循环写入：", squares)  # {2: 4, 4: 16, 6: 36}
 
 # 【进阶】循环只为每一项生成一个键值对时，可写成字典推导式 {键: 值 for 变量 in 序列}。
 # 先读 for 部分，再看冒号两侧的键和值，结果与上面的循环相同。需要分步调试时，展开的循环更方便。

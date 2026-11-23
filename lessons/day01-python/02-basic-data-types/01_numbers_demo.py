@@ -36,12 +36,16 @@ is_active = True  # 布尔值
 a, b, c = 1, 2, "three"
 print("四个变量的类型：", type(x), type(y), type(name), type(is_active))
 
+#【补充】Python 允许多变量赋值时，左右两边的元素个数必须相同，否则会报 ValueError。
+# e, s = [1, 2, "three"]
+# ValueError: too many values to unpack (expected 2)
 
 # ── 3. 标准数据类型 ───────────────────────────────────────────────────
-# 七种常用类型：Number（数字）、String（字符串）、bool（布尔）、List（列表）、
-# Tuple（元组）、Set（集合）、Dictionary（字典）。另有 bytes 等类型，见 05_bytes_demo.py。
-#   不可变：Number、String、bool、Tuple —— 不能原地修改，只能让变量指向新对象
-#   可变：  List、Dictionary、Set     —— 可以原地增删改元素
+# 6 种：Number（数字）、String（字符串）、List（列表）、Tuple（元组）、Set（集合）、Dictionary（字典）；
+# 另有 bool（布尔，是 int/Number 的子类，常单独列出，合起来共 7 项）。
+# 此外还有 bytes 等类型，见 05_bytes_demo.py。
+#   不可变（4 个）：Number、String、bool、Tuple —— 不能原地修改，只能让变量指向新对象
+#   可变（3 个）：  List、Dictionary、Set     —— 可以原地增删改元素
 # 列表、元组见 03_list_tuple_demo.py，集合、字典见 04_set_dict_demo.py。
 
 
@@ -125,10 +129,14 @@ print("八进制 0o17、十六进制 0x69、二进制 0b101：", 0o17, 0x69, 0b1
 print("负数与前缀：", -786, -0x260)                                   # -786 -608
 # float 可以省略整数或小数部分，也可以用 e 表示 10 的幂：32.3e+18 是 32.3 乘以 10 的 18 次方。
 print("浮点数写法：", -90., 32.3e+18, 70.2E-12)
-# 【必会】complex(实部, 虚部) 创建复数，与 3 + 4j 相同。复数.real 和复数.imag 两个属性分别取实部和虚部，都是 float。
+
+# 【必会】复数把两个数字绑在一起：不带 j 的是“实部”，j/J 前面的系数是“虚部”（可类比 JS 对象 { real: 3.0, imag: 4.0 }）。
+# complex(实部, 虚部) 与直接写 3 + 4j 等价；打印同时有实部和虚部的复数时会自动加括号，显示为 (3+4j)。
+# 复数.real 取实部，复数.imag 取虚部（只返回数字，不带 j），即使传入整数，底层也统一存为 float。
 z = complex(3, 4)
 print("complex(3, 4)：", z, z == 3 + 4j, z.real, z.imag)  # (3+4j) True 3.0 4.0
-print("复数写法：", 3.14j, 45.j, -.6545 + 0J)
+# 简写形式：3.14j 省略实部（默认 0.0）；45.j 等价于 45.0j；-.6545 + 0J 中 j/J 大小写均可，虚部为 0.0。
+print("复数写法：", 3.14j, 45.j, -.6545 + 0J)            # 3.14j 45j (-0.6545+0j)
 
 
 # ── 【补充】【进阶】观察两种报错 ──────────────────────────────────────
