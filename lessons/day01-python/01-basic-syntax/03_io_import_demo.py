@@ -2,10 +2,10 @@
 
 用途：演示 print 参数、input() 输入、import 导入方式以及 sys.argv 命令行参数。
 在仓库根目录运行（PowerShell 提示符已显示 (.venv)）：
-  基础运行：python lessons/day01-python/01-basic-syntax/demo_io_import.py
-  带参数运行：python lessons/day01-python/01-basic-syntax/demo_io_import.py Rain 123
-  体验 input：python lessons/day01-python/01-basic-syntax/demo_io_import.py --ask
-预期结果：输入模式下键入 18 会看到明年为 19；常规输出含 A B C、a | b、写入字符数 7 和命令行参数列表，以及最后一行 `demo_io_import: all passed`。
+  基础运行：python lessons/day01-python/01-basic-syntax/03_io_import_demo.py
+  带参数运行：python lessons/day01-python/01-basic-syntax/03_io_import_demo.py Rain 123
+  体验 input：python lessons/day01-python/01-basic-syntax/03_io_import_demo.py --ask
+预期结果：输入模式下键入 18 会看到明年为 19；常规输出含 A B C、a | b、写入字符数 7 和命令行参数列表，以及最后一行 `03_io_import_demo: all passed`。
 """
 
 # sys.argv 是一个字符串列表，依次保存脚本路径和你在命令行追加的参数。
@@ -77,7 +77,7 @@ print("写入字符数：", written_count)
 
 
 # ── import 与 from...import ────────────────────────────────────────
-# 这次从 sys 同时导入 argv 和 path，用法见 demo_strings.py 的 Decimal 示例。sys.path 保存模块搜索路径。
+# 这次从 sys 同时导入 argv 和 path，用法见 02_strings_demo.py 的 Decimal 示例。sys.path 保存模块搜索路径。
 # import 模块 as 别名：给模块取个短名，下面用 kw 访问 keyword 模块。
 # 【补充】与 ES Module 的对应关系：
 #   import sys                     ≈ import * as sys from "sys"
@@ -152,4 +152,4 @@ with contextlib.redirect_stdout(io.StringIO()) as buffer:
     written = sys.stdout.write("runoob\n")
 assert written == 7 and buffer.getvalue() == "runoob\n"
 
-print("demo_io_import: all passed")
+print("03_io_import_demo: all passed")

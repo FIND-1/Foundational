@@ -1,75 +1,114 @@
-# Python3 基本数据类型
+# 第 2 章 · 基本数据类型
 
-[打开本章教程原文](../../../source/02-basic-data-types.html)（在 VS Code 中右键该文件，选择 Open with Live Server，或在浏览器中打开）。原教程实例已按主题整理进本章 Python 文件；保留的扩展示例标为【补充】。
+阅读材料：[source/02-basic-data-types.html](../../../source/02-basic-data-types.html)（菜鸟教程原文，在浏览器中打开）
 
-参考：[菜鸟教程：Python3 基本数据类型](https://www.runoob.com/python3/python3-data-type.html)
+## 学习步骤
 
-按原文顺序：变量赋值 → 标准类型 → 数字 → 字符串 → 布尔 → 列表 → 元组 → 集合 → 字典 → bytes → 类型转换。类型转换在第三章继续学习。
+1. **读原文**（约 20 分钟）：快速通读，不必记细节。最后一节「数据类型转换」只需浏览，第 3 章再细讲。
+2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，首次遇到的函数与方法查 [functions.md](functions.md)；`print`、`type`、`len`、`isinstance` 等第 1 章已讲的函数查[第 1 章速查](../01-basic-syntax/functions.md)。
+3. **跑 demo**：按下方顺序运行 5 个 `*_demo.py`，先预测再观察 `print()` 输出；标为【进阶】的类定义、字典推导式和 `try...except` 只作观察，暂不要求手写。
+4. **做基础练习**：完成 `exercises_02.py` 的「基础练习」（先写五组表达式，再独立写一段终端输入输出代码），用 pytest 验证（用法见 [pytest 教程](../../tooling/pytest/README.md)）。
+5. **选做进阶练习**：若已了解 `def` / `return`，可继续挑战「进阶练习」。
+6. **错题复盘**：把疑问、报错和与 JS 的差异写进 `notes.md`。
 
-【补充】[函数与方法速查](functions.md) 说明示例的完整调用方式；先掌握【必会】，其余按需查阅。阅读后完成 [本章练习](practice.md)。
+## 学习验收标准
 
-```powershell
-.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\example.py
-```
-
-先按下列顺序运行主题示例，最后用 `example.py` 复习。在仓库根目录执行时，将上面命令中的 `example.py` 换成对应文件名。
-
-- `01-variables-numbers.py`：赋值、类型判断、数值运算和布尔值。
-- `02-strings-bools-sequences.py`：字符串、布尔值、列表与元组。
-- `03-sets-dictionaries.py`：集合操作和字典键值对。
-- `04-bytes.py`：文本编码、字节解码和可变字节数组。
-
-原教程中的交互记录去掉了 `>>>` 提示符，并用 `print()` 显示原本由交互环境展示的结果。元组修改的最后一行会产生 `TypeError`，为便于正常运行已保留为注释；取消该行注释可观察错误。`int`、`bool` 等示例是源教程的一部分，详情见函数速查。
-
-## 变量与赋值
-
-第一次赋值就会把名字绑定到对象。`a = b = 1` 让多个名字指向同一个对象，`a, b = 1, 2` 则按位置分别赋值。
-
-## 数字和布尔值
-
-`int` 是整数，`float` 是浮点数，`complex` 是复数，`bool` 是 `True` 或 `False`。`bool` 是 `int` 的子类，但表达真假时建议使用布尔值。`/` 返回浮点数，`//` 向下取整，`%` 求余，`**` 求幂。浮点数运算可能存在精度误差。
-
-`type(x) is int` 判断具体类型是否恰为 `int`；`isinstance(x, int)` 也接受 `int` 的子类，例如 `bool`。`del name` 删除变量名的绑定，之后不能再通过该名字访问对象，除非重新赋值。
-
-【补充】【进阶】在 `01-variables-numbers.py` 中，先预测 `child` 的两次判断。需要接受继承 A 的实例时该选哪一种？类的定义和实例化见代码上方的说明。
-
-原教程还展示了 `True == 1` 和 `False == 0`；`==` 比较值。`is` 判断两个名字是否指向同一个对象，与值相等含义不同。为避免 Python 3.11 对 `1 is True` 形式的警告，代码中先将数字赋给变量再进行身份比较。
-
-## 字符串 str
-
-字符串由字符组成，支持索引、切片、拼接和重复，但不能原地修改单个字符。字符串切片遵循左闭右开；更多示例见第 1 章的 `demo_strings.py`。
-
-【补充】`text.replace("P", "J")` 会返回替换后的新字符串，不改变原来的 `text`；例如 `"Python".replace("P", "J")` 得到 `"Jython"`。
-
-## 列表 list 和元组 tuple
-
-列表用 `[]` 创建，有序、可重复、可修改；可以通过下标读取和修改，使用 `append()` 添加元素。元组通常用 `()` 表示，有序、可重复，但不能直接修改元素。只有一个元素的元组需要逗号，例如 `(1,)`。
-
-【补充】【进阶】单词反转例子按“拆分 → 列表倒序 → 拼接”阅读。原文 `reverseWords(input)` 的参数遮住了内置函数 `input`。脚本里的 `reverse_words(text)` 采用 `snake_case` 命名，并保留原例按普通空格拆分的行为。可以把两个单词之间改成两个空格，再观察结果。完整参数见[函数速查](functions.md)。
-
-## 集合 set 和字典 dict
-
-集合用 `{1, 2}` 或 `set()` 创建，元素不重复，不保证按插入顺序展示，可进行交集、并集和差集。空集合必须写 `set()`，因为 `{}` 是空字典。字典用键值对存数据，例如 `{"name": "Rain"}`；通过键读取和修改，键必须是可哈希对象。
-
-集合的 `|`、`&`、`-`、`^` 分别表示并集、交集、差集、对称差集。字典的 `keys()` 和 `values()` 分别提供键和值的视图；访问不存在的键可使用 `get()` 设置默认值。
-
-【补充】【进阶】在 `03-sets-dictionaries.py` 中，先跟着 `for` 循环写入三个键值对，再读原教程的字典推导式。逐项核对两次输出里的键和值。
-
-【补充】示例中的 `in` 用于判断元素是否属于集合，`len()` 返回容器的元素数量。由于集合的显示顺序不固定，`sorted({3, 1})` 可返回排序后的新列表 `[1, 3]`，不会修改原集合。`person.items()` 返回字典键值对的视图，`list(person.items())` 可将其转换为列表；`list(person)` 则得到键的列表。
-
-## 字节 bytes
-
-`bytes` 表示不可变的字节序列，常用于文件或网络中的二进制数据。文本和字节是不同类型：使用 `"你好".encode("utf-8")` 将文本编码为字节，再用 `.decode("utf-8")` 解码回文本。编码和解码需要使用匹配的编码方式。`bytearray` 则是可修改的字节序列。
-
-【补充】示例中的 `ord("H")` 返回字符 `H` 的 Unicode 码点 72；ASCII 字符在 UTF-8 中对应同值的单字节，因此可以赋给 `bytearray` 的某个位置。对包含中文的文本，字符数和编码后的字节数可能不同，例如 `len("你好")` 为 2，而 UTF-8 编码后有 6 个字节。
-
-数字、布尔值、字符串、元组是不可变类型；列表、集合、字典是可变类型。元组不可变指它的元素引用不能替换，如果元素本身是列表等可变对象，其内容仍可能变化。
-
-## 学习验收
+请按实际掌握情况勾选（不能仅凭跑通 demo 就勾选“本章完成”）：
 
 - [ ] 未开始
 - [ ] 阅读完成
-- [ ] 示例理解完成：能说明列表和元组的可变性差异。
-- [ ] 基础练习通过：独立完成 [本章练习](practice.md)，按其中的验收条件核对结果。
-- [ ] 进阶练习通过（可选，分层题待迁移）
-- [ ] 本章完成：能回答理解检查中的问题，并独立得到基础练习要求的结果。
+- [ ] 示例理解完成：能预测 `type(child) == A` 与 `isinstance(child, A)` 的不同结果，能说明列表和元组的可变性差异，并解释 `(42)` 与 `(20,)`、`{}` 与 `set()` 为什么类型不同、`"你好"` 为什么编码后有 6 个字节。
+- [ ] 基础练习通过：独立完成六组题，`-m basic` 全部显示 `PASSED`，并能用自己的话说明每题用了什么语法、为什么这样写。例如，做完题 1 后，能解释 `bool_is_int` 与 `bool_exact_int` 为什么结果相反。
+- [ ] 进阶练习通过（可选）
+- [ ] 本章完成：读完原文、能解释示例、基础测试全过，并在 `notes.md` 记录易错点或自己的验证过程。
+
+## 文件
+
+| 文件 | 内容 |
+| --- | --- |
+| `01_numbers_demo.py` | 变量赋值、多变量赋值、标准数据类型、`type` 与 `isinstance`、`bool` 与 `int`、`del`、数值运算、数值字面量与复数 |
+| `02_str_bool_demo.py` | 字符串截取、拼接、转义与不可变；布尔值、`bool()` 真假规则、逻辑与比较运算、条件判断 |
+| `03_list_tuple_demo.py` | 列表截取、拼接、修改、步长切片、单词倒序；元组截取、不可变、单元素元组 |
+| `04_set_dict_demo.py` | 集合创建、成员测试、四种集合运算；字典读写、视图、`dict()`、字典推导式、`get` |
+| `05_bytes_demo.py` | `b` 前缀、`bytes()`、切片与拼接、`ord()`、`encode` / `decode`、`bytearray` |
+| [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
+| `exercises_02.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
+| `test_exercises_02.py` | 练习的自动测试，不要修改 |
+| `test_demos_02.py` | 5 个 Demo 的自检；运行全章 pytest 时执行 |
+| `notes.md` | 你自己的笔记与错题复盘 |
+
+## 运行
+
+在仓库根目录打开 PowerShell。环境准备见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+
+```powershell
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\01_numbers_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\02_str_bool_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\03_list_tuple_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\04_set_dict_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\05_bytes_demo.py
+
+.\.venv\Scripts\python.exe .\lessons\day01-python\02-basic-data-types\exercises_02.py   # 手动体验基础题 6，输入一行文本后回车
+
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/02-basic-data-types -m basic -v   # 只测基础练习
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/02-basic-data-types -v            # 测全部练习和 Demo 自检
+```
+
+集合的打印顺序每次运行可能不同，Demo 中用 `sorted()` 给出固定顺序的对照。`PASSED`、`FAILED`、`SKIPPED` 和 `deselected` 的含义与处理方法见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+
+## 要点（按原文顺序）
+
+1. **变量赋值**：变量不需要声明，第一次赋值时创建；变量没有类型，类型属于它指向的对象。
+2. **多个变量赋值**：`a = b = c = 1` 让三个名字指向同一个对象；`a, b, c = 1, 2, "runoob"` 按位置分别赋值。
+3. **标准数据类型**：Number、String、bool、List、Tuple、Set、Dictionary。前四种不可变，后三种可变；`bytes` 是另一种不可变类型。
+4. **数字**：`int`（只有一种，长度不受固定位数限制）、`float`、`bool`、`complex`。`type()` 只认具体类型，`isinstance()` 把子类也算作父类。
+5. **bool 与 int**：`bool` 是 `int` 的子类，`True == 1`、`True + 1 == 2`；`is` 比较对象身份，不比较值。
+6. **del**：`del a, b` 删除名字的绑定，之后再访问会抛 `NameError`。
+7. **数值运算**：`+ - * / // % **`；`/` 总得到 `float`，`//` 向下取整；`int` 与 `float` 混合计算时结果为 `float`。
+8. **数值字面量**：`0o` 八进制、`0x` 十六进制、`0b` 二进制，十进制整数不允许前导零；`e` 表示 10 的幂；复数写作 `a + bj` 或 `complex(a, b)`。
+9. **字符串**：截取 `变量[头:尾]`，`+` 拼接、`*` 重复，`r` 前缀不转义；没有单独的字符类型；不可修改单个字符。
+10. **布尔类型**：只有 `True`、`False`；`and`、`or`、`not` 组合条件；`None`、`False`、数值零、空序列、空映射为假，其余为真；`if x:` 按同样规则判断。
+11. **列表**：`[]` 写成，元素可不同类型、可嵌套；可索引、切片、拼接、重复；元素和切片都可以赋值修改；切片第三个参数是步长，负数表示逆向。
+12. **元组**：`()` 写成，与列表类似但元素不能修改；可以包含可变对象；空元组 `()`，单元素元组必须加逗号 `(20,)`。字符串、列表、元组都是序列。
+13. **集合**：`{a, b}` 或 `set()` 创建，元素不重复、不保证顺序；空集合只能用 `set()`；`-`、`|`、`&`、`^` 分别是差集、并集、交集、对称差集。
+14. **字典**：`{键: 值}` 映射类型，键必须不可变（可哈希）且唯一；Python 3.7 起保持插入顺序；`keys()`、`values()` 返回视图；`dict()` 可从键值对序列或关键字参数构建；`{x: x**2 for x in ...}` 是字典推导式。
+15. **bytes**：不可变的字节序列，元素是 0～255 的整数；`b"..."` 或 `bytes(文本, encoding=...)` 创建；支持切片、拼接；与字符比较时先用 `ord()` 转成整数。
+16. **数据类型转换**：`int()`、`float()`、`str()`、`list()` 等用类型名转换，返回新对象。详见[第 3 章](../03-type-conversion/README.md)。
+
+## 【补充】和 JS 的差异
+
+| 主题 | JS | Python | 注意 |
+| --- | --- | --- | --- |
+| 声明变量 | `let` / `const` / `var` | 直接赋值 | 没有常量关键字，全大写只是约定 |
+| 解构赋值 | `const [a, b] = [1, 2]` | `a, b = 1, 2` | 两边数量必须一致，否则 `ValueError` |
+| 查看类型 | `typeof x` | `type(x)` | `typeof []`、`typeof null` 都是 `"object"`；Python 返回精确类型 |
+| 继承判断 | `x instanceof A` | `isinstance(x, A)` | `isinstance` 也能判断 `int`、`str` 等内置类型 |
+| 数字类型 | `number` + `bigint` | `int`、`float`、`complex`、`bool` | `int` 任意精度 |
+| 取余 | `-7 % 3 === -1` | `-7 % 3 == 2` | Python 结果与除数同号 |
+| 相等 | `===`（`==` 会隐式转换） | `==` 比较值，`is` 比较身份 | Python 的 `1 == "1"` 为 `False` |
+| 删除 | `delete obj.key` 删属性 | `del name` 删变量绑定 | 删字典的键用 `del d[key]` |
+| 字符串替换 | `replace` 默认替换第一处 | `replace` 默认替换全部 | 可用第三个参数限制次数 |
+| 真值 | `[]`、`{}` 为真 | 空列表、空字典、空集合、空元组为假 | `"0"`、`"False"` 在两边都为真 |
+| 逻辑运算 | `&&` `\|\|` `!` | `and` `or` `not` | |
+| 列表 | `Array` | `list` | `push` 返回新长度，`append` 返回 `None` |
+| 元组 | 无（TS 有 `readonly [A, B]`） | `tuple` | 单元素必须写逗号 `(20,)` |
+| 集合 | `new Set([1, 2])` | `{1, 2}` / `set()` | 运算符 `\| & - ^` 直接求并、交、差、对称差 |
+| 字典 | 对象 `{}` / `Map` | `dict` | 键可以是整数、元组；缺键用 `[]` 读取会抛 `KeyError` |
+| 读取默认值 | `obj.key ?? "默认"` | `d.get("key", "默认")` | |
+| 字节 | `Uint8Array` | `bytes`（不可变）/ `bytearray`（可变） | |
+| 编码解码 | `TextEncoder` / `TextDecoder` | `str.encode()` / `bytes.decode()` | 默认都是 UTF-8 |
+
+## 【补充】原教程勘误与不推荐写法
+
+- **类型数量**：原文说“6 种标准数据类型，以及 bool”，随后列出 7 项，又把 bool 计入“不可变数据（4 个）”。按列表记 7 种即可。
+- **`type(A()) == A`**：可以运行，但只想判断“是不是某类或其子类”时应使用 `isinstance()`；确实要求精确类型时，惯用写法是 `type(x) is A`。
+- **`1 is True`**：原文用它说明身份比较，Python 3.8 起对字面量用 `is` 会产生 `SyntaxWarning`。比较值用 `==`，`is` 只用于 `None`、`True` 等单例或身份判断；Demo 先把数字放进变量再演示。
+- **`del var1[, var2[, var3[...., varN]]]`**：方括号是语法说明里的“可选”记号，不是能运行的代码，实际写 `del var1, var2`。
+- **“布尔值转换成字符串时 True 转成 1”**：错误。`str(True)` 得到 `"True"`；转成整数、浮点数才分别得到 `1`、`1.0`。
+- **“布尔类型可以和字符串比较，True 视为 1”**：`True == "1"` 得到 `False`，`True < "a"` 会抛 `TypeError`。Python 不会在比较时把字符串转成数字。
+- **列表步长例子缺代码**：原文提到“索引 1 到索引 4、步长为 2”的实例，但正文没有给出代码，`03_list_tuple_demo.py` 补了 `letters[1:4:2]`。
+- **`reverseWords(input)`**：参数 `input` 遮住了内置函数 `input`，函数名和局部变量用的是 `camelCase`。按 PEP 8 应写成 `reverse_words(text)`。`split(" ")` 遇到连续空格会产生空字符串，按任意空白拆分应写 `split()`。
+- **“可以把字符串看作一种特殊的元组”**：只是说二者都是不可变序列。字符串的元素只能是字符，还有大量专用方法；元组可以放任意对象。
+- **“集合输出”**：原文给出的集合打印顺序只是一次运行的结果，每次运行可能不同，不要依赖它。
+- **“键必须使用不可变类型”**：更准确地说是**可哈希**。包含列表的元组虽然是元组，也不能作字典的键。
+- **`#!/usr/bin/python3`**：Shebang 只在类 Unix 系统直接执行脚本时有用，Windows 上用 `python 文件名` 运行时可以不写。

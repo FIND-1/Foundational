@@ -1,0 +1,104 @@
+"""第 2 章练习（分「基础练习」与「进阶练习」两层）。
+
+做法：
+1. 先完成「基础练习」：把题 1～5 的 `...` 改成你的表达式，再写题 6 的入口代码（只用本章基础语法，不需要 def）。
+2. 运行基础测试：./.venv/Scripts/python.exe -m pytest lessons/day01-python/02-basic-data-types -m basic -v
+3. 「进阶练习」为可选挑战（需先了解 def / return），把 `raise NotImplementedError("练习待完成")` 换成实现即可。
+4. 运行全部测试：./.venv/Scripts/python.exe -m pytest lessons/day01-python/02-basic-data-types -v
+注意：不要修改 test_exercises_02.py；未完成的题会显示为 SKIPPED。
+"""
+
+
+# ══════════════════════════════ 一、基础练习（必做） ══════════════════════════════
+# `...`（三个半角点）是这里的待填标记，每填一项即可单独验证。
+# 请用题目给定的变量写表达式，不要直接写死结果。
+
+# 基础题 1：数字运算与类型判断（01_numbers_demo.py）
+total_seconds = 125
+minutes = ...          # 用 // 求 total_seconds 包含几个整分钟，应得到 2
+seconds = ...          # 用 % 求剩下的秒数，应得到 5
+half = ...             # 用 / 求 total_seconds 的一半，应得到 62.5
+bool_is_int = ...      # 用 isinstance 判断 True 是否算作 int 类型
+bool_exact_int = ...   # 用 type(...) is int 判断 True 的具体类型是否恰为 int
+
+# 基础题 2：字符串与布尔值（02_str_bool_demo.py）
+word = "Runoob"
+first_last = ...        # 用 + 把 word 的第一个和最后一个字符拼起来，应得到 "Rb"
+repeated_word = ...     # 用 * 把 word 重复两次
+empty_list_truth = ...  # 用 bool() 求空列表的真假值
+false_text_truth = ...  # 用 bool() 求字符串 "False" 的真假值，先预测再运行
+
+# 基础题 3：列表与元组（03_list_tuple_demo.py）
+fruits = ["苹果", "香蕉", "梨"]
+fruits[0] = ...         # 把第一个水果改成 "桃子"：只替换右边的 ...，保留左边的 fruits[0] =
+fruit_count = ...       # 用 len 求 fruits 的长度，应得到 3
+numbers = [1, 2, 3, 4, 5, 6]
+odd_numbers = ...       # 用带步长的切片从 numbers 取出 [1, 3, 5]
+single = ...            # 写出只包含整数 20 的元组
+
+# 基础题 4：集合与字典（04_set_dict_demo.py）
+a = {1, 2, 3}
+b = {2, 3, 4}
+common = ...            # a 和 b 的交集
+only_in_a = ...         # 在 a 中但不在 b 中的元素
+empty_set = ...         # 创建一个空集合（想一想 {} 是什么类型）
+person = {"name": "Rain", "age": 18}
+person_name = ...       # 按键读取 person 的 "name"
+person_job = ...        # 用 get 读取 "job"，缺少时得到 "未填写"
+
+# 基础题 5：bytes 与编码（05_bytes_demo.py）
+message = "你好"
+encoded = ...           # 用 UTF-8 把 message 编码为 bytes
+byte_count = ...        # 直接用 message、encode 和 len 求 UTF-8 字节数，应得到 6
+first_byte = ...        # 取 b"hello" 的第一个元素，先预测它的类型
+
+
+# 基础题 6：从终端读一行文本，不显示提示语。第一行输出它的字符数，第二行输出它的 UTF-8 字节数。
+# 例如输入「你好」时输出两行：2 和 6。自己写 input、len、encode 和 print。
+# __name__ 与 NotImplementedError 占位的含义见第 1 章 exercises_01.py 基础题 4 的注释。
+# 把入口里整行占位语句替换为你的代码，无须定义函数。
+if __name__ == "__main__":
+    raise NotImplementedError("练习待完成")
+
+
+# ══════════════════════════════ 二、进阶练习（可选） ══════════════════════════════
+# 前置知识：def 定义函数、return 返回值（第 1 章 03_io_import_demo.py「代码组」）。
+# 若尚未学习函数语法，可先跳过本节，不影响第 2 章基础验收。
+
+def is_strict_int(value):
+    """【进阶】value 的具体类型恰为 int 时返回 True；True、3.0 等其他类型返回 False。"""
+    raise NotImplementedError("练习待完成")
+
+
+def count_unique(items):
+    """【进阶】返回列表 items 中不重复元素的个数。例如 [1, 1, 2] -> 2。不用循环。"""
+    raise NotImplementedError("练习待完成")
+
+
+def common_sorted(first, second):
+    """【进阶】返回两个列表共同元素组成的升序列表，不含重复。
+
+    例如 ([3, 1, 2, 2], [2, 3, 4]) -> [2, 3]。不用循环。
+    """
+    raise NotImplementedError("练习待完成")
+
+
+def last_word(text):
+    """【进阶】按空白拆分 text，返回最后一个单词。例如 'I like runoob' -> 'runoob'。
+
+    假设 text 至少有一个单词；多个连续空格也不影响结果。提示：查 functions.md 中 split 的默认分隔方式。
+    """
+    raise NotImplementedError("练习待完成")
+
+
+def utf8_size(text):
+    """【进阶】返回 text 用 UTF-8 编码后的字节数。例如 'A你' -> 4。"""
+    raise NotImplementedError("练习待完成")
+
+
+def squares_dict(numbers):
+    """【进阶】返回 {数字: 数字的平方}。例如 (2, 4) -> {2: 4, 4: 16}。
+
+    前置知识：04_set_dict_demo.py 的 for 循环或字典推导式。
+    """
+    raise NotImplementedError("练习待完成")

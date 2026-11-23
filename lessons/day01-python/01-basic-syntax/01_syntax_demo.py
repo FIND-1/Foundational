@@ -1,7 +1,7 @@
 """第 1 章 · 语法骨架：编码、标识符、关键字、注释、缩进与多行语句。
 
 用途：直观演示第 1 章的语法规则与 Python / JS 差异。
-运行（仓库根目录，已激活 .venv）：python lessons/day01-python/01-basic-syntax/demo_syntax.py
+运行（仓库根目录，已激活 .venv）：python lessons/day01-python/01-basic-syntax/01_syntax_demo.py
 预期结果：变量 count 和 Count 分别打印 1 和 2，缩进代码块打印 big，两种续行都得到 6。末尾演示缩进错误的提示。
 """
 

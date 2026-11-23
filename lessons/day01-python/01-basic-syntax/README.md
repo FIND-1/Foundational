@@ -6,7 +6,7 @@
 
 1. **读原文**（约 15 分钟）：快速通读，不必记细节。
 2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，首次遇到的函数与方法查 [functions.md](functions.md)。
-3. **跑 demo**：运行 3 个 `demo_*.py`，观察终端的 `print()` 输出；进阶部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
+3. **跑 demo**：运行 3 个 `*_demo.py`，观察终端的 `print()` 输出；进阶部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
 4. **做基础练习**：完成 `exercises_01.py` 的「基础练习」部分（先写变量表达式，再独立写一段带缩进的输入输出代码），用 pytest 验证（用法见 [pytest 教程](../../tooling/pytest/README.md)）。
 5. **选做进阶练习**：若已了解 `def` / `return` / `if-elif-else`，可继续挑战「进阶练习」。
 6. **错题复盘**：把疑问、报错和与 JS 的差异写进 `notes.md`。
@@ -26,9 +26,9 @@
 
 | 文件 | 内容 |
 | --- | --- |
-| `demo_syntax.py` | 编码、标识符、关键字、注释、缩进、多行语句 |
-| `demo_strings.py` | 数字类型、字符串引号、拼接、索引、切片、转义与原始字符串 |
-| `demo_io_import.py` | 空行、`input`、同行语句、代码组、`print`、`sys.stdout.write`、`import` / `from...import`、命令行参数 |
+| `01_syntax_demo.py` | 编码、标识符、关键字、注释、缩进、多行语句 |
+| `02_strings_demo.py` | 数字类型、字符串引号、拼接、索引、切片、转义与原始字符串 |
+| `03_io_import_demo.py` | 空行、`input`、同行语句、代码组、`print`、`sys.stdout.write`、`import` / `from...import`、命令行参数 |
 | [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
 | `exercises_01.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
 | `test_exercises_01.py` | 练习的自动测试，不要修改 |
@@ -45,10 +45,10 @@ py -3.11 -m venv .venv
 ```
 
 ```powershell
-.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_syntax.py
-.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_strings.py
-.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_io_import.py Rain 123   # 带命令行参数
-.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\demo_io_import.py --ask      # 输入 18 后应看到「明年： 19」
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\01_syntax_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\02_strings_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\03_io_import_demo.py Rain 123   # 带命令行参数
+.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\03_io_import_demo.py --ask      # 输入 18 后应看到「明年： 19」
 
 .\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -m basic -v   # 只测基础练习
 .\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v            # 测全部练习

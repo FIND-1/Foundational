@@ -57,7 +57,7 @@ if __name__ == "__main__":
 def is_valid_name(name):
     """【进阶】当 name 可以作为变量名时返回 True：符合标识符规则，并且不是关键字。
 
-    提示：参考 demo_syntax.py 中的 str.isidentifier() 和 keyword.iskeyword()。
+    提示：参考 01_syntax_demo.py 中的 str.isidentifier() 和 keyword.iskeyword()。
     """
     return name.isidentifier() and not keyword.iskeyword(name)
     # 其他等价写法：

@@ -1,7 +1,7 @@
 """第 1 章 · 数字与字符串：四种数字类型，字符串的引号、拼接、索引、切片和转义。
 
 用途：直观打印各种数字与字符串操作结果，并与 JS 对照。
-运行（仓库根目录，已激活 .venv）：python lessons/day01-python/01-basic-syntax/demo_strings.py
+运行（仓库根目录，已激活 .venv）：python lessons/day01-python/01-basic-syntax/02_strings_demo.py
 预期结果：除法打印 3.5、3 和 -4；s[2:5] 打印 345；原始字符串保留反斜杠。末尾演示三种字符串操作的报错。
 """
 
@@ -81,7 +81,7 @@ print("s[1:5:2]=", s[1:5:2])           # 下标 1、3，步长为 2
 print("s[::-1] =", s[::-1])            # 步长为 -1 实现反转（JS 需 [...s].reverse().join('')）
 print("s[2:100]=", s[2:100])           # 切片越界不会报错，只取到末尾
 
-# 取出一个字符仍然得到 str，长度为 1。len 的首次示例见 demo_syntax.py 的「关键字」。
+# 取出一个字符仍然得到 str，长度为 1。len 的首次示例见 01_syntax_demo.py 的「关键字」。
 first_char = s[0]
 print("单字符类型与长度：", type(first_char), len(first_char))
 
@@ -97,7 +97,7 @@ print("原始字符串：", raw_str, "长度：", len(raw_str))
 
 # ── 【补充】【进阶】观察字符串操作的报错 ──────────────────────────
 # 这里预期两类错误：TypeError 表示操作与类型不符，IndexError 表示下标越界。
-# _ 是普通变量名，惯例上表示用不到结果。异常分支的读法见 demo_syntax.py 的缩进报错示例。
+# _ 是普通变量名，惯例上表示用不到结果。异常分支的读法见 01_syntax_demo.py 的缩进报错示例。
 try:
     _ = "a" + 1                        # JS 中会得到 "a1"，Python 直接报 TypeError
 except TypeError:

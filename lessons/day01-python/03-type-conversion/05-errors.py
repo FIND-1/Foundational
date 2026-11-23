@@ -4,7 +4,7 @@
 观察字符串 12 解析成功、3.5 和 abc 进入错误分支，以及列表字面量解析后的类型。
 """
 
-# 【补充】【进阶】try / except / else 的读法见第 1 章 demo_syntax.py 的缩进报错示例。
+# 【补充】【进阶】try / except / else 的读法见第 1 章 01_syntax_demo.py 的缩进报错示例。
 from ast import literal_eval  # 从标准库 ast 导入字面量解析函数
 
 # for 依次取三个字符串，在缩进块中分别尝试转换。只有 int(value) 引发的 ValueError 进入 except。

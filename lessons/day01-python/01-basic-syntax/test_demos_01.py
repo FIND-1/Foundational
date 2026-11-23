@@ -1,11 +1,24 @@
 """第一章示例的自检。学习者的练习由 test_exercises_01.py 单独验收。"""
 
+import importlib.util
 import keyword
+from pathlib import Path
 
 import pytest
 
-import demo_strings as strings
-import demo_syntax as syntax
+_DIR = Path(__file__).parent
+
+
+def _load_demo(filename):
+    path = _DIR / filename
+    spec = importlib.util.spec_from_file_location(path.stem, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+syntax = _load_demo("01_syntax_demo.py")
+strings = _load_demo("02_strings_demo.py")
 
 
 def test_names_and_keywords():

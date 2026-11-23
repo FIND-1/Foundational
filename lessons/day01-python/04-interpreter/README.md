@@ -44,7 +44,7 @@ Python 解释器负责读取并执行 Python 代码。可以在交互模式下�
 
 【补充】原文把问候语写成 `print ("Hello, Python!");`，脚本采用 `print("Hello, Python!")`。运行这两种写法，终端都会显示同一句问候语。
 
-【补充】读参数示例时，分别预测传入 `Rain` 和省略参数时会执行哪个分支，再看条件表达式如何选出同一个名字。`sys.argv` 的首次示例见[第 1 章的命令行参数](../01-basic-syntax/demo_io_import.py)。
+【补充】读参数示例时，分别预测传入 `Rain` 和省略参数时会执行哪个分支，再看条件表达式如何选出同一个名字。`sys.argv` 的首次示例见[第 1 章的命令行参数](../01-basic-syntax/03_io_import_demo.py)。
 
 Linux 和 macOS 上直接执行脚本（例如 `./example.py`）时，需要文件具备执行权限，并设置合适的 Shebang；通过 `python example.py` 或 `python3 example.py` 运行则由命令直接指定解释器。
 
