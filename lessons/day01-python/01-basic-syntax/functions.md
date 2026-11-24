@@ -27,6 +27,7 @@
   print("a", "b", sep=" | ", end="!\n")  # 输出: a | b!
   ```
 - **JS/TS 对照**：类似 `console.log(...args)`。`console.log` 返回 `undefined`；Python 可通过 `sep` / `end` 定制格式。
+- **实际项目 / 惯用建议**：正式服务用 `logging` 记日志，不用 `print()`；做命令行或 AI 流式逐字输出时，常配合 `end=""` 与 `flush=True`。
 
 ---
 
@@ -47,6 +48,7 @@
   print("你好，", name)
   ```
 - **JS/TS 对照**：类似浏览器环境的 `window.prompt(message)`，但浏览器取消时返回 `null`，而 Python 总是返回 `str`（空回车返回 `""`）；在 Node.js 中需要 `readline` 模块。
+- **实际项目 / 惯用建议**：多用于教学练习和简单交互脚本；正式命令行工具通常用 `argparse` / `typer` 传参，服务程序则读环境变量或请求体。
 
 ---
 
@@ -69,6 +71,7 @@
   print(type("hi"))    # <class 'str'>
   ```
 - **JS/TS 对照**：类似 JS 的 `typeof x`，但 JS 对数组、对象、`null` 都返回 `"object"`，而 Python 的 `type()` 返回精确的类对象（`<class 'list'>`、`<class 'dict'>`、`<class 'NoneType'>`）。
+- **实际项目 / 惯用建议**：常规类型检查优先用 `isinstance(x, 类型)`；只有在需要排除子类时（如区分 `int` 与 `bool`）才写 `type(x) is int`。三参数动态建类极少手写，现阶段不用管。
 
 ---
 
@@ -106,6 +109,7 @@
   print("class".isidentifier())      # True（仍是关键字，需配合 keyword.iskeyword）
   ```
 - **JS/TS 对照**：JS 没有内置方法判断合法标识符，通常需要正则或解析器；Python 自带此方法，但仍需配合 `keyword.iskeyword()` 排除关键字。
+- **实际项目 / 惯用建议**：日常业务开发低频，主要见于代码生成器、配置校验或语法工具，认得即可。
 
 ---
 
@@ -124,6 +128,7 @@
   print(keyword.iskeyword("class"))  # True
   ```
 - **JS/TS 对照**：JS 没有标准库函数检查关键字，通常需要维护一份保留字数组。
+- **实际项目 / 惯用建议**：低频工具函数（多见于代码生成或静态检查），需要校验变量名时与 `str.isidentifier()` 搭配使用。
 
 ---
 
@@ -135,12 +140,14 @@
 - 【了解】完整签名 `str(object='')` 返回对象的可读文本，省略参数得到空串。
 - 【了解】字节解码形式为 `str(object=b'', encoding='utf-8', errors='strict')`。`object` 是字节类对象，`encoding` 是编码名，`errors` 是解码错误处理名。默认严格报错，`'replace'` 用替代字符继续解码。两种形式的显式参数都可按位置或关键字传入。
 - 解码示例：`str(b'ABC', encoding='ascii')` 得到 `"ABC"`。给已有字符串再指定编码会抛 `TypeError`，未知编码会抛 `LookupError`，字节与编码不符可能抛 `UnicodeDecodeError`。
+- **实际项目 / 惯用建议**：拼装提示文案时优先用 f-string（如 `f"共 {n} 条"`），比 `"共 " + str(n) + " 条"` 更清晰；字节解码时更常用 `data.decode("utf-8")` 而非 `str(data, "utf-8")`。
 
 ## 【补充】【了解】`int()`
 
 - `int(x=0, /)` 返回整数（`int`）。省略 `x` 得到零；给数字时向零截断，给文本时按十进制读取。这里的 `x` 只能按位置传入。
 - `int(x, /, base=10)` 按进制解析文本。`x` 必填且必须是 `str`、`bytes` 或 `bytearray`；`base` 可按位置或关键字传入，取 2～36，或用 0 根据前缀判断进制。
 - `int("18") + 1` 得到 `19`，`int("ff", base=16)` 得到 `255`。格式或进制错误会抛 `ValueError`，例如 `int("3.5")`；传入 `None` 或给数值指定进制会抛 `TypeError`。JS 的 `parseInt("3.5", 10)` 会读到小数点为止。
+- **实际项目 / 惯用建议**：高频用于解析环境变量、命令行参数和外部配置字符串；面对不可信输入时要注意捕获 `ValueError`。
 
 ## 【补充】【了解】用 Decimal 保存十进制数
 
@@ -149,6 +156,7 @@
 - `value` 是初始值，支持整数、十进制字符串、浮点数、另一个 `Decimal`，或表示符号、数字序列和指数的三元组。省略时得到十进制零。
 - `context` 可传 `decimal.Context`，默认使用当前上下文。构造时保留字符串中的有效数字。在默认上下文中，无效数字文本会抛 `decimal.InvalidOperation`；将 `None` 作为数值会抛 `TypeError`。
 - `Decimal("0.1") + Decimal("0.2")` 得到 `Decimal('0.3')`。JS 的 `Number` 和 Python 的 `float` 都用二进制浮点表示这两个小数。
+- **实际项目 / 惯用建议**：涉及金额、汇率、计费（如 Token 账单统计）必须用 `Decimal`，且务必传字符串（`Decimal("0.1")`），切忌传浮点数。
 
 ## 【补充】【了解】`sys.stdout.write()`
 
@@ -164,6 +172,7 @@
   count = sys.stdout.write("runoob\n")  # 输出 runoob 并换行，count 为 7
   ```
 - **JS/TS 对照**：对应 Node.js 的 `process.stdout.write(str)`。
+- **实际项目 / 惯用建议**：低频，常规不换行输出直接用 `print(text, end="")`；仅在精细控制流输出或写进度条时使用。
 
 ---
 
@@ -186,6 +195,7 @@
   code_obj = compile("x = 1 + 2", "<demo>", "exec")
   ```
 - **JS/TS 对照**：类似 `new Function(...)` 或在编译阶段检查语法的 `vm.Script`，日常业务极少直接使用。
+- **实际项目 / 惯用建议**：极低频（多见于模板引擎、框架或测试工具内部），业务和 AI 应用开发基本用不到，认得即可。
 - **官方文档**：[compile](https://docs.python.org/zh-cn/3.11/library/functions.html#compile)
 
 ## 【补充】【了解】字符串方法

@@ -6,10 +6,10 @@
 
 1. **读原文**（约 15 分钟）：快速通读，不必记细节。
 2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，首次遇到的函数与方法查 [functions.md](functions.md)。
-3. **跑 demo**：运行 3 个 `*_demo.py`，观察终端的 `print()` 输出；进阶部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
+3. **跑 demo**：运行 3 个 `*_demo.py`，观察终端的 `print()` 输出；`# 拓展：` 部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
 4. **做基础练习**：完成 `exercises_01.py` 的「基础练习」部分（先写变量表达式，再独立写一段带缩进的输入输出代码），用 pytest 验证（用法见 [pytest 教程](../../tooling/pytest/README.md)）。
 5. **选做进阶练习**：若已了解 `def` / `return` / `if-elif-else`，可继续挑战「进阶练习」。
-6. **错题复盘**：把疑问、报错和与 JS 的差异写进 `notes.md`。
+6. **阶段复盘**：学到哪一小节就顺手把自己的理解、验证、JS 差异和易错点记进 `notes.md`（按需选填，不提前填未学内容，也不仅凭测试通过就标记掌握）。
 
 ## 学习验收标准
 
@@ -33,7 +33,7 @@
 | `exercises_01.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
 | `test_exercises_01.py` | 练习的自动测试，不要修改 |
 | `test_demos_01.py` | 语法和字符串 Demo 的自检；运行全章 pytest 时执行 |
-| `notes.md` | 你自己的笔记与错题复盘 |
+| `notes.md` | 个人学习笔记与错题复盘（记录理解、验证、差异、易错点与待解问题） |
 
 ## 运行
 
@@ -54,7 +54,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v            # 测全部练习
 ```
 
-前两个 Demo 直接展示结果；第三个 Demo 在【进阶】部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。练习进度看标记为 `basic` 或 `advanced` 的用例。
+前两个 Demo 直接展示结果；第三个 Demo 在「拓展」部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。练习进度看标记为 `basic` 或 `advanced` 的用例。
 
 | 结果 | 下一步 |
 | --- | --- |

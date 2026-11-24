@@ -24,6 +24,7 @@
   print(issubclass(bool, (str, int)))   # True，元组中有一项满足即可
   ```
 - **JS/TS 对照**：JS 没有同名函数，可用 `B.prototype instanceof A` 判断 `B` 是否继承自 `A`。
+- **实际项目 / 惯用建议**：日常业务低频（多见于框架插件校验或类型工具）；判断实例类型时用 `isinstance()`。
 
 ---
 
@@ -41,6 +42,7 @@
   print(bool([]), bool("False"), bool(0.0))  # False True False
   ```
 - **JS/TS 对照**：类似 `Boolean(x)`，但 JS 中 `[]`、`{}` 为真，Python 中空容器为假。
+- **实际项目 / 惯用建议**：只在需要保存或返回真正的 `bool`（如构造 JSON 字段、函数返回值）时显式调 `bool(x)`；在 `if` / `while` 中直接写 `if x:` 即可。
 
 ---
 
@@ -76,7 +78,7 @@
   print(z, z.real, z.imag)  # (3+4j) 3.0 4.0
   ```
 - **JS/TS 对照**：JS 没有内置复数类型，需要第三方库；可把 `complex(3, 4)` 类比成只读二维对象 `{ real: 3.0, imag: 4.0 }`（`real` 是不带 `j` 的实部，`imag` 是 `j` 前面的系数虚部）。
-- **【补充】实际项目用途**：Web 后端、爬虫、自动化脚本和 AI 应用层开发中极少用到；主要用于科学计算与工程领域，如音视频/信号处理（傅里叶变换 FFT 同时表示振幅与相位）、电路/通信仿真（Python 沿用工程习惯用 `j` 而非 `i`）、物理/量子计算，以及算法题中用它充当轻量级二维坐标（加减即平移，乘 `1j` 即逆时针旋转 90°，`abs(z)` 即到原点的距离）。现阶段只需认得写法并能用 `.real` / `.imag` 取值即可。
+- **实际项目 / 惯用建议**：Web 后端、爬虫、自动化脚本和 AI 应用层开发中极少用到；主要用于科学计算与工程领域，如音视频/信号处理（傅里叶变换 FFT 同时表示振幅与相位）、电路/通信仿真（Python 沿用工程习惯用 `j` 而非 `i`）、物理/量子计算，以及算法题中用它充当轻量级二维坐标（加减即平移，乘 `1j` 即逆时针旋转 90°，`abs(z)` 即到原点的距离）。现阶段只需认得写法并能用 `.real` / `.imag` 取值即可。
 
 ---
 
@@ -114,6 +116,7 @@
   print(list({"a": 1}.items()))        # [('a', 1)]
   ```
 - **JS/TS 对照**：类似 `Array.from(iterable)` 或 `[...iterable]`。
+- **实际项目 / 惯用建议**：创建空列表直接写 `[]`（比 `list()` 更简洁更快）；`list(x)` 主要用于把视图、集合、生成器转为列表或做浅拷贝。
 
 ---
 
@@ -151,6 +154,7 @@
   print(" a  b ".split())      # ['a', 'b']
   ```
 - **JS/TS 对照**：JS 的 `s.split()` 不传参数时返回 `[s]`；按空白拆分要写 `s.trim().split(/\s+/)`。
+- **实际项目 / 惯用建议**：高频用于文本清洗与分词预处理；按空白拆单词时优先用无参 `s.split()`，避免 `s.split(" ")` 遇连续空格产生空串。
 
 ---
 
@@ -164,6 +168,7 @@
 - **常见错误与异常**：`TypeError`：有元素不是字符串（如 `" ".join([1])`），或参数不可迭代。
 - **基础示例**：`print(" ".join(["I", "like", "Python"]))  # I like Python`
 - **JS/TS 对照**：JS 写 `arr.join(" ")`，分隔符是参数；Python 把分隔符放在点号前，且不会自动把数字转成字符串。
+- **实际项目 / 惯用建议**：高频用于拼接多段文本（如拼 Prompt 片段、生成 CSV 行），比在循环里反复用 `+=` 拼接字符串性能高得多。
 
 ---
 
@@ -184,6 +189,7 @@
   print(sorted("cab", reverse=True))    # ['c', 'b', 'a']
   ```
 - **JS/TS 对照**：JS 的 `arr.sort()` 原地修改，且默认按字符串比较；`toSorted()` 才返回新数组。
+- **实际项目 / 惯用建议**：高频用于给接口数据或检索结果按分数排序（配合 `key=` 和 `reverse=True`）；不想改动原列表时用 `sorted()`，允许原地排才用 `list.sort()`。
 
 ---
 
@@ -207,6 +213,7 @@
   print(dict(Runoob=1, Google=2))              # {'Runoob': 1, 'Google': 2}
   ```
 - **JS/TS 对照**：第三种形式类似 `Object.fromEntries(pairs)` 或 `new Map(pairs)`。
+- **实际项目 / 惯用建议**：字面量建字典优先用 `{...}`（更快且键不受变量名规则限制）；`dict()` 主要用于把键值对序列转字典或浅拷贝字典。
 
 ---
 
@@ -222,6 +229,7 @@
 - **常见错误与异常**：`TypeError`：键不可哈希（如列表），或按关键字传参。
 - **基础示例**：`print({"a": 1}.get("b", 0))  # 0`
 - **JS/TS 对照**：类似 `obj.b ?? 0` 或 `map.get("b") ?? 0`。用 `d["b"]` 读取缺失的键会抛 `KeyError`。
+- **实际项目 / 惯用建议**：极高频，解析第三方 API / 大模型返回的 JSON 字典时，读取可选字段优先用 `d.get("key", 默认值)` 防止 `KeyError`。
 
 ---
 
@@ -240,6 +248,7 @@
   print(list(d.items()))   # [('name', 'runoob'), ('code', 1)]
   ```
 - **JS/TS 对照**：类似 `Object.keys(obj)` / `Object.values(obj)` / `Object.entries(obj)`，但 JS 返回的是普通数组。
+- **实际项目 / 惯用建议**：遍历键直接写 `for k in d:`，同时取键值写 `for k, v in d.items():`；只在需要下标访问或“边遍历边删键”时才套一层 `list(...)`。
 
 ---
 
@@ -264,6 +273,7 @@
   print(data)                               # bytearray(b'Hello')
   ```
 - **JS/TS 对照**：类似 `new TextEncoder().encode(text)` 得到的 `Uint8Array`；`Uint8Array` 可修改，接近 `bytearray`。
+- **实际项目 / 惯用建议**：字符串转字节通常写 `text.encode("utf-8")`（比 `bytes(text, encoding="utf-8")` 更简洁）；写死纯 ASCII 常量用 `b"..."`；`bytearray` 多用于二进制协议或文件流处理。
 
 ---
 
@@ -279,6 +289,7 @@
 - **常见错误与异常**：`UnicodeEncodeError`：字符无法用该编码表示（如 `"你".encode("ascii")`）；`LookupError`：未知编码名。
 - **基础示例**：`print(len("你好".encode("utf-8")))  # 6`
 - **JS/TS 对照**：`new TextEncoder().encode(text)`，只支持 UTF-8。
+- **实际项目 / 惯用建议**：高频用于文件读写、HTTP 请求体、哈希签名与编码转换；默认即 UTF-8，项目里常简写为 `text.encode()`。
 
 ---
 
@@ -307,6 +318,7 @@
 - **常见错误与异常**：`TypeError`：长度不是 1（如 `ord("ab")`），或类型不对。
 - **基础示例**：`print(ord("h"), b"hello"[0] == ord("h"))  # 104 True`
 - **JS/TS 对照**：类似 `"h".codePointAt(0)`。反向操作 `chr()` 见第 3 章。
+- **实际项目 / 惯用建议**：日常业务低频，主要见于底层编解码校验、字符范围判断和算法题，认得即可。
 
 ---
 
