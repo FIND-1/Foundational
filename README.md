@@ -2,7 +2,7 @@
 
 以 `source` 中的原始教程及其编号为唯一主线，按顺序阅读课程。课程中的【补充】是辅助理解，不是原教程新增章节。
 
-四章的可阅读教程都位于 `source`。第 1～2 章已改为新结构（要点 + JS 对照 + demo + pytest 练习 + 笔记），03～04 章仍按旧方式把原教程实例整理在课程 Python 文件中，待迁移。可阅读 HTML 的互动脚本可能无法运行，外部链接与图片可能需要网络。
+四章的可阅读教程都位于 `source`。第 1～3 章已改为新结构（要点 + JS 对照 + demo + pytest 练习 + 笔记），第 04 章仍按旧方式把原教程实例整理在课程 Python 文件中，待迁移。可阅读 HTML 的互动脚本可能无法运行，外部链接与图片可能需要网络。
 
 | 顺序 | 原始资料 | 学习目录 | 完成条件 |
 | --- | --- | --- | --- |
@@ -19,7 +19,7 @@
 2. 在项目根目录打开 PowerShell，首次运行 `py -3.11 -m venv .venv` 创建虚拟环境。用 `.\.venv\Scripts\python.exe --version` 确认版本。
 3. 安装测试工具（推荐在 `.venv` 中）：`.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt`（用法见 [pytest 教程](lessons/tooling/pytest/README.md)）。
 4. 运行示例，例如：`.\.venv\Scripts\python.exe .\lessons\day01-python\01-basic-syntax\01_syntax_demo.py`。其他文件的运行方式见各章 README。
-5. 练习：第 1～2 章完成对应 `exercises_NN.py` 后运行 `.\.venv\Scripts\python.exe -m pytest <章节目录> -m basic -v`（只测进阶题用 `-m advanced`，全部用例则去掉 `-m basic`）；03～04 章暂时仍使用 `practice.md`（待逐章迁移）。
+5. 练习：第 1～3 章完成对应 `exercises_NN.py` 后运行 `.\.venv\Scripts\python.exe -m pytest <章节目录> -m basic -v`（只测进阶题用 `-m advanced`，全部用例则去掉 `-m basic`）；第 04 章暂时仍使用 `practice.md`（待迁移）。
 6. 自由实验放在 `lessons/playground/`。
 
 四章的完成条件全部满足后，再按实际新增的 `source` 学习后续内容。

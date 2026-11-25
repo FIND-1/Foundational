@@ -15,9 +15,9 @@
 
 # 基础题 1：数字运算与类型判断（01_numbers_demo.py）
 total_seconds = 125
-minutes = 125 // 60          # 用 // 求 total_seconds 包含几个整分钟，应得到 2
-seconds = 125 % 60           # 用 % 求剩下的秒数，应得到 5
-half = 125 / 2               # 用 / 求 total_seconds 的一半，应得到 62.5
+minutes = total_seconds // 60  # 用 // 求 total_seconds 包含几个整分钟，应得到 2
+seconds = total_seconds % 60   # 用 % 求剩下的秒数，应得到 5
+half = total_seconds / 2       # 用 / 求 total_seconds 的一半，应得到 62.5
 bool_is_int = isinstance(True, int)      # 用 isinstance 判断 True 是否算作 int 类型
 bool_exact_int = type(True) is int   # 用 type(...) is int 判断 True 的具体类型是否恰为 int
 
@@ -72,17 +72,17 @@ def is_strict_int(value):
     return type(value) is int
 
 
-
 def count_unique(items):
     """【进阶】返回列表 items 中不重复元素的个数。例如 [1, 1, 2] -> 2。不用循环。"""
     return len(set(items))
+
 
 def common_sorted(first, second):
     """【进阶】返回两个列表共同元素组成的升序列表，不含重复。
 
     例如 ([3, 1, 2, 2], [2, 3, 4]) -> [2, 3]。不用循环。
     """
-    return sorted(list(set(first) & set(second)))
+    return sorted(set(first) & set(second))
 
 
 def last_word(text):
@@ -91,6 +91,7 @@ def last_word(text):
     假设 text 至少有一个单词；多个连续空格也不影响结果。提示：查 functions.md 中 split 的默认分隔方式。
     """
     return text.split()[-1]
+
 
 def utf8_size(text):
     """【进阶】返回 text 用 UTF-8 编码后的字节数。例如 'A你' -> 4。"""

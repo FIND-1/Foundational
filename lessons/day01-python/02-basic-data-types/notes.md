@@ -53,6 +53,11 @@ print(("😀".encode("utf-8") + b).decode("utf-8"))  # 😀hello
 - **`complex` 的实部与虚部**：`z = complex(3, 4)` 等价于 `3 + 4j`；`z.real` / `z.imag` 返回的都是 `float`，且 `.imag` 不带 `j`（日常业务/AI 应用层极少用，认得即可）。
 - **`t = ([1, 2], 3)` 的类型**：外层仍是 `tuple`，不是列表；不能换槽位 `t[0] = ...`，但可改内层列表（类似 JS `Object.freeze` 浅冻结）。
 - **`bytes` 拼接与多字节字符**：`b` 只是类型外壳，不会拼进内容里；`bytearray[0]` 只能赋 `0～255` 整数，塞汉字或 emoji 要先 `.encode("utf-8")` 再拼接或切片赋值（改文本优先先 `decode` 回 `str`）。
+- **原地修改方法返回 `None`（测验踩坑）**：`result = items.append('香蕉')` 执行后，`items` 会原地变成 `['苹果', '香蕉']`，但 `result` 是 **`None`** 而不是列表。Python 的惯例是“原地修改类方法（`append`、`sort`、`reverse`）统一返回 `None`，不改原对象的方法/函数（`sorted`、`replace`）才返回新对象”，切忌写成 `items = items.append(...)` 把原列表覆盖成 `None`。
+- **第 2 章练习复盘（写法规范）**：
+  - 优先复用已有变量（如 `total_seconds // 60`）而不是硬编码 `125`，修改输入时计算结果自动联动；
+  - 避免多余类型转换：`sorted(set(first) & set(second))` 直接接收集合并返回列表，无需外包 `list()`；
+  - 遵循 PEP 8：顶层 `def` 函数之间空两行；字典推导式 `{n: n ** 2 for n in numbers}` 简洁地道，值得保持。
 
 ## 5. 待解决的问题
 

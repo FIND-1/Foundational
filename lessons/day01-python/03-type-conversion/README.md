@@ -1,89 +1,108 @@
-# Python3 数据类型转换
+# 第 3 章 · 数据类型转换
 
-[打开本章教程原文](../../../source/03-type-conversion.html)（在 VS Code 中右键该文件，选择 Open with Live Server，或在浏览器中打开）。六个实例已按主题放进本章 Python 文件，原有扩展示例标为【补充】。
+阅读材料：[source/03-type-conversion.html](../../../source/03-type-conversion.html)（菜鸟教程原文，在浏览器中打开）
 
-`01-implicit.py` 中字符串与整数相加的代码以注释保留；取消注释运行时会产生 `TypeError`，这是原教程的预期结果。`02-numbers-and-strings.py` 中的 `int`、`float`、`str` 三段原例只有赋值，不单独产生输出。
+## 学习步骤
 
-参考：[菜鸟教程：Python3 数据类型转换](https://www.runoob.com/python3/python3-type-conversion.html)
+1. **读原文**（约 10 分钟）：按「隐式类型转换 → 显式类型转换 → 内置转换函数表」顺序通读，了解有哪些转换函数，不必死记表格。
+2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，本章新遇到的函数与方法查 [functions.md](functions.md)；前两章已讲的函数查[第 1 章速查](../01-basic-syntax/functions.md)和[第 2 章速查](../02-basic-data-types/functions.md)。
+3. **跑 demo**：按下方顺序运行 5 个 `*_demo.py`，先预测再观察 `print()` 输出；标为 `# 拓展：` 的 `frozenset`、`memoryview`、`eval`、`ast.literal_eval` 和 `try...except` 只作观察，暂不要求手写。
+4. **做基础练习**：完成 `exercises_03.py` 的「基础练习」（先写五组表达式，再独立写一段终端读入两行整数文本并求和的脚本），用 pytest 验证（用法见 [pytest 教程](../../tooling/pytest/README.md)）。
+5. **选做进阶练习**：若已了解 `def` / `return` / `try...except`，可继续挑战「进阶练习」（含异常捕获与安全字面量解析）。
+6. **阶段复盘**：学到哪一小节就顺手把自己的理解、验证、JS 差异和易错点记进 `notes.md`（按需选填，不提前填未学内容，也不仅凭测试通过就标记掌握）。
 
-原文章节顺序为隐式转换 → 显式转换。先掌握这两节，再阅读下方【补充】。示例函数的完整参数和错误见 [函数速查](functions.md)，阅读后完成 [本章练习](practice.md)。
+## 学习验收标准
 
-```powershell
-.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\example.py
-```
-
-在仓库根目录先运行以下主题脚本，再用 `example.py` 复习。将上面命令中的文件名换成对应脚本即可。
-
-1. `01-implicit.py`：数字的隐式转换，以及字符串与数字不能直接相加。
-2. `02-numbers-and-strings.py`：数字、字符串、布尔值与进制之间的转换。
-3. `03-containers.py`：【补充】列表、元组、集合和字典之间的转换。
-4. `04-characters-and-bytes.py`：【补充】字符、Unicode 码点、文本和字节。
-5. `05-errors.py`：【补充】转换失败、异常处理和字面量解析。
-
-每个文件都可以独立运行，例如：
-
-```powershell
-.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\01-implicit.py
-```
-
-## 隐式转换
-
-某些运算中 Python 会自动处理兼容的数字类型，例如 `1 + 2.5` 的结果是浮点数 `3.5`。字符串和数字不能直接用 `+` 相加，需要先显式转换。自动转换并不保证所有计算都没有精度损失。
-
-## 显式转换
-
-转换表达式返回一个值。观察 `example.py` 的两种赋值方式：原教程将转换结果写回同一个名字；【补充】示例同时保留原始输入和可计算的数量。试着预测哪一行输出会保留 `"0456"` 开头的零。
-
-| 写法 | 作用 | 示例 |
-| --- | --- | --- |
-| `int(x)` | 转整数；浮点数向 0 截断 | `int(-3.8)` 得到 `-3` |
-| `int(text, base)` | 按指定进制解析字符串 | `int("101", 2)` 得到 `5` |
-| `float(x)` | 转浮点数 | `float("3.5")` 得到 `3.5` |
-| `complex(x)` | 转复数 | `complex(2)` 得到 `(2+0j)` |
-| `str(x)` | 转适合展示的字符串 | `str(123)` 得到 `"123"` |
-| `repr(x)` | 转便于查看对象表示的字符串 | `repr("hi")` 包含引号 |
-| `bool(x)` | 根据真假规则转换 | `bool(0)` 为 `False` |
-| `list(x)`、`tuple(x)`、`set(x)` | 把可迭代对象转为对应容器 | `list("ab")` 得到 `['a', 'b']` |
-| `dict(x)` | 根据键值对创建字典 | `dict([("a", 1)])` |
-| `frozenset(x)` | 转为不可变集合 | `frozenset([1, 1])` 得到包含 `1` 的不可变集合 |
-| `eval(source)` | 求 Python 表达式的值 | `eval("1 + 2")` 得到 `3`；不要用于不可信输入 |
-| `chr(x)`、`ord(x)` | Unicode 码点与单个字符互转 | `chr(65)`、`ord("A")` |
-| `bin(x)`、`oct(x)`、`hex(x)` | 整数转为带进制前缀的字符串 | `bin(5)` 得到 `"0b101"` |
-| `bytes(x)`、`bytearray(x)` | 创建不可变或可变字节序列 | `bytes([65])` 得到 `b'A'` |
-| `memoryview(x)` | 创建支持缓冲区对象的内存视图 | `memoryview(b'AB')` 创建一个视图 |
-| `ascii(x)` | 返回对象的 ASCII 表示 | `ascii("雨")` 会把非 ASCII 字符转义 |
-
-### 【补充】示例中补充的用法
-
-- `"False".lower()` 返回小写字符串 `"false"`；与 `"true"` 比较的结果是 `False`。这种比较只演示如何识别 `true`，并没有验证所有其他输入。
-- `person.items()` 提供字典键值对，`list(person.items())` 将它们变成列表；`list(person)` 只取键。集合会去重，而 `len()` 返回元素数量。
-- 文本的 `.encode("utf-8")` 和字节的 `.decode("utf-8")` 分别进行编码和解码。`bytearray` 是可修改的字节序列，`bytes(mutable)` 转成不可变的字节序列；一个字节的整数值为 0 到 255。
-- `chr(65)` 用 Unicode 码点得到字符 `"A"`，`ord("A")` 则得到码点 65；`ord()` 接受单个字符。
-
-### 【补充】异常处理和字面量解析
-
-`05-errors.py` 中的 `for value in (...)` 依次取出括号中的值。`try` 内的转换失败时，匹配的 `except ValueError` 或 `except TypeError` 会处理错误；没有发生异常时才执行 `else`。例如 `int("abc")` 的输入类型可以接受，但内容不是整数，因此引发 `ValueError`；`int(None)` 的输入类型不适合，因此引发 `TypeError`。
-
-这些控制语句属于后续学习内容，在此仅为演示错误而提前使用，不是本章练习的要求。预期异常被相应的 `except` 捕获并输出说明；其他异常不会被捕获，应视为运行失败。
-
-`f"{value!r}"` 是格式化字符串：把 `value` 的表示形式插入字符串，`!r` 使用类似 `repr(value)` 的形式，便于看清字符串的引号。`None` 表示没有值。
-
-`ast` 是 Python 自带的标准库模块，`from ast import literal_eval` 从中导入 `literal_eval`。例如 `literal_eval("[1, 2, 3]")` 把表示列表字面量的字符串解析为列表；`literal_eval("1 + 2")` 不接受这个算术表达式，会引发 `ValueError`。这项内容是对源教程的补充。
-
-## 【补充】常见问题
-
-- `int("3.5")` 会报 `ValueError`：它不是整数字符串。可以先用 `float()`，再用 `int()`，但小数部分会被截去。
-- `bool("False")` 是 `True`，因为它是非空字符串；若要解析用户输入，需要明确比较文本。
-- `set()` 会去重，不能依赖集合的显示顺序；`dict()` 需要可用的键值对。
-- 不要对不可信输入使用 `eval()`：它会执行表达式。只需解析数字时，使用 `int()` 或 `float()`。
-- `ast.literal_eval()` 可解析字符串、数字、列表、字典等 Python 字面量，不能执行任意表达式；仍需限制不可信输入的大小和复杂度。
-- 转换失败可能抛出 `ValueError` 或 `TypeError`，可以使用 `try` / `except` 处理。
-
-## 学习验收
+请按实际掌握情况勾选（不能仅凭跑通 demo 就勾选“本章完成”）：
 
 - [ ] 未开始
 - [ ] 阅读完成
-- [ ] 示例理解完成：能解释转换前后的值与类型。
-- [ ] 基础练习通过：独立完成 [本章练习](practice.md)，按其中的验收条件核对结果。
-- [ ] 进阶练习通过（可选，分层题待迁移）
-- [ ] 本章完成：能回答理解检查中的问题，并独立得到基础练习要求的结果。
+- [ ] 示例理解完成：能预测整数与浮点数相加后的类型与原变量类型；能解释为什么字符串 `"12"` 不能直接与整数 `3` 相加、为什么 `int("3.5")` 会报 `ValueError`、`int(-3.9)` 为什么得 `-3`、`bool("False")` 为什么为 `True`，以及用同名覆盖与新变量保存（如 `"0456"`）的区别。
+- [ ] 基础练习通过：独立完成六组题，`-m basic` 全部显示 `PASSED`，并能用自己的话说明每题用了什么转换函数、为什么这样写（并确认原变量未被误改）。
+- [ ] 进阶练习通过（可选）
+- [ ] 本章完成：读完原文、能解释示例、基础测试全过，并在 `notes.md` 记录易错点或自己的验证过程。
+
+## 文件
+
+| 文件 | 内容 |
+| --- | --- |
+| `01_implicit_demo.py` | 隐式类型转换（`int + float`）、原变量类型不变、字符串与数字不能直接相加 |
+| `02_numbers_str_demo.py` | 显式转换：`int()`、`float()`、`str()`、保留原始输入、向零截断、`complex()`、`repr()`/`ascii()`、`bool()` 与 `str.lower()`、进制解析与 `bin()`/`oct()`/`hex()` |
+| `03_containers_demo.py` | 容器转换：`list()`、`tuple()`、`set()` 去重、`frozenset()`、`dict()` 构造与重复键覆盖、字典转列表只取键 vs `items()` |
+| `04_chars_bytes_demo.py` | 字符与字节：`chr()` 与 `ord()` 互转、`encode`/`decode` 复习、整数列表转 `bytes`/`bytearray`、`memoryview()` 零拷贝视图 |
+| `05_errors_parse_demo.py` | 【补充】拓展：区分 `ValueError` 与 `TypeError`、`for` + `try/except/else`、`f"{value!r}"`、`eval()` 安全风险与 `ast.literal_eval()` |
+| [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
+| `exercises_03.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数与异常处理） |
+| `test_exercises_03.py` | 练习的自动测试，不要修改 |
+| `test_demos_03.py` | 5 个 Demo 的自检；运行全章 pytest 时执行 |
+| `notes.md` | 个人学习笔记与错题复盘（记录理解、验证、差异、易错点与待解问题） |
+
+## 运行
+
+在仓库根目录打开 PowerShell。环境准备见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+
+```powershell
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\01_implicit_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\02_numbers_str_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\03_containers_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\04_chars_bytes_demo.py
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\05_errors_parse_demo.py
+
+.\.venv\Scripts\python.exe .\lessons\day01-python\03-type-conversion\exercises_03.py   # 手动体验基础题 6，分两行输入两个整数
+
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/03-type-conversion -m basic -v   # 只测基础练习
+.\.venv\Scripts\python.exe -m pytest lessons/day01-python/03-type-conversion -v            # 测全部练习和 Demo 自检
+```
+
+`PASSED`、`FAILED`、`SKIPPED` 和 `deselected` 的含义与处理方法见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+
+## 要点（按原文顺序）
+
+1. **隐式类型转换**：兼容的数字类型参与运算时，Python 会自动把范围较小的类型提升为更大的类型（如 `int + float -> float`、`bool + int -> int`），返回新对象，不改变原变量的类型。字符串与数字不能隐式转换，直接用 `+` 会抛 `TypeError`。
+2. **显式类型转换**：使用类型名或内置转换函数主动转换，总是返回新对象。需要保留原始输入格式（如 `"0456"` 的前导零）时，应把结果赋给新变量名而不是覆盖原变量。
+3. **常用内置转换函数总览**：
+
+| 函数 | 作用 | 示例 | 说明 |
+| --- | --- | --- | --- |
+| `int(x)` / `int(text, base)` | 转整数；浮点向零截断；按进制解析字符串 | `int(-3.9)` 得 `-3`；`int("101", 2)` 得 `5` | `int("3.5")` 抛 `ValueError` |
+| `float(x)` | 转浮点数 | `float("3.5")` 得 `3.5` | 无效文本抛 `ValueError` |
+| `complex(real, imag)` | 创建复数 | `complex(2, 3)` 得 `(2+3j)` | 虚部默认 `0` |
+| `str(x)` | 转适合展示的字符串 | `str(123)` 得 `"123"` | 面向阅读输出 |
+| `repr(x)` | 转偏向代码/调试的字符串表示 | `repr("hi")` 得 `"'hi'"` | 可区分 `"42"` 与 `42` |
+| `ascii(x)` | 转纯 ASCII 表示字符串 | `ascii("雨")` 得 `"'\\u96e8'"` | 非 ASCII 字符被转义 |
+| `bool(x)` | 按真值规则转布尔值 | `bool(0)` 得 `False`；`bool("False")` 得 `True` | 解析真假文本需先 `.lower()` 再比较 |
+| `list(s)`、`tuple(s)`、`set(s)` | 把可迭代对象转为对应容器 | `tuple("ab")` 得 `('a', 'b')` | `set()` 去重且无序 |
+| `frozenset(s)` | 转为不可变集合 | `frozenset([1, 1])` 得 `frozenset({1})` | 可哈希，能作字典键 |
+| `dict(d)` | 从键值对序列、映射或关键字创建字典 | `dict([("a", 1)])` 得 `{'a': 1}` | 重复键以后者覆盖前者 |
+| `chr(i)`、`ord(c)` | Unicode 码点与单字符互转 | `chr(65)` 得 `'A'`；`ord("A")` 得 `65` | 互为逆运算 |
+| `bin(n)`、`oct(n)`、`hex(n)` | 整数转带前缀的二、八、十六进制字符串 | `bin(10)` 得 `'0b1010'`；`hex(10)` 得 `'0xa'` | 只接受整数 |
+| `bytes(...)`、`bytearray(...)` | 创建不可变或可变字节序列 | `bytes([65, 66])` 得 `b'AB'` | 整数须在 0～255 |
+| `memoryview(obj)` | 创建支持缓冲区对象的零拷贝内存视图 | `memoryview(bytearray(b"AB"))` | 修改视图会直接改原缓冲区 |
+| `eval(source)` | 执行 Python 表达式字符串并返回结果 | `eval("1 + 2")` 得 `3` | **严禁用于不可信输入**；安全解析字面量用 `ast.literal_eval()` |
+
+## 【补充】和 JS 的差异
+
+| 主题 | JS | Python | 注意 |
+| --- | --- | --- | --- |
+| 字符串与数字相加 | `"123" + 1 === "1231"` | `TypeError` | Python 是强类型，必须先显式写 `int()` 或 `str()` |
+| 解析小数字符串为整数 | `parseInt("3.5", 10) === 3` | `int("3.5")` 抛 `ValueError` | 需先 `float("3.5")` 再 `int(...)` |
+| 解析带垃圾后缀的文本 | `parseInt("42px", 10) === 42` | `int("42px")` 抛 `ValueError` | Python 严格校验整个字符串（允许首尾空白） |
+| 浮点转整数 | `Math.trunc(-3.9) === -3` | `int(-3.9) == -3` | `int()` 向零截断；区分于 `//` 向下取整（`-7 // 2 == -4`） |
+| 无效数字转浮点 | `Number("abc")` 得 `NaN` | `float("abc")` 抛 `ValueError` | 不会悄悄返回 `NaN` 污染后续计算 |
+| 布尔文本转换 | `Boolean("False") === true` | `bool("False") is True` | 两边都按“非空即真”；解析文本需先 `s.lower() == "true"` |
+| 进制格式化 | `(10).toString(16) === "a"` | `hex(10) == "0xa"` | Python 默认带 `0b` / `0o` / `0x` 前缀 |
+| 字符与码点 | `String.fromCodePoint(65)` / `"A".codePointAt(0)` | `chr(65)` / `ord("A")` | Python 完整支持全部 Unicode 码点 |
+| 调试表示 | `JSON.stringify(x)` / `util.inspect(x)` | `repr(x)` / `f"{x!r}"` | `str()` 给用户看，`repr()` 给开发者调试看 |
+| 字典/对象与键值对 | `Object.fromEntries(pairs)` / `Object.entries(obj)` | `dict(pairs)` / `list(d.items())` | `list(d)` 只取键，不取键值对 |
+| 零拷贝内存视图 | `DataView` / `Uint8Array` | `memoryview(buf)` | `memoryview` 不复制底层字节 |
+| 表达式与安全解析 | `eval()` / `JSON.parse()` | `eval()` / `ast.literal_eval()` / `json.loads()` | 两者 `eval` 都危险；跨系统优先 JSON |
+| 转换错误分类 | 多返回 `NaN` 或静默转换 | `ValueError`（值非法）/ `TypeError`（类型不符） | 如 `int("abc")` 抛 `ValueError`，`int(None)` 抛 `TypeError` |
+
+## 【补充】原教程勘误与不推荐写法
+
+- **输出多了一个冒号**：原文隐式转换代码写的是 `print("num_new 值为:", num_new)`，但下方示例输出误写成 `num_new: 值为: 124.23`（实际输出没有 `num_new` 后的冒号）。
+- **“隐式转换以避免数据丢失”不够严谨**：`int` 任意精度，而 `float` 只有约 53 位有效二进制精度；超大整数（超过 `2**53`）转为 `float` 时反而会损失精度，且十进制小数转二进制浮点本身也有舍入误差（如 `0.1 + 0.2`）。
+- **同名覆盖丢掉原输入**：原文将 `num_str = int(num_str)` 覆盖回原变量，导致名字叫 `num_str` 但值已是 `int`，且会丢掉原始文本格式（如 `"0456"` 的前导零）。实战中更推荐用新变量名保存转换结果（如 `quantity = int(quantity_text)`）。
+- **`int()` / `float()` / `str()` 三段原例未打印**：原文仅写赋值并在注释中称“输出结果为 ...”，脚本直接运行时终端不会显示结果；本章 `02_numbers_str_demo.py` 补上了 `print()`。
+- **“dict(d)：d 必须是一个 (key, value) 元组序列”偏窄**：实际上 `dict()` 还支持其他字典/映射、`dict(a=1, b=2)` 关键字参数，以及任意长度为 2 的可迭代对象组成的序列（如 `[["a", 1]]`）。
+- **`eval(str)` 未提示安全风险**：原文表格直接列出 `eval(str)` 而未警告其会执行任意代码。日常解析数字用 `int()` / `float()`，解析 Python 字面量用标准库 `ast.literal_eval()`，解析 JSON 用 `json.loads()`，切勿对不可信输入使用 `eval()`。
