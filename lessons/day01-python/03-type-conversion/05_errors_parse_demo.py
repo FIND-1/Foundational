@@ -7,7 +7,7 @@ eval("1 + 2") 得 3；literal_eval 解析 "[1, 2, 3]" 得列表，拒绝 "1 + 2"
 """
 
 # 拓展：from 模块 import 名称（见第 1 章 03_io_import_demo.py）；ast 是解析 Python 语法的标准库模块
-from ast import literal_eval
+from ast import literal_eval 
 
 
 # ── 1. 拓展：ValueError 与 TypeError 的区别 ───────────────────────────
@@ -31,20 +31,36 @@ except TypeError as error:
 
 
 # ── 2. 拓展：eval() 与安全风险 ────────────────────────────────────────
-# 格式：eval(表达式字符串) -> 执行 Python 表达式并返回结果（类似 JS 的 eval()）
-# 注意：切勿对不可信的外部输入使用 eval()，它能执行任意代码；解析数字用 int() / float()
-eval_result = eval("1 + 2")
-print("eval 计算表达式：", eval_result, type(eval_result))  # 3 <class 'int'>
+# 格式：eval(表达式字符串) -> 执行 Python 表达式并返回结果（类似 JS 的 eval()，但只支持单个表达式，不支持赋值等语句）
+# 注意：严禁对不可信输入使用 eval()；普通数字转换直接用 int() / float()，完整参数与异常见 functions.md
+text = "1 + 2"
+eval_result = eval(text)
+print("原始文本：", text, type(text))                     # 1 + 2 <class 'str'>
+print("eval 求值：", eval_result, type(eval_result))      # 3 <class 'int'>
+print("比较与拼接：", eval("10 > 5"), eval("'a' + 'b'"))  # True ab
+
+# 注意：eval() 默认可读取当前作用域的变量（也是安全风险来源之一）
+price = 100
+quantity = 3
+print("读取变量计算：", eval("price * quantity"))         # 300
 
 
 # ── 3. 拓展：用 ast.literal_eval() 安全解析字面量 ─────────────────────
-# 格式：literal_eval(字面量字符串) -> 解析后的 Python 对象（只支持数字、字符串、列表、元组、字典、集合、布尔、None）
-# 场景：把形如 "[1, 2, 3]" 的 Python 字面量文本还原为容器对象（JSON 数据仍优先用标准库 json.loads()）
-# 注意：不执行函数调用或算术表达式，遇到 "1 + 2" 会抛 ValueError；对不可信输入仍需限制大小和深度
-values = literal_eval("[1, 2, 3]")
-print("解析列表字面量：", values, type(values))  # [1, 2, 3] <class 'list'>
+# 格式：literal_eval(字面量字符串) -> 解析后的 Python 对象（支持数字、字符串、容器、布尔、None 等字面量）
+# 场景：把 Python 字面量文本还原为数据对象（类似 JS 的 JSON.parse()；标准 JSON 仍用 json.loads()）
+# 注意：只解析数据、不执行表达式或代码（完整参数、异常与安全说明见 functions.md）
+list_text = "[1, 2, 3]"
+values = literal_eval(list_text)
+print("list() 会逐字符拆分：", list(list_text))         # ['[', '1', ',', ' ', '2', ',', ' ', '3', ']']
+print("literal_eval 还原列表：", values, type(values))  # [1, 2, 3] <class 'list'>
+print("还原元组与字典：", literal_eval("(1, 2)"), literal_eval("{'name': 'Rain'}"))  # (1, 2) {'name': 'Rain'}
+print("还原集合与空值：", literal_eval("{1, 2, 2}"), literal_eval("None"))           # {1, 2} None
 
+# 注意：bool("False") 按非空判真得 True，literal_eval("False") 按字面量解析得 False
+print("bool vs literal_eval：", bool("False"), literal_eval("False"))  # True False
+
+# 注意：与 eval() 不同，literal_eval() 拒绝算术表达式和函数调用，直接抛 ValueError
 try:
     _ = literal_eval("1 + 2")
-except ValueError:
-    print("literal_eval 拒绝算术表达式（ValueError）")
+except ValueError as error:
+    print("不支持算术表达式（ValueError）：", error)
