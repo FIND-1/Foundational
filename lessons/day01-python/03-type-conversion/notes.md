@@ -9,8 +9,8 @@
 
 - **隐式 vs 显式转换**：兼容数字运算自动提升（`int + float -> float`），原变量不变；字符串与数字必须显式转换，建议用新变量保存结果，避免覆盖原输入（如 `"0456"`）。
 - **`frozenset`**：去重、无序、不可增删，因此可哈希、能作字典键（普通 `set` 不行；`tuple` 需元素全部可哈希）。
-- **字符数 vs 字节数**：`len(str)` 数字符，`len(bytes)` 数 UTF-8 字节（ASCII 1 字节、常用汉字 3 字节、Emoji 4 字节）。
-- **`eval()` vs `ast.literal_eval()`**：`eval()` 执行表达式并可读取作用域变量，严禁用于不可信输入；`literal_eval()`
+- **字符数 vs 字节数**：`len(str)` 返回字符串中的 Unicode 码点数量；`len(bytes)` 返回字节序列中的字节数量（`bytes` 可能是图片、音频等任意二进制数据，不一定是 UTF-8）；`len(text.encode("utf-8"))` 返回文本编码后的 UTF-8 字节数量（ASCII 1 字节、常用汉字 3 字节、Emoji 4 字节）。
+- **`eval()` vs `ast.literal_eval()`**：`eval()` 将字符串当作代码执行，严禁用于不可信输入；`literal_eval()` 将 Python 字面量文本还原为数据对象，不执行任意代码，但仍需限制输入大小与嵌套深度；标准 JSON 数据优先使用 `json.loads()`。
 - **`type(x).__name__`（拓展）**：取出纯类型名字符串（如 `"int"`），区别于模块级 `__name__ == "__main__"`。
 
 ## 2. 最小代码示例

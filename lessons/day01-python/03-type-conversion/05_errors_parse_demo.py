@@ -45,10 +45,10 @@ quantity = 3
 print("读取变量计算：", eval("price * quantity"))         # 300
 
 
-# ── 3. 拓展：用 ast.literal_eval() 安全解析字面量 ─────────────────────
+# ── 3. 拓展：用 ast.literal_eval() 解析 Python 字面量 ──────────────────
 # 格式：literal_eval(字面量字符串) -> 解析后的 Python 对象（支持数字、字符串、容器、布尔、None 等字面量）
 # 场景：把 Python 字面量文本还原为数据对象（类似 JS 的 JSON.parse()；标准 JSON 仍用 json.loads()）
-# 注意：只解析数据、不执行表达式或代码（完整参数、异常与安全说明见 functions.md）
+# 注意：literal_eval() 不执行任意代码，但不代表完全没有安全风险；过大或嵌套过深的输入可能导致资源耗尽
 list_text = "[1, 2, 3]"
 values = literal_eval(list_text)
 print("list() 会逐字符拆分：", list(list_text))         # ['[', '1', ',', ' ', '2', ',', ' ', '3', ']']
@@ -59,7 +59,7 @@ print("还原集合与空值：", literal_eval("{1, 2, 2}"), literal_eval("None"
 # 注意：bool("False") 按非空判真得 True，literal_eval("False") 按字面量解析得 False
 print("bool vs literal_eval：", bool("False"), literal_eval("False"))  # True False
 
-# 注意：与 eval() 不同，literal_eval() 拒绝算术表达式和函数调用，直接抛 ValueError
+# 注意：普通算术表达式（如 "1 + 2"）和函数调用不是字面量，会抛出 ValueError
 try:
     _ = literal_eval("1 + 2")
 except ValueError as error:
