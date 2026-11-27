@@ -25,7 +25,7 @@
 
 ## 运行
 
-在仓库根目录打开 PowerShell，将下方代码保存为 `lessons/playground/comments.py`，再执行这条命令。环境准备见[第 1 章「运行」](../01-basic-syntax/README.md#运行)。
+在仓库根目录打开 PowerShell，将下方代码保存为 `lessons/playground/comments.py`，再执行这条命令（环境准备见[项目根目录 README](../../README.md)）。
 
 ```powershell
 .\.venv\Scripts\python.exe .\lessons\playground\comments.py

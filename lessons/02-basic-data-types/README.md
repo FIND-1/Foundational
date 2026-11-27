@@ -9,11 +9,9 @@
 3. **跑 demo**：按下方顺序运行 5 个 `*_demo.py`，先预测再观察 `print()` 输出；标为 `# 拓展：` 的类定义、字典推导式和 `try...except` 只作观察，暂不要求手写。
 4. **做基础练习**：完成 `exercises_02.py` 的「基础练习」（先写五组表达式，再独立写一段终端输入输出代码），用 pytest 验证（用法见 [pytest 教程](../tooling/pytest/README.md)）。
 5. **选做进阶练习**：若已了解 `def` / `return`，可继续挑战「进阶练习」。
-6. **阶段复盘**：学到哪一小节就顺手把自己的理解、验证、JS 差异和易错点记进 `notes.md`（按需选填，不提前填未学内容，也不仅凭测试通过就标记掌握）。
+6. **阶段复盘**：学到哪一小节就顺手把本章理解、差异和易错点记进 `notes.md`。
 
 ## 学习验收标准
-
-请按实际掌握情况勾选（不能仅凭跑通 demo 就勾选“本章完成”）：
 
 - [ ] 未开始
 - [ ] 阅读完成
@@ -39,7 +37,7 @@
 
 ## 运行
 
-在仓库根目录打开 PowerShell。环境准备见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+在仓库根目录打开 PowerShell 运行（环境准备、练习做法与 pytest 结果说明见[项目根目录 README](../../README.md)）：
 
 ```powershell
 .\.venv\Scripts\python.exe .\lessons\02-basic-data-types\01_numbers_demo.py
@@ -54,7 +52,7 @@
 .\.venv\Scripts\python.exe -m pytest lessons/02-basic-data-types -v            # 测全部练习和 Demo 自检
 ```
 
-集合的打印顺序每次运行可能不同，Demo 中用 `sorted()` 给出固定顺序的对照。`PASSED`、`FAILED`、`SKIPPED` 和 `deselected` 的含义与处理方法见[第 1 章 README 的「运行」](../01-basic-syntax/README.md#运行)。
+集合的打印顺序每次运行可能不同，Demo 中用 `sorted()` 给出固定顺序的对照。
 
 ## 要点（按原文顺序）
 

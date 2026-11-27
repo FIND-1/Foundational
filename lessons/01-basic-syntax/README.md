@@ -9,11 +9,9 @@
 3. **跑 demo**：运行 3 个 `*_demo.py`，观察终端的 `print()` 输出；`# 拓展：` 部分的 `compile()` / `try...except` 只作验证，暂不要求手写。
 4. **做基础练习**：完成 `exercises_01.py` 的「基础练习」部分（先写变量表达式，再独立写一段带缩进的输入输出代码），用 pytest 验证（用法见 [pytest 教程](../tooling/pytest/README.md)）。
 5. **选做进阶练习**：若已了解 `def` / `return` / `if-elif-else`，可继续挑战「进阶练习」。
-6. **阶段复盘**：学到哪一小节就顺手把自己的理解、验证、JS 差异和易错点记进 `notes.md`（按需选填，不提前填未学内容，也不仅凭测试通过就标记掌握）。
+6. **阶段复盘**：学到哪一小节就顺手把本章理解、差异和易错点记进 `notes.md`。
 
 ## 学习验收标准
-
-请按实际掌握情况勾选（不能仅凭跑通 demo 就勾选“本章完成”）：
 
 - [ ] 未开始
 - [ ] 阅读完成
@@ -37,12 +35,7 @@
 
 ## 运行
 
-在仓库根目录打开 PowerShell。首次使用时执行以下两条命令。已有 Python 3.11 的 `.venv` 可以跳过第一条。
-
-```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-```
+在仓库根目录打开 PowerShell 运行（环境准备、练习做法与 pytest 结果说明见[项目根目录 README](../../README.md)）：
 
 ```powershell
 .\.venv\Scripts\python.exe .\lessons\01-basic-syntax\01_syntax_demo.py
@@ -54,15 +47,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pytest lessons/01-basic-syntax -v            # 测全部练习
 ```
 
-前两个 Demo 直接展示结果；第三个 Demo 在「拓展」部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。练习进度看标记为 `basic` 或 `advanced` 的用例。
-
-| 结果 | 下一步 |
-| --- | --- |
-| `PASSED` | 该用例符合预期；继续检查同题的其他输入。 |
-| `FAILED` | 看失败项的实际值和期望值，回到自己的代码修改后重跑。 |
-| `SKIPPED` | 该项保留了待填标记。基础项仍需完成，进阶项可留到学过函数后。 |
-
-`-m basic` 只选择基础题；摘要里的 `deselected` 是本次未选择的用例。若出现 `ERROR`，先按报错定位文件和行号，例如缩进错误会阻止测试导入练习文件。
+前两个 Demo 直接展示结果；第三个 Demo 在「拓展」部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。
 
 ## 要点（按原文顺序）
 

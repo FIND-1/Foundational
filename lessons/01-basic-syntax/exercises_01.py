@@ -1,12 +1,4 @@
-"""第 1 章练习（分「基础练习」与「进阶练习」两层）。
-
-做法：
-1. 先完成「基础练习」：把题 1～3 的 `...` 改成你的表达式，再写题 4 的缩进块（只用到本章基础语法，不需要 def）。
-2. 运行基础测试：./.venv/Scripts/python.exe -m pytest lessons/01-basic-syntax -m basic -v
-3. 「进阶练习」为可选挑战（需先了解 def / return / if-elif-else），把 `raise NotImplementedError` 换成实现即可。
-4. 运行全部测试：./.venv/Scripts/python.exe -m pytest lessons/01-basic-syntax -v
-注意：不要修改 test_exercises_01.py；未完成的题会显示为 SKIPPED。
-"""
+"""第 1 章练习（分「基础练习」与「进阶练习」两层）。"""
 
 import keyword  # 基础题 1 和进阶练习 1 用它检查保留关键字。
 

@@ -12,11 +12,18 @@ import exercises_06
         ("full_slots", 3),
         ("remaining_minutes", 5),
         ("remainder_is_valid", True),
+        ("trunc_quotient", -2),
+        ("floor_quotient", -3),
+        ("neg_remainder", 2),
         ("updated_score", 14),
-        ("combined_flags", 0b11),
-        ("can_write", True),
         ("first_or_empty", []),
+        ("first_or_filled", "Rain"),
+        ("fallback_name", "访客"),
+        ("kept_zero", 0),
+        ("kept_empty_label", ""),
+        ("default_for_none", "默认"),
         ("has_setting", True),
+        ("has_setting_value", True),
         ("is_same_list", True),
         ("has_equal_contents", True),
         ("weighted_points", 14),
@@ -29,6 +36,37 @@ def test_basic_values(name, expected):
 
     assert type(actual) is type(expected)
     assert actual == expected
+
+
+@pytest.mark.basic
+def test_basic_starting_score_preserved():
+    if exercises_06.updated_score is Ellipsis:
+        pytest.skip("未完成：updated_score 仍为 ...")
+
+    assert exercises_06.starting_score == 10
+
+
+@pytest.mark.basic
+def test_basic_list_in_place_update():
+    if exercises_06.tags_mutated_in_place is Ellipsis:
+        pytest.skip("未完成：tags_mutated_in_place 仍为 ...")
+
+    assert exercises_06.primary_tags == ["js", "python"]
+    assert exercises_06.alias_tags == ["js", "python"]
+    assert exercises_06.primary_tags is exercises_06.alias_tags
+    assert exercises_06.tags_mutated_in_place is True
+    assert exercises_06.extra_tag == ["python"]
+
+
+@pytest.mark.basic
+def test_basic_list_rebinding():
+    if exercises_06.tags_rebound is Ellipsis:
+        pytest.skip("未完成：tags_rebound 仍为 ...")
+
+    assert exercises_06.copied_tags == ["js", "python"]
+    assert exercises_06.snapshot_tags == ["js"]
+    assert exercises_06.copied_tags is not exercises_06.snapshot_tags
+    assert exercises_06.tags_rebound is True
 
 
 @pytest.mark.advanced

@@ -1,9 +1,5 @@
 # 第 3 章 · 函数与方法完整速查（Python 3.11）
 
-【必会】用于基础练习；【了解】可在读到例子时再查。签名与传参限制均已用 Python 3.11.9 的 `inspect.signature()` 与实际调用核对。
-
-以下签名中，`/` 之前的参数只能按位置传入，`*` 之后的参数只能按关键字传入；无默认值的参数为必填参数。
-
 前两章已讲的 API 不再重复，仅列出本章新增的重点：
 
 - 见[第 1 章函数速查](../01-basic-syntax/functions.md)：`print()`、`input()`、`type()`、`len()`、`str()`、`int()`、`set()`。其中 **`int()` 在本章升为【必会】**：`int(x=0, /)` 对浮点数向零截断（`int(-3.9) == -3`），`int(x, /, base=10)` 按 2～36 进制或 `base=0`（按 `0b` / `0o` / `0x` 前缀）解析字符串；`int("3.5")` 抛 `ValueError`，`int(float("inf"))` 抛 `OverflowError`，`int(float("nan"))` 抛 `ValueError`。

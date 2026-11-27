@@ -1,12 +1,4 @@
-"""第 2 章练习（分「基础练习」与「进阶练习」两层）。
-
-做法：
-1. 先完成「基础练习」：把题 1～5 的 `...` 改成你的表达式，再写题 6 的入口代码（只用本章基础语法，不需要 def）。
-2. 运行基础测试：./.venv/Scripts/python.exe -m pytest lessons/02-basic-data-types -m basic -v
-3. 「进阶练习」为可选挑战（需先了解 def / return），把 `raise NotImplementedError("练习待完成")` 换成实现即可。
-4. 运行全部测试：./.venv/Scripts/python.exe -m pytest lessons/02-basic-data-types -v
-注意：不要修改 test_exercises_02.py；未完成的题会显示为 SKIPPED。
-"""
+"""第 2 章练习（分「基础练习」与「进阶练习」两层）。"""
 
 
 # ══════════════════════════════ 一、基础练习（必做） ══════════════════════════════

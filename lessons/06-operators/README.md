@@ -1,53 +1,44 @@
-# 第 6 章 · Python3 运算符
+# 第 6 章 · 运算符
 
 学习模式：Core Learning（重点学习）
 
-阅读材料：[菜鸟教程原文 HTML](../../source/06-operators.html)（在浏览器中打开）
+阅读材料：[source/06-operators.html](../../source/06-operators.html)（菜鸟教程原文，在浏览器中打开）
 
 ## 学习步骤
 
-1. 按原文正文顺序阅读「算术 → 比较 → 赋值 → 位运算 → 逻辑 → 成员 → 身份 → 优先级」。把运算符作用的值称为操作数，例如 `4 + 5` 中的 `4` 和 `5`。
-2. 根据下方要点预测 4 个 Demo 的输出，再按顺序运行。重点留意负数整除、逻辑运算的返回值和列表的对象身份。
-3. 完成 `exercises_06.py` 的基础题，用 `-m basic` 检查结果。选做函数题时，回顾 `def`、`return` 和 `if`。
-4. 在 [notes.md](notes.md) 记录一处结果和自己原先预测不同的地方，以及验证方法。
+1. **读原文**（约 10 分钟）：按「算术 → 比较 → 赋值 → 位运算 → 逻辑 → 成员 → 身份 → 优先级」顺序通读，了解各类运算符的符号与大致用途，不必死记优先级表。
+2. **读本页与函数速查**：看「要点」「和 JS 的差异」「原教程勘误」，本章新遇到的函数查 [functions.md](functions.md)；前几章已讲的 API 查[第 1 章速查](../01-basic-syntax/functions.md)、[第 2 章速查](../02-basic-data-types/functions.md)和[第 3 章速查](../03-type-conversion/functions.md)。
+3. **跑 demo**：按下方顺序运行 4 个 `*_demo.py`，先预测再观察 `print()` 输出；标为 `拓展：` 的海象运算符、权限掩码和幂右结合只作观察，暂不要求手写。
+4. **做基础练习**：完成 [exercises_06.py](exercises_06.py) 的「基础练习」（四组表达式与赋值题），用 pytest `-m basic` 验证（用法见 [pytest 教程](../tooling/pytest/README.md)）。
+5. **选做进阶练习**：若已熟悉 `def` / `return` / `if`，可继续挑战「进阶练习」（保留列表合法假值、按位更新权限掩码）。
+6. **阶段复盘**：学到哪一小节就顺手把本章理解、差异和易错点记进 [notes.md](notes.md)。
 
-## 要点（按原文正文顺序）
+## 学习验收标准
 
-| 主题 | 本章要会解释 |
-| --- | --- |
-| 算术 | `+`、`-`、`*`、`/`、`%`、`**`、`//`。`7 / 3` 得到小数，`-7 // 3` 向下取整得到 `-3`，`-7 % 3` 得到 `2`。对于整数，`被除数 = 整除商 * 除数 + 余数`。 |
-| 比较 | `==`、`!=`、`<`、`<=`、`>`、`>=`。对本章使用的内置值，结果是 `bool`。`下界 <= 值 < 上界` 同时检查两侧，中间表达式只求值一次。不支持排序的值用大小运算符比较时可能抛 `TypeError`，例如 `3 < "4"`。 |
-| 赋值 | `=` 把右侧求出的值绑定到左侧。`+=`、`-=`、`*=`、`/=`、`%=`、`**=`、`//=` 先运算再写回，列表 `+=` 还会原地扩展。`:=` 在表达式里给名字赋值，并产生该值。比较长度时用 `(n := len(items)) > 2` 明确分组，日常可先写一行常规赋值。 |
-| 位运算 | `&` 与、`\|` 或、`^` 异或、`~` 取反、`<<` 左移、`>>` 右移。对整数，`~x` 等于 `-x - 1`，右移 `n` 位相当于整除 `2 ** n`。 |
-| 逻辑 | `and` 遇到假值就返回左操作数，`or` 遇到真值就返回左操作数。否则两者都会求值并返回右操作数。`not` 返回反转后的布尔值。真假值规则见[第 2 章 `bool()` 速查](../02-basic-data-types/functions.md#必会bool)。 |
-| 成员 | `in`、`not in` 检查成员。字符串查子串，列表和元组查元素，字典默认查键。 |
-| 身份 | `is`、`is not` 检查两个引用是否指向同一对象。`==` 检查值是否相等。可用 `id()` 观察对象标识，判空用 `is None`。 |
-| 优先级 | 本章常用顺序从高到低为乘除取模组 → 加减 → 移位 → `&` → `^` → `\|` → 比较、成员与身份 → `not` → `and` → `or`。幂运算向右分组，`-2 ** 2` 得到 `-4`。条件表达式也向右分组。完整表包括调用、下标、`await`、`@`、`lambda` 和 `:=`。[Python 3.11 优先级表](https://docs.python.org/3.11/reference/expressions.html#operator-precedence) |
-
-## 【补充】JS/TS 对照与原文勘误
-
-- JS/TS 的 `//` 开始注释。整除可类比 `Math.floor(a / b)`。整数取模时，Python 的非零余数与除数同号，JS 的 `%` 与被除数同号。例如 Python `-7 % 3` 得 `2`，JS 得 `-1`。
-- Python 用 `and`、`or`、`not` 表达 JS 的 `&&`、`||`、`!`。两边的短路方式相近，空列表和空字典在 Python 中是假值，JS 的空数组和空对象是真值。默认值只应替换 `None` 时，用 `默认值 if 值 is None else 值` 保留 `0` 和空字符串。
-- Python 列表的 `==` 会比较内容。`is` 检查对象身份，类似 JS 对对象做 `===`；JS 的 `in` 查对象属性，Python 的列表成员判断更接近 `includes()`。Python 的 `==` 不会把数字文本自动转换为数字，`3 == "3"` 得到 `False`。
-- 原文把 Python 左移描述为丢弃高位。Python 的整数可按需增加位数，左移等价于乘 `2 ** 位数`。JS 的普通 `Number` 按位运算会转成 32 位整数。两边都应区别按位与 `&` 和短路逻辑与。
-- 原文比较表将结果写作 `1` 和 `0`，本章的内置值比较得到 `True` 或 `False`。原文的整数身份示例受对象复用影响，课程改用列表别名和切片副本。`id()` 的语言语义是对象标识，CPython 用地址实现。原文优先级示例把分组写成「先算 and」。当 or 左侧为真时，右侧的 and 子表达式会被跳过。日常不等判断用 `!=`。[Python 3.11 表达式参考](https://docs.python.org/3.11/reference/expressions.html)
+- [ ] 未开始
+- [ ] 阅读完成
+- [ ] 示例理解完成：能解释 `int(-7 / 3)` 与 `-7 // 3`、`-7 % 3` 的区别，列表 `+=` 原地修改与 `+` 重新绑定的身份差异，`and` / `or` 的返回值与 `is None` 缺省值判断，`is` 与 `==` 的区别，以及优先级分组与短路求值顺序的差异。
+- [ ] 基础练习通过：独立完成四组基础题，`-m basic` 全部显示 `PASSED`，并能用自己的话说明每题选用的运算符与边界条件。
+- [ ] 进阶练习通过（可选）
+- [ ] 本章完成：读完原文、能解释示例、基础测试全过，并在 `notes.md` 记录易错点或自己的验证过程。
 
 ## 文件
 
 | 文件 | 内容 |
 | --- | --- |
-| [01_arith_compare_demo.py](01_arith_compare_demo.py) | 四则、乘方、整除和取模、六种比较、链式区间 |
-| [02_assignment_demo.py](02_assignment_demo.py) | 增量赋值、列表别名、常规赋值与海象运算符 |
-| [03_bitwise_logic_demo.py](03_bitwise_logic_demo.py) | 位运算、权限位、逻辑短路 |
-| [04_member_id_demo.py](04_member_id_demo.py) | 字符串、列表和字典成员，身份、分组 |
-| [functions.md](functions.md) | 本章首次引入的 `id()`，以及前章 API 的入口 |
-| [exercises_06.py](exercises_06.py) | 四组基础题、两道选做函数题 |
-| [test_demos_06.py](test_demos_06.py)、[test_exercises_06.py](test_exercises_06.py) | Demo 自检与分层练习验收 |
-| [notes.md](notes.md) | 个人验证和错题复盘 |
+| [01_arith_compare_demo.py](01_arith_compare_demo.py) | 基本算术、`int()` 向零截断 vs `//` 与 `%`、六种比较、跨类型比较说明与链式比较 |
+| [02_assignment_demo.py](02_assignment_demo.py) | 普通赋值、数值增量赋值、列表 `+=` 原地修改 vs `+` 重新绑定与身份对照、海象运算符（拓展） |
+| [03_bitwise_logic_demo.py](03_bitwise_logic_demo.py) | 六种整数位运算、权限掩码与清除（拓展）、逻辑返回值与短路、`or` 与 `is None` 缺省值对照 |
+| [04_member_id_demo.py](04_member_id_demo.py) | 列表/元组/集合/字符串/字典键与 `dict.values()` 成员判断、身份与 `id()`、优先级分组与求值顺序 |
+| [functions.md](functions.md) | 本章首次引入的 `id()` 完整速查（含签名、参数限制、异常与 JS 对照）及前章 API 入口 |
+| [exercises_06.py](exercises_06.py) | 基础练习（必做，四组题）+ 进阶练习（可选，两道函数题） |
+| [test_exercises_06.py](test_exercises_06.py) | 练习的自动测试，不要修改 |
+| [test_demos_06.py](test_demos_06.py) | 4 个 Demo 的自检；运行全章 pytest 时执行 |
+| [notes.md](notes.md) | 个人学习笔记与错题复盘（记录理解、验证、差异、易错点与待解问题） |
 
 ## 运行
 
-在仓库根目录打开 PowerShell。环境准备见[第 1 章「运行」](../01-basic-syntax/README.md#运行)。
+在仓库根目录打开 PowerShell 运行（环境准备、练习做法与 pytest 结果说明见[项目根目录 README](../../README.md)）：
 
 ```powershell
 .\.venv\Scripts\python.exe .\lessons\06-operators\01_arith_compare_demo.py
@@ -55,18 +46,44 @@
 .\.venv\Scripts\python.exe .\lessons\06-operators\03_bitwise_logic_demo.py
 .\.venv\Scripts\python.exe .\lessons\06-operators\04_member_id_demo.py
 
-.\.venv\Scripts\python.exe -m pytest lessons/06-operators -m basic -v
-.\.venv\Scripts\python.exe -m pytest lessons/06-operators -m advanced -v
-.\.venv\Scripts\python.exe -m pytest lessons/06-operators -v
+.\.venv\Scripts\python.exe -m pytest lessons/06-operators -m basic -v     # 只测基础练习
+.\.venv\Scripts\python.exe -m pytest lessons/06-operators -m advanced -v  # 只测进阶练习
+.\.venv\Scripts\python.exe -m pytest lessons/06-operators -v              # 测全部练习和 Demo 自检
 ```
 
-练习占位未填写时显示 `SKIPPED`。基础题通过后，能说明选用哪个运算符以及取值边界，才勾选基础验收。
+## 要点（按原文顺序）
 
-## 学习验收标准
+| 运算符分类 | 常用运算符 | 核心规则与示例 |
+| --- | --- | --- |
+| 算术运算符 | `+` `-` `*` `/` `//` `%` `**` | `7 / 3` 总得 `float`；`int(-7 / 3)` 向零截断得 `-2`，`-7 // 3` 向下取整得 `-3`，`-7 % 3` 得 `2`（满足 `被除数 == 整除商 * 除数 + 余数`，非零余数与除数同号） |
+| 比较运算符 | `==` `!=` `<` `<=` `>` `>=` | 内置值比较返回 `bool`；`==` 跨类型不隐式转换（`3 == "3"` 为 `False`），跨类型大小比较（如 `3 < "4"`）抛 `TypeError`；链式比较 `3 <= 7 < 10` 中间表达式只求值一次 |
+| 赋值运算符 | `=` `+=` `-=` `*=` `/=` `//=` `%=` `**=` `:=` | 列表 `a += [x]` 原地修改原对象（别名可见），`a = a + [x]` 生成新列表并重新绑定（原别名不变）；`:=`（拓展）在表达式内赋值并返回该值，如 `(n := len(items)) > 2` |
+| 位运算符 | `&` `\|` `^` `~` `<<` `>>` | 按整数二进制位运算；Python 中 `~x == -x - 1`，右移 `n` 位等价于向下整除 `2 ** n`；权限掩码与清除见 Demo 03 拓展段 |
+| 逻辑运算符 | `and` `or` `not` | `and` / `or` 短路并返回决定结果的**操作数本身**，`not` 恒返回 `bool`；`值 or 默认值` 会误覆盖 `0`、`""`、`False`，仅在 `None` 时回退写 `默认值 if 值 is None else 值` |
+| 成员运算符 | `in` `not in` | 字符串查子串，列表/元组/集合查元素，字典默认查键；查字典值用 `值 in 字典.values()` |
+| 身份运算符 | `is` `is not` | 检查两个变量是否引用同一对象，`==` 检查值是否相等；判空固定写 `is None` / `is not None`，调试观察标识可用 `id()` |
+| 运算符优先级 | 见下方常用顺序 | 高到低：乘除取模组 → 加减 → 移位 → `&` → `^` → `\|` → 比较/成员/身份 → `not` → `and` → `or`。**优先级只决定语法分组，实际求值从左到右并受短路控制**；拓展：`2 ** 3 ** 2` 向右分组，`-2 ** 2 == -4`。完整表见 [Python 3.11 优先级表](https://docs.python.org/3.11/reference/expressions.html#operator-precedence) |
 
-- [ ] 未开始
-- [ ] 阅读完成
-- [ ] 示例理解完成，能解释负数整除和取模、逻辑短路、`is` 与 `==`，并用括号表示一条混合表达式的分组。
-- [ ] 基础练习通过，独立完成四组基础题，`-m basic` 全部通过并能说明写法。
-- [ ] 进阶练习通过（可选），能保留列表中的假值，并更新单个权限位。
-- [ ] 本章完成
+## 【补充】和 JS 的差异
+
+| 主题 | JS | Python | 注意 |
+| --- | --- | --- | --- |
+| 整除运算符 | `//` 是单行注释；用 `Math.floor(a / b)` | `a // b` 向下取整 | `int(a / b)` 向零截断，类似 JS 的 `Math.trunc(a / b)` |
+| 负数取模 `%` | `-7 % 3 === -1`（与被除数同号） | `-7 % 3 == 2`（与除数同号） | Python 保证 `a == (a // b) * b + (a % b)` |
+| 跨类型比较 | `3 == "3"` 为 `true`，`3 < "4"` 为 `true` | `3 == "3"` 为 `False`，`3 < "4"` 抛 `TypeError` | Python 没有 `===`，`==` 也不做跨类型隐式转换 |
+| 链式比较 | `3 <= 7 < 10` 先得 `true` 再算 `1 < 10` | `3 <= 7 < 10` 等价于 `3 <= 7 and 7 < 10` | Python 原生支持链式区间，且中间表达式只求值一次 |
+| 列表拼接赋值 | `arr.push(...other)` 原地修改 | `a += [x]` 原地修改，`a = a + [x]` 重新绑定 | 存在列表别名时，两种写法的对象身份结果相反 |
+| 逻辑运算符与空容器 | `&&` `\|\|` `!`；`[]`、`{}` 为真 | `and` `or` `not`；`[]`、`{}` 为假 | 两边都短路且返回原操作数，但空容器真假值相反 |
+| 仅空值回退默认值 | `val ?? fallback`（空值合并） | `fallback if val is None else val` | 用 `or` 会像 JS `\|\|` 一样误盖 `0`、`""`、`False` |
+| 成员判断 | `arr.includes(x)`；`k in obj` 查属性 | `x in seq`；`k in d` 查键，`v in d.values()` 查值 | 字符串用 `in` 查子串，类似 `str.includes(sub)` |
+| 值相等 vs 对象身份 | 对象 `===` 仅比引用，不比内容 | `==` 比较内容，`is` 比较对象身份 | 比较列表/字典内容用 `==`，判空用 `is None` |
+| 整数位运算位数 | 普通 `Number` 先转 32 位有符号整数 | `int` 任意精度，左移不丢弃高位 | 两边均须区分按位与 `&` 与逻辑与 `and` / `&&` |
+
+## 【补充】原教程勘误与不推荐写法
+
+- **比较表称返回 `1` 和 `0`**：原文描述“所有比较运算符返回 1 表示真，返回 0 表示假”，实际 Python 3 内置值比较返回的是布尔值 `True` 和 `False`（只是 `bool` 是 `int` 子类）。
+- **左移“高位丢弃”不适用于 Python 整数**：Python 的 `int` 是任意精度整数，左移会按需扩展位数，不会截断丢弃高位，等价于乘 `2 ** 位数`。
+- **用小整数演示 `is` 容易误导**：原文用 `a = 20; b = 20` 演示 `a is b`，该结果依赖 CPython 的小整数缓存细节；验证值相等与对象身份应改用列表别名和切片副本（`a[:]`）。
+- **`id()` 的语言语义**：原文称 `id()` “获取对象内存地址”，这是 CPython 的具体实现细节；语言规范定义 `id()` 返回的是对象在存活期内唯一且不变的整数标识。
+- **优先级示例把“分组”误写成“先算 `and`”**：原文注释称 `x or y and z` 是“先算 `y and z`”。准确来说，`and` 优先级高于 `or` 决定了语法分组为 `x or (y and z)`；但实际从左到右求值，当 `x` 为 `True` 时，右侧整个 `and` 子表达式会被短路跳过，根本不会执行。
+- **代码格式与废弃写法**：原文多处写有 `print (...)`、`if ( a == b ):`、用内置名 `list` 做变量名以及提及 Python 2 的 `<>`；日常应遵守 PEP 8（`print(...)`、`if a == b:`、不用内置名作变量名、不等统一写 `!=`）。参考 [Python 3.11 表达式参考](https://docs.python.org/3.11/reference/expressions.html)。

@@ -1,9 +1,5 @@
 # 第 2 章 · 函数与方法完整速查（Python 3.11）
 
-【必会】用于基础练习；【了解】可在读到例子时再查。签名均已用 Python 3.11.9 的 `inspect.signature()` 或实际调用核对。
-
-以下签名中，`/` 之前的参数只能按位置传入，`*` 之后的参数只能按关键字传入；无默认值的参数为必填参数。方括号 `[ ]` 表示可以省略的部分。
-
 第 1 章已讲的 API 不再重复，见[第 1 章函数速查](../01-basic-syntax/functions.md)：`print()`、`input()`、`type()`、`len()`、`str()`、`int()`、`set()`、`isinstance()`。其中 `isinstance(obj, classinfo, /)` 在本章升为【必会】，重点是**子类实例也返回 `True`**：`isinstance(True, int)` 为 `True`，而 `type(True) is int` 为 `False`。
 
 ---
