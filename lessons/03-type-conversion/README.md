@@ -1,5 +1,7 @@
 # 第 3 章 · 数据类型转换
 
+学习模式：Core Learning（重点学习）
+
 阅读材料：[source/03-type-conversion.html](../../source/03-type-conversion.html)（菜鸟教程原文，在浏览器中打开）
 
 ## 学习步骤

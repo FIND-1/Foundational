@@ -1,6 +1,6 @@
 # 第 1 章 · 函数与方法完整速查（Python 3.11）
 
-分级标签与签名符号约定见[项目根目录 README](../../README.md)；下半页的【补充】收录进阶验证所用的工具。
+分级标签与签名符号约定见[项目根目录 README](../../README.md)；下半页的【补充】收录拓展示例用到的函数与方法。
 
 ---
 
@@ -206,24 +206,11 @@
 | `s.startswith(prefix[, start[, end]], /)` | 检查指定范围的开头，返回 `bool`。`prefix` 必填，可为字符串或字符串元组；范围可选，均仅限位置。 | `"abc".startswith("b", 1)` 得到 `True`。把列表用作前缀会抛 `TypeError`。 | `startsWith(prefix, position)` 只接受一个前缀。 |
 | `s.splitlines(keepends=False)` | 按行边界拆成 `list[str]`；可选的 `keepends` 可按位置或关键字传入，为真时保留行尾。 | `"a\nb\n".splitlines()` 得到 `["a", "b"]`。多传一个参数会抛 `TypeError`。 | JS 的 `split("\n")` 在末尾换行时还会留下空串。 |
 
-## 【补充】【了解】进阶断言用到的类型与输出工具
+## 【补充】【了解】集合与类型检查
 
 | 完整调用形式 | 参数、限制与返回值 | 基础示例与常见错误 | JS 对照 |
 | --- | --- | --- | --- |
 | `set()`、`set(iterable, /)` | 返回去重后的可变集合 `set`；省略参数得到空集合，传入时只接受一个位置参数，元素须可哈希。 | `set("aba")` 包含 `"a"` 和 `"b"`。不可迭代的输入或列表元素不可哈希时抛 `TypeError`。 | `new Set(iterable)` |
 | `isinstance(obj, classinfo, /)` | 两项均必填且仅限位置。检查对象是否属于指定类型或其子类，返回 `bool`；`classinfo` 也可为类型元组或联合类型。 | `isinstance("18", str)` 得到 `True`。把字符串 `"str"` 当类型会抛 `TypeError`。 | 类似 `instanceof`，也能检查字符串等内置类型。 |
-| `io.StringIO(initial_value='', newline='\n')` | 创建内存文本流并返回 `StringIO` 对象。初始文本默认空串；换行参数控制换行识别与写入转换，可取 `None`、空串、换行、回车或回车换行。两项均可选，可按位置或关键字传入。 | `import io` 后，`io.StringIO("Hi").getvalue()` 得到 `"Hi"`。传入字节会抛 `TypeError`，无效换行设置会抛 `ValueError`。 | 内存里收集文本，类似用数组收集输出再拼接。 |
-| `buffer.getvalue()`（`io.StringIO.getvalue(self, /)`） | 取出流中的全部文本，返回 `str`；唯一必需的位置参数是隐式传入的流实例，不改变当前位置。 | `io.StringIO().getvalue()` 得到空串。流已关闭时抛 `ValueError`。 | 类似取出缓冲的文本。 |
-| `contextlib.redirect_stdout(new_target)` | 必填的 `new_target` 可按位置或关键字传入。返回上下文管理器；进入 `with` 后临时把标准输出指向目标，退出后恢复。 | 见下例。目标缺少 `write` 方法时，块内的 `print` 会抛 `AttributeError`。 | 类似测试里临时替换输出并在结束后恢复。 |
 
-```python
-import contextlib
-import io
-
-buffer = io.StringIO()
-with contextlib.redirect_stdout(buffer):
-    print("Hi")
-print(buffer.getvalue() == "Hi\n")  # True
-```
-
-更多示例见 Python 3.11 官方文档的[字符串方法](https://docs.python.org/3.11/library/stdtypes.html#string-methods)、[文本流](https://docs.python.org/3.11/library/io.html#io.StringIO)和[输出重定向](https://docs.python.org/3.11/library/contextlib.html#contextlib.redirect_stdout)。
+更多示例见 Python 3.11 官方文档的[字符串方法](https://docs.python.org/3.11/library/stdtypes.html#string-methods)与[内置函数](https://docs.python.org/3.11/library/functions.html)。

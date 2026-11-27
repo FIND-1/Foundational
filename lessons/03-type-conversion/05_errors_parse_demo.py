@@ -2,8 +2,6 @@
 
 用途：区分 ValueError 与 TypeError，演示用 try / except / else 处理失败转换，以及对比 eval() 与 ast.literal_eval()。
 运行（仓库根目录，已激活 .venv）：python lessons/03-type-conversion/05_errors_parse_demo.py
-预期结果：'12' 转换成功，'3.5' 和 'abc' 触发 ValueError，None 触发 TypeError；
-eval("1 + 2") 得 3；literal_eval 解析 "[1, 2, 3]" 得列表，拒绝 "1 + 2"。
 """
 
 # 拓展：from 模块 import 名称（见第 1 章 03_io_import_demo.py）；ast 是解析 Python 语法的标准库模块
@@ -19,15 +17,15 @@ for value in ("12", "3.5", "abc"):
     try:
         converted = int(value)
     except ValueError:
-        print(f"{value!r} 不是有效的整数字符串（ValueError）")
+        print(f"{value!r} 不是有效的整数字符串（ValueError）")  # '3.5' / 'abc' 触发
     else:
         parsed_values.append(converted)
-        print(f"{value!r} 转成整数：{converted}")
+        print(f"{value!r} 转成整数：{converted}")              # '12' 转成整数：12
 
 try:
     _ = int(None)
 except TypeError as error:
-    print("None 的类型不能直接转成整数（TypeError）：", error)
+    print("None 的类型不能直接转成整数（TypeError）：", error)  # int() argument must be a string, ... not 'NoneType'
 
 
 # ── 2. 拓展：eval() 与安全风险 ────────────────────────────────────────
@@ -63,4 +61,4 @@ print("bool vs literal_eval：", bool("False"), literal_eval("False"))  # True F
 try:
     _ = literal_eval("1 + 2")
 except ValueError as error:
-    print("不支持算术表达式（ValueError）：", error)
+    print("不支持算术表达式（ValueError）：", error)  # malformed node or string...

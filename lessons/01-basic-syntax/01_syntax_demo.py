@@ -2,12 +2,9 @@
 
 用途：直观演示第 1 章的语法规则与 Python / JS 差异。
 运行（仓库根目录，已激活 .venv）：python lessons/01-basic-syntax/01_syntax_demo.py
-预期结果：变量 count 和 Count 分别打印 1 和 2，缩进代码块打印 big，两种续行都得到 6。末尾演示缩进错误的提示。
 """
 
-# 格式：print(值1, 值2) -> 默认空格分隔并换行；变量 = 值 绑定对象；import 模块名 载入模块
-# 注意：载入模块后用“模块名.名称”读取内容；字符串用引号包住
-import keyword
+import keyword  # import 写法见 03_io_import_demo.py 第 6 节；之后用“模块名.名称”读取内容
 
 # ── 1. 编码 ───────────────────────────────────────────────────────────
 # 注意：Python 3 源文件默认 UTF-8，直接写中文即可（与 JS 一样）
@@ -17,6 +14,7 @@ import keyword
 # ── 2. 标识符 ─────────────────────────────────────────────────────────
 # 格式：字符串.isidentifier() -> bool（拼写合规返回 True，否则 False）
 # 注意：字母或下划线开头，可含字母/数字/下划线，区分大小写；与 JS 不同，不允许使用 $
+# 格式：变量 = 值 -> 绑定对象；print(值1, 值2) -> 默认空格分隔并换行（完整用法见 03_io_import_demo.py 第 5 节）
 valid_name = "user_name"
 invalid_digit = "2nd_place"
 invalid_dollar = "$price"
@@ -100,15 +98,15 @@ print("只有首字母大写的 True 是关键字：", "True" in keyword.kwlist 
 print("文档说明以「第 1 章」开头：", __doc__.startswith("第 1 章"))
 print("这四个关键字都在列表中：", {"and", "or", "not", "elif"} <= set(keyword.kwlist))
 
-# ── 拓展：用 compile() 与 try/except 验证缩进报错 ──────────────────────
-# 注意：\n 表示换行；变量可重新赋值，编译时取最后一次赋的值（第三行 2 空格与前两行不对齐）
-bad_code = "if True:\n    a = 1\n    b = 2\n"
+
+# ── 7. 拓展：用 compile() 与 try/except 验证缩进报错 ───────────────────
+# 注意：\n 表示换行；第三行只缩进 2 个空格，与前一行的 4 个空格不对齐
 bad_code = "if True:\n    a = 1\n  b = 2\n"
 # 格式：compile(源码, 显示文件名, "exec") -> 编译多行源码；try / except 异常类型 as error / else
 # 拓展：发生 IndentationError 进入 except（error.msg 存原因），无错才进入 else
 try:
     compile(bad_code, "<bad>", "exec")
 except IndentationError as error:
-    print("【进阶】成功捕获缩进错误：", error.msg)
+    print("拓展 - 成功捕获缩进错误：", error.msg)
 else:
-    print("【进阶】这段代码缩进正确，可以编译。")
+    print("拓展 - 这段代码缩进正确，可以编译。")

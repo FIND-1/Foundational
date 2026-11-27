@@ -1,8 +1,4 @@
-"""第 2 章练习的自动测试。不要修改本文件，要让测试通过，请完善 exercises_02.py。
-
-运行基础练习：./.venv/Scripts/python.exe -m pytest lessons/02-basic-data-types -m basic -v
-运行全部练习：./.venv/Scripts/python.exe -m pytest lessons/02-basic-data-types -v
-"""
+"""第 2 章练习的自动测试。不要修改本文件，要让测试通过，请完善 exercises_02.py。"""
 
 from io import StringIO
 import runpy

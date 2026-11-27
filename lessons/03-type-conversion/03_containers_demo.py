@@ -2,8 +2,6 @@
 
 用途：演示序列、集合、不可变集合和字典之间的互相转换，以及去重、原对象不变和常见错误。
 运行（仓库根目录，已激活 .venv）：python lessons/03-type-conversion/03_containers_demo.py
-预期结果：字符串拆为 ['a', 'b', 'c'] 和 ('a', 'b', 'c')；去重后元素数量为 3 且原列表不变；
-字典转列表只得到键；重复键以后者覆盖前者。末尾演示两种容器转换报错。
 """
 
 # ── 1. 字符串与序列转 list / tuple / set ──────────────────────────────
@@ -73,7 +71,7 @@ print("整数列表转集合：", set([1, 2, 2]))            # {1, 2}
 try:
     _ = set([[1, 2]])
 except TypeError as error:
-    print("列表不能作为集合元素：", error)
+    print("列表不能作为集合元素：", error)  # unhashable type: 'list'
 
 # 注意：tuple 的每个元素都可哈希时，整个 tuple 才可哈希
 print("元组作为集合元素：", set([(1, 2)]))           # {(1, 2)}
@@ -83,4 +81,4 @@ print("合法键值对转字典：", dict([("a", 1), ("b", 2)]))  # {'a': 1, 'b'
 try:
     _ = dict([("a", 1, 2)])
 except ValueError as error:
-    print("键值对长度错误：", error)
+    print("键值对长度错误：", error)  # dictionary update sequence element #0 has length 3; 2 is required

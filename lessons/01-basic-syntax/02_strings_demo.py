@@ -2,7 +2,6 @@
 
 用途：直观打印各种数字与字符串操作结果，并与 JS 对照。
 运行（仓库根目录，已激活 .venv）：python lessons/01-basic-syntax/02_strings_demo.py
-预期结果：除法打印 3.5、3 和 -4；s[2:5] 打印 345；原始字符串保留反斜杠。末尾演示三种字符串操作的报错。
 """
 
 # ── 1. 数字类型 ───────────────────────────────────────────────────────
@@ -99,20 +98,20 @@ print("普通转义字符串：\n" + normal_str)
 print("原始字符串：", raw_str, "长度：", len(raw_str))
 
 
-# ── 拓展：观察字符串操作的三种报错 ────────────────────────────────────
+# ── 5. 拓展：观察字符串操作的三种报错 ─────────────────────────────────
 # 注意：TypeError 表示类型不符，IndexError 表示下标越界；_ 惯例表示忽略返回值
-# 拓展：try / except 读法见 01_syntax_demo.py 末尾
+# 拓展：try / except 读法见 01_syntax_demo.py 第 7 节
 try:
     _ = "a" + 1                        # JS 中会得到 "a1"，Python 直接报 TypeError
 except TypeError:
-    print("【进阶】字符串与整数相加抛出 TypeError")
+    print("拓展 - 字符串与整数相加抛出 TypeError")
 
 try:
     _ = s[100]                         # JS 中返回 undefined，Python 直接报 IndexError
 except IndexError:
-    print("【进阶】索引越界抛出 IndexError")
+    print("拓展 - 索引越界抛出 IndexError")
 
 try:
     s[0] = "X"                         # 字符串不可变；JS 非严格模式静默失败，Python 抛 TypeError
 except TypeError:
-    print("【进阶】修改字符串字符抛出 TypeError")
+    print("拓展 - 修改字符串字符抛出 TypeError")

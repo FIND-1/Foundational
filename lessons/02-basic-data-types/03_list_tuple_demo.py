@@ -2,8 +2,6 @@
 
 用途：演示列表的截取、拼接、修改、步长切片、单词倒序，以及元组的截取、不可变和单元素写法。
 运行（仓库根目录，已激活 .venv）：python lessons/02-basic-data-types/03_list_tuple_demo.py
-预期结果：切片赋值后列表为 [9, 2, 13, 14, 15, 6]，再删除后为 [9, 2, 6]；单词倒序得到 runoob like I；
-(42) 的类型是 int，(20,) 的类型是 tuple。末尾演示修改元组元素的报错。
 """
 
 # ── 1. 列表：创建、截取与拼接 ─────────────────────────────────────────
@@ -13,11 +11,11 @@ my_list = ['abcd', 786, 2.23, 'runoob', 70.2]
 tinylist = [123, 'runoob']
 
 print(my_list)             # ['abcd', 786, 2.23, 'runoob', 70.2]
-print(my_list[0])          # 第一个元素：abcd
-print(my_list[1:3])        # 下标 1 和 2：[786, 2.23]
-print(my_list[2:])         # 从下标 2 到末尾：[2.23, 'runoob', 70.2]
+print(my_list[0])          # abcd
+print(my_list[1:3])        # [786, 2.23]
+print(my_list[2:])         # [2.23, 'runoob', 70.2]
 print(tinylist * 2)        # [123, 'runoob', 123, 'runoob']
-print(my_list + tinylist)  # 拼接两个列表
+print(my_list + tinylist)  # ['abcd', 786, 2.23, 'runoob', 70.2, 123, 'runoob']
 
 # 格式：嵌套列表[外层下标][内层下标] -> 逐层取值（nested[1] 得 [2, 3]，再 [0] 得 2）
 nested = [1, [2, 3]]
@@ -38,7 +36,7 @@ print("删除一段后：", a)  # [9, 2, 6]
 items = ["苹果", "香蕉", "梨", "橙子"]
 items[0] = "桃子"
 items.append("葡萄")
-print("修改并追加后：", items)
+print("修改并追加后：", items)  # ['桃子', '香蕉', '梨', '橙子', '葡萄']
 
 
 # ── 3. 步长与逆向截取 ─────────────────────────────────────────────────
@@ -68,9 +66,9 @@ def reverse_words(text):
 # 拓展：直接运行本文件时 __name__ == "__main__" 成立（详见第 1 章 exercises_01.py 注释）
 if __name__ == "__main__":
     sentence = "I like runoob"
-    print("原例：", reverseWords(sentence))
-    print("改写：", reverse_words(sentence))
-    print("连续空格：", reverse_words("I  like").split(" "))
+    print("原例：", reverseWords(sentence))                    # runoob like I
+    print("改写：", reverse_words(sentence))                   # runoob like I
+    print("连续空格：", reverse_words("I  like").split(" "))  # ['like', '', 'I']
 
 
 # ── 4. 元组：创建与截取 ───────────────────────────────────────────────
@@ -80,12 +78,12 @@ if __name__ == "__main__":
 my_tuple = ('abcd', 786, 2.23, 'runoob', 70.2)
 tinytuple = (123, 'runoob')
 
-print(my_tuple)               # 完整元组
-print(my_tuple[0])            # 第一个元素：abcd
-print(my_tuple[1:3])          # 下标 1 和 2：(786, 2.23)
-print(my_tuple[2:])           # 从下标 2 开始的所有元素
-print(tinytuple * 2)          # 重复两次
-print(my_tuple + tinytuple)   # 连接两个元组
+print(my_tuple)               # ('abcd', 786, 2.23, 'runoob', 70.2)
+print(my_tuple[0])            # abcd
+print(my_tuple[1:3])          # (786, 2.23)
+print(my_tuple[2:])           # (2.23, 'runoob', 70.2)
+print(tinytuple * 2)          # (123, 'runoob', 123, 'runoob')
+print(my_tuple + tinytuple)   # ('abcd', 786, 2.23, 'runoob', 70.2, 123, 'runoob')
 
 tup = (1, 2, 3, 4, 5, 6)
 print(tup[0])    # 1
@@ -106,17 +104,17 @@ print("元组里的列表被修改：", pair)  # (1, [2, 3, 4])
 tup1 = ()      # 空元组
 tup2 = (20,)   # 一个元素，需要在元素后添加逗号
 not_a_tuple = (42)  # 这是整数 42，不是元组
-print("三种写法的类型：", type(tup1), type(tup2), type(not_a_tuple))
+print("三种写法的类型：", type(tup1), type(tup2), type(not_a_tuple))  # <class 'tuple'> <class 'tuple'> <class 'int'>
 print("bool(())、bool(tup2)：", bool(tup1), bool(tup2))  # False True
 
 # 注意：str、list、tuple 都属于序列（sequence）：有序，支持索引和切片
 point = (3, 4)
-print("元组的索引、切片与拼接：", point[0], point[:1], point + (5,))
+print("元组的索引、切片与拼接：", point[0], point[:1], point + (5,))  # 3 (3,) (3, 4, 5)
 
 
-# ── 拓展：观察修改元组元素的报错 ──────────────────────────────────────
-# 注意：给元组下标赋值会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 末尾）
+# ── 7. 拓展：观察修改元组元素的报错 ───────────────────────────────────
+# 注意：给元组下标赋值会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 第 7 节）
 try:
     tup[0] = 11
 except TypeError as error:
-    print("【进阶】修改元组元素：", error)
+    print("拓展 - 修改元组元素：", error)  # 'tuple' object does not support item assignment

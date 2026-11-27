@@ -1,5 +1,7 @@
 # 第 1 章 · 基础语法
 
+学习模式：Core Learning（重点学习）
+
 阅读材料：[source/01-basic-syntax_files.html](../../source/01-basic-syntax_files.html)（菜鸟教程原文，在浏览器中打开）
 
 ## 学习步骤
@@ -30,7 +32,7 @@
 | [functions.md](functions.md) | 本章首次引入的函数与方法完整速查（含签名、参数限制、异常与 JS 对照） |
 | `exercises_01.py` | 基础练习（必做，写表达式和输入输出）+ 进阶练习（可选，写函数） |
 | `test_exercises_01.py` | 练习的自动测试，不要修改 |
-| `test_demos_01.py` | 语法和字符串 Demo 的自检；运行全章 pytest 时执行 |
+| `test_demos_01.py` | 3 个 Demo 的自检；运行全章 pytest 时执行 |
 | `notes.md` | 个人学习笔记与错题复盘（记录理解、验证、差异、易错点与待解问题） |
 
 ## 运行
@@ -47,7 +49,7 @@
 .\.venv\Scripts\python.exe -m pytest lessons/01-basic-syntax -v            # 测全部练习
 ```
 
-前两个 Demo 直接展示结果；第三个 Demo 在「拓展」部分介绍 `assert`，末尾的 `all passed` 表示该示例自检通过。前两个 Demo 的检查随全章 pytest 一起运行。
+三个 Demo 直接展示结果，示例自检统一由 `test_demos_01.py` 随全章 pytest 一起运行。
 
 ## 要点（按原文顺序）
 

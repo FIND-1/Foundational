@@ -2,8 +2,6 @@
 
 用途：演示兼容数字类型运算时的隐式类型转换、原变量类型保持不变，以及字符串与数字不能直接相加。
 运行（仓库根目录，已激活 .venv）：python lessons/03-type-conversion/01_implicit_demo.py
-预期结果：num_new 打印 124.23 且类型为 float；相加后 integer 仍为 int；
-先转换再计算得到 124，先转换再拼接得到 1231。末尾演示整数与字符串直接相加的报错。
 """
 
 # ── 1. 整数与浮点数相加的隐式转换 ─────────────────────────────────────
@@ -14,11 +12,11 @@ num_flo = 1.23
 
 num_new = num_int + num_flo
 
-print("num_int 数据类型为:", type(num_int))
-print("num_flo 数据类型为:", type(num_flo))
+print("num_int 数据类型为:", type(num_int))  # <class 'int'>
+print("num_flo 数据类型为:", type(num_flo))  # <class 'float'>
 
-print("num_new 值为:", num_new)
-print("num_new 数据类型为:", type(num_new))
+print("num_new 值为:", num_new)              # 124.23
+print("num_new 数据类型为:", type(num_new))  # <class 'float'>
 
 
 # ── 2. 原变量类型不变 ─────────────────────────────────────────────────
@@ -26,16 +24,16 @@ print("num_new 数据类型为:", type(num_new))
 integer = 123
 decimal = 1.25
 result = integer + decimal
-print("整数：", integer, type(integer))
-print("浮点数：", decimal, type(decimal))
-print("相加结果：", result, type(result))  # 124.25 <class 'float'>
-print("原变量仍是整数：", type(integer))
+print("整数：", integer, type(integer))          # 123 <class 'int'>
+print("浮点数：", decimal, type(decimal))        # 1.25 <class 'float'>
+print("相加结果：", result, type(result))        # 124.25 <class 'float'>
+print("原变量仍是整数：", type(integer))         # <class 'int'>
 print("bool 与 int 相加：", True + 2, type(True + 2))  # 3 <class 'int'>
 
 # 拓展：二进制浮点数无法精确表示所有十进制小数，极大整数转 float 也会丢失精度（精确小数用 Decimal，见第 1 章）
 big_int = 10 ** 17
-print("隐式转 float 仍有浮点精度问题：", 0 + 0.1 + 0.2)
-print("超大整数隐式转 float 丢失低位精度：", big_int + 1.0 == big_int)
+print("隐式转 float 仍有浮点精度问题：", 0 + 0.1 + 0.2)                  # 0.30000000000000004
+print("超大整数隐式转 float 丢失低位精度：", big_int + 1.0 == big_int)    # True
 
 
 # ── 3. 字符串与数字不能直接相加 ───────────────────────────────────────
@@ -45,12 +43,12 @@ print("先转换再计算：", int("123") + 1)    # 124
 print("先转换再拼接：", "123" + str(1))    # 1231
 
 
-# ── 拓展：观察整数与字符串直接相加的报错 ──────────────────────────────
-# 注意：不同类型之间无法隐式转换时会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 末尾）
+# ── 4. 拓展：观察整数与字符串直接相加的报错 ───────────────────────────
+# 注意：不同类型之间无法隐式转换时会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 第 7 节）
 num_str = "456"
-print("num_int、num_str 类型：", type(num_int), type(num_str))
+print("num_int、num_str 类型：", type(num_int), type(num_str))  # <class 'int'> <class 'str'>
 
 try:
     _ = num_int + num_str
 except TypeError as error:
-    print("拓展 - 整数与字符串直接相加：", error)
+    print("拓展 - 整数与字符串直接相加：", error)  # unsupported operand type(s) for +: 'int' and 'str'

@@ -1,8 +1,9 @@
-"""第一章示例的自检。学习者的练习由 test_exercises_01.py 单独验收。"""
+"""第 1 章示例的自检。学习者的练习由 test_exercises_01.py 单独验收。"""
 
 import importlib.util
 import keyword
 from pathlib import Path
+import sys
 
 import pytest
 
@@ -19,6 +20,7 @@ def _load_demo(filename):
 
 syntax = _load_demo("01_syntax_demo.py")
 strings = _load_demo("02_strings_demo.py")
+io_import = _load_demo("03_io_import_demo.py")
 
 
 def test_names_and_keywords():
@@ -83,3 +85,36 @@ def test_string_errors():
         _ = strings.s[100]
     with pytest.raises(TypeError):
         strings.s[0] = "X"
+
+
+def test_io_import_values():
+    assert io_import.a + io_import.b == 3
+    assert io_import.grade(95) == "A"
+    assert io_import.grade(70) == "B"
+    assert io_import.grade(30) == "C"
+    assert io_import.return_value is None
+    assert io_import.written_count == 7
+    assert io_import.argv is sys.argv
+    assert io_import.path is sys.path
+    assert io_import.kw.iskeyword("def") is True
+    assert isinstance(io_import.script_path, str)
+
+
+def test_print_and_stdout_write(capsys):
+    print("a", "b")
+    assert capsys.readouterr().out == "a b\n"
+
+    print("a", "b", sep=" | ")
+    assert capsys.readouterr().out == "a | b\n"
+
+    print("a", end=" ")
+    assert capsys.readouterr().out == "a "
+
+    print()
+    assert capsys.readouterr().out == "\n"
+
+    print(print("x"))
+    assert capsys.readouterr().out == "x\nNone\n"
+
+    written = sys.stdout.write("runoob\n")
+    assert written == 7 and capsys.readouterr().out == "runoob\n"

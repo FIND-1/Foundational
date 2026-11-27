@@ -2,8 +2,6 @@
 
 用途：演示 bytes 的创建、按下标读取整数、切片与拼接，以及 encode / decode 和可修改的 bytearray。
 运行（仓库根目录，已激活 .venv）：python lessons/02-basic-data-types/05_bytes_demo.py
-预期结果：b"hello" 的首个元素打印 104；x[1:3] 打印 b'el'；"你好" 有 2 个字符、6 个 UTF-8 字节；
-bytearray 修改后解码为 Hello。末尾演示修改 bytes 元素的报错。
 """
 
 # ── 1. 用 b 前缀创建 bytes ────────────────────────────────────────────
@@ -18,7 +16,7 @@ print(x[0])            # 104：'h' 的 ASCII 值，取单个元素得到 int
 # ── 2. 用 bytes() 转换 ────────────────────────────────────────────────
 # 格式：bytes(字符串, encoding="utf-8") -> bytes（按指定编码转为字节序列）
 x = bytes("hello", encoding="utf-8")
-print("bytes() 转换：", x)
+print("bytes() 转换：", x)  # b'hello'
 
 
 # ── 3. 切片与拼接 ─────────────────────────────────────────────────────
@@ -36,8 +34,8 @@ print(z)            # b'helloworld'
 # 注意：bytes 元素是整数，与单字符字符串直接 == 不会报错，但恒为 False；比较前需用 ord()
 x = b"hello"
 if x[0] == ord("h"):
-    print("第一个元素是 'h'")
-print("x[0] == 'h'：", x[0] == "h")
+    print("第一个元素是 'h'")            # 第一个元素是 'h'
+print("x[0] == 'h'：", x[0] == "h")      # False
 
 
 # ── 5. 文本与字节的互相转换 ───────────────────────────────────────────
@@ -45,10 +43,10 @@ print("x[0] == 'h'：", x[0] == "h")
 # 注意：对应 JS 的 TextEncoder / TextDecoder；一个汉字在 UTF-8 占 3 字节，所以字符数(2) != 字节数(6)
 message = "你好"
 data = message.encode("utf-8")
-print("编码结果：", data)
-print("解码结果：", data.decode("utf-8"))  # 你好
+print("编码结果：", data)                               # b'\xe4\xbd\xa0\xe5\xa5\xbd'
+print("解码结果：", data.decode("utf-8"))               # 你好
 print("字符数量与字节数量：", len(message), len(data))  # 2 6
-print("字节序列的首个元素：", data[0])  # 228，取值 0～255
+print("字节序列的首个元素：", data[0])                  # 228（取值 0～255）
 
 
 # ── 6. 可修改的 bytearray ─────────────────────────────────────────────
@@ -58,14 +56,14 @@ ascii_data = bytes("hello", encoding="utf-8")
 mutable = bytearray(ascii_data)
 mutable[0] = ord("H")                          # 赋值时右侧必须是 0～255 的整数
 print("修改 bytearray：", mutable.decode("utf-8"))  # Hello
-print("原 bytes 不变：", ascii_data)            # b'hello'
+print("原 bytes 不变：", ascii_data)                # b'hello'
 
 # 拓展：数据类型转换（int()、float()、list() 等）在第 3 章具体介绍
 
 
-# ── 拓展：观察修改 bytes 元素的报错 ───────────────────────────────────
-# 注意：bytes 不可变，给下标赋值会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 末尾）
+# ── 7. 拓展：观察修改 bytes 元素的报错 ────────────────────────────────
+# 注意：bytes 不可变，给下标赋值会抛 TypeError（try / except 见第 1 章 01_syntax_demo.py 第 7 节）
 try:
     ascii_data[0] = 72
 except TypeError as error:
-    print("【进阶】修改 bytes 元素：", error)
+    print("拓展 - 修改 bytes 元素：", error)  # 'bytes' object does not support item assignment
