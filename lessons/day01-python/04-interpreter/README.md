@@ -1,58 +1,68 @@
-# Python3 解释器
+# 第 4 章 · Python3 解释器
 
-[打开本章教程原文](../../../source/04-interpreter.html)（在 VS Code 中右键该文件，选择 Open with Live Server，或在浏览器中打开）。原教程的问候脚本已放进 `example.py`；原先的版本和参数演示保留为【补充】。
+学习模式：Quick Review（速览学习）
 
-对应资料：`source/04-interpreter.html`，即[菜鸟教程：Python3 解释器](https://www.runoob.com/python3/python3-interpreter.html)。
+阅读材料：[菜鸟教程原文 HTML](../../../source/04-interpreter.html)（在浏览器中打开）
 
-原文顺序为交互式编程 → 脚本式编程；阅读后完成 [本章练习](practice.md)。【补充】示例函数的完整调用方式见 [函数速查](functions.md)。
+## 学习步骤
 
-Python 解释器负责读取并执行 Python 代码。可以在交互模式下逐句执行，也可以运行保存在 `.py` 文件里的代码。
+1. 按「环境配置与版本查看 → 交互式编程 → 脚本式编程」阅读原文，对照下方要点。
+2. 用仓库的 Python 3.11 启动 REPL，完成一次表达式求值和一次多行输入，再回到 PowerShell 运行脚本。
+3. 自答「理解检查」。命令行参数和版本信息可查阅[函数速查](functions.md)。
 
-## 查看 Python 版本
+## 要点（按原文顺序）
 
-在仓库根目录的 PowerShell 中输入：
+1. **配置与版本**。解释器读取并执行 Python 代码。系统通过 `PATH` 中的目录寻找命令。本仓库用 `.venv` 隔离依赖，直接运行虚拟环境里的解释器即可确认版本。
+2. **交互式编程**。直接启动解释器进入 REPL。`>>>` 等待新输入，`...` 等待当前代码块的后续行。多行块输入完成后再按一次空回车。`exit()` 退出交互环境，Windows 还可用 `Ctrl+Z` 再按回车，Linux/macOS 可用 `Ctrl+D`。
+3. **脚本式编程**。先把代码保存为 `.py`，再按「解释器、脚本路径」的顺序运行。Linux/macOS 可用首行 `#!/usr/bin/env python3` 和 `chmod +x hello.py`，然后执行 `./hello.py`。直接运行时 `__name__` 为 `"__main__"`，导入时为模块名。
+
+## 【补充】Node.js 对照与原文勘误
+
+- 在 Node.js 中，用 `node` 进入 `>` 提示符，用 `.exit` 或连续两次 `Ctrl+C` 退出。`node app.js` 与 `python app.py` 的脚本入口类似。`.venv` 和 `node_modules` 都支持项目级依赖隔离，`.venv` 还指定项目的解释器。
+- 原文的 Linux `PATH` 示例应添加 `/usr/local/python3/bin` 目录。需要传给子进程时使用 `export`，需要跨终端保留时写入 shell 配置。Windows 的 `set path=...` 属于当前 CMD 会话，PowerShell 对应 `$env:Path += ";C:\Python311"`。原文使用早期 Python 版本演示，本仓库以 Python 3.11 为准。
+- 示例按 `print("Hello, Python!")` 和 `if flag:` 格式书写。Shebang 惯用 `#!/usr/bin/env python3`。Windows 可直接调用解释器，也可以通过支持 Shebang 的 `py` 启动器运行脚本。
+
+## 运行
+
+在仓库根目录打开 PowerShell。环境准备见[第 1 章「运行」](../01-basic-syntax/README.md#运行)。
 
 ```powershell
 .\.venv\Scripts\python.exe --version
+.\.venv\Scripts\python.exe
 ```
 
-【补充】在已激活 `.venv` 的终端中，`python` 指向这个虚拟环境的解释器。要查看系统安装的版本，Windows 通常可用 `py --version`，Linux 或 macOS 常用 `python3 --version`。
-
-## 交互式运行
-
-在同一个 PowerShell 输入 `.\.venv\Scripts\python.exe`。看到 `>>>` 后输入下列 Python 语句，按回车观察结果。
+版本命令应显示 `Python 3.11.x`。进入 REPL 后，只输入提示符右侧的代码。在 `print` 后的 `...` 提示符处直接按回车提交多行代码块。
 
 ```python
 >>> 1 + 2
 3
->>> print("你好，Python")
-你好，Python
+>>> flag = True
+>>> if flag:
+...     print("flag 条件为 True!")
+...
+flag 条件为 True!
+>>> exit()
 ```
 
-`>>>` 是解释器提示符，不需要自己输入。输入 `exit()` 退出；Windows 下也可以按 `Ctrl+Z` 后回车，返回 PowerShell。
+回到 PowerShell 后，把下面的代码保存为 `lessons/playground/interpreter_hello.py`。第一行输出问候语，第二行输出解释器给当前脚本设置的 `__name__`。
 
-## 脚本式运行
-
-在项目根目录执行：
+```python
+print("Hello, Python!")
+print(__name__)
+```
 
 ```powershell
-.\.venv\Scripts\python.exe .\lessons\day01-python\04-interpreter\example.py
-.\.venv\Scripts\python.exe .\lessons\day01-python\04-interpreter\example.py Rain
+.\.venv\Scripts\python.exe .\lessons\playground\interpreter_hello.py
 ```
 
-两个命令都会先运行教程中的 `Hello, Python!`；第二个还向【补充】示例传入 `Rain`。脚本可以通过 `sys.argv` 获取参数，第一项是脚本路径，其后的项是传入的参数。
+预期依次输出 `Hello, Python!` 和 `__main__`。
 
-【补充】原文把问候语写成 `print ("Hello, Python!");`，脚本采用 `print("Hello, Python!")`。运行这两种写法，终端都会显示同一句问候语。
+### 理解检查
 
-【补充】读参数示例时，分别预测传入 `Rain` 和省略参数时会执行哪个分支，再看条件表达式如何选出同一个名字。`sys.argv` 的首次示例见[第 1 章的命令行参数](../01-basic-syntax/03_io_import_demo.py)。
+1. `>>>` 和 `...` 分别表示什么？多行 `if` 什么时候开始执行？
+2. 在 Windows 如何从 REPL 返回 PowerShell？只输入 `exit` 会看到什么？
+3. 为什么脚本命令要在 PowerShell 输入？直接执行和被导入时，`__name__` 各是什么？
 
-Linux 和 macOS 上直接执行脚本（例如 `./example.py`）时，需要文件具备执行权限，并设置合适的 Shebang；通过 `python example.py` 或 `python3 example.py` 运行则由命令直接指定解释器。
+## 学习验收标准
 
-## 学习验收
-
-- [ ] 未开始
-- [ ] 阅读完成
-- [ ] 示例理解完成：能分清 PowerShell 与 Python 的 `>>>` 提示符。
-- [ ] 基础练习通过：独立完成 [本章练习](practice.md)，按其中的验收条件核对结果。
-- [ ] 进阶练习通过（可选，分层题待迁移）
-- [ ] 本章完成：能回答理解检查中的问题，并独立得到基础练习要求的结果。
+- [ ] 本章完成：能独立在 REPL 中求值并退出，再从 PowerShell 运行一个 `.py` 文件，说明两种运行方式的区别。

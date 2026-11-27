@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src https: data:; base-uri https://www.runoob.com"><base href="https://www.runoob.com/python3/"><title>Python3 注释 - 教程原文</title><style>body{font-family:system-ui,sans-serif;line-height:1.7;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#222}pre{overflow:auto;background:#f2f3f4;padding:1rem;white-space:pre-wrap}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:.5rem;text-align:left}img{max-width:100%}.example,.example_code{background:#f2f5ec;padding:1rem;margin:1rem 0}code{font-family:Consolas,monospace}</style></head><body>
+ <div class="article-intro" id="content">
+
+ <h1>Python3 注释</h1>
+
+<p>在 Python 中，注释不会影响程序的执行，但是会使代码更易于阅读和理解。</p><p>Python 中的注释有<strong>单行注释</strong>和<strong>多行注释</strong>。</p>
+
+<hr>
+<h2>单行注释</h2>
+<p>Python 中单行注释以 <span class="marked">#</span> 开头，<code>#</code> 符号后面的所有文本都被视为注释，不会被解释器执行。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: #a50"># 这是一个注释</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span><span style="color: #a11;">&quot;Hello, World!&quot;</span><span style="color: Olive;">&#41;</span><br />
+<span style="color: #a50"># 这也是注释</span><br />
+</div>
+</div>
+<hr>
+<h2>多行注释</h2>
+<p>在 Python 中，多行字符串（由三个单引号 <span class="marked">'''</span> 或三个双引号 <span class="marked">"""</span> 包围的文本块）可以用作多行注释。</p>
+
+<h3>1、使用三个单引号</h3>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: #a50">#!/usr/bin/python3</span><br />
+<br />
+<span style="color: #a11;">'''<br />
+这是多行注释，用三个单引号<br />
+这是多行注释，用三个单引号<br />
+这是多行注释，用三个单引号<br />
+'''</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span><span style="color: #a11;">&quot;Hello, World!&quot;</span><span style="color: Olive;">&#41;</span><br />
+</div>
+</div>
+
+<h3>2、使用三个双引号</h3>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: #a50">#!/usr/bin/python3</span><br />
+<br />
+<span style="color: #a11;">&quot;&quot;&quot;<br />
+这是多行注释，用三个双引号<br />
+这是多行注释，用三个双引号<br />
+这是多行注释，用三个双引号<br />
+&quot;&quot;&quot;</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span><span style="color: #a11;">&quot;Hello, World!&quot;</span><span style="color: Olive;">&#41;</span><br />
+</div>
+</div>
+
+<blockquote>
+<p><strong>注意</strong>：虽然多行字符串在这里被当作多行注释使用，但它实际上是一个字符串，我们只要不使用它，它不会影响程序的运行。</p>
+<p>这些字符串在代码中可以被放置在一些位置，而不引起实际的执行，从而达到注释的效果。</p>
+</blockquote>
+
+
+
+<h3>多行注释注意事项</h3>
+<p>在 Python 中，多行注释是由三个单引号 <span class="marked">'''</span> 或三个双引号 <span class="marked">"""</span> 来定义的，<strong>这种注释方式不能嵌套使用</strong>。</p>
+<p>当你开始一个多行注释块时，Python 会一直将后续的行都当作注释，直到遇到另一组三个单引号或三个双引号。</p>
+<p><strong>嵌套多行注释会导致语法错误：</strong></p>
+
+<div class="example">
+<h2 class="example">实例（错误示例）</h2>
+<div class="example_code">
+<span style="color: #a11;">'''<br />
+这是外部的多行注释<br />
+可以包含一些描述性的内容<br />
+<br />
+&nbsp; &nbsp; '''</span><br />
+&nbsp; &nbsp; 这是尝试嵌套的多行注释<br />
+&nbsp; &nbsp; 会导致语法错误<br />
+&nbsp; &nbsp; <span style="color: #a11;">'''<br />
+'''</span><br />
+</div>
+</div>
+
+<p>在这个例子中，内部的三个单引号并没有被正确识别为多行注释的结束，而是被解释为普通的字符串，这将导致代码结构不正确。</p>
+<p><strong>正确做法：使用单行注释嵌套</strong></p>
+
+<div class="example">
+<h2 class="example">实例（正确示例）</h2>
+<div class="example_code">
+<span style="color: #a11;">'''<br />
+这是外部的多行注释<br />
+可以包含一些描述性的内容<br />
+<br />
+# 这是内部的单行注释<br />
+# 可以嵌套在多行注释中<br />
+'''</span><br />
+</div>
+</div>
+
+
+<hr>
+<h2>Docstring 文档字符串</h2>
+<p>Python 的 Docstring（文档字符串）是一种特殊的注释，用于为函数、类、模块等添加文档说明。它类似于 Java 的 Javadoc，但更加强大和灵活。</p>
+<p>与普通注释不同，<strong>Docstring 可以通过 <code>__doc__</code> 属性直接访问</strong>，也可以使用 <code>help()</code> 函数查看。</p>
+
+<h3>基本语法</h3>
+<p>Docstring 使用三个双引号 <code>"""</code> 或三个单引号 <code>'''</code> 包围，放在函数、类、模块的开头。</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: Green;font-weight:bold;">def</span> add<span style="color: Olive;">&#40;</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;返回两数之和&quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a + b<br />
+<br />
+<span style="color: #a50"># 通过 __doc__ 属性访问</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span>add.__doc__<span style="color: Olive;">&#41;</span> &nbsp;<span style="color: #a50"># 输出: 返回两数之和</span><br />
+</div>
+</div>
+
+<h3>使用 help() 查看文档</h3>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: Green;font-weight:bold;">def</span> add<span style="color: Olive;">&#40;</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;返回两数之和&quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a + b<br />
+<br />
+<span style="color: #a50"># 使用 help() 函数</span><br />
+<span style="color: Teal;">help</span><span style="color: Olive;">&#40;</span>add<span style="color: Olive;">&#41;</span><br />
+</div>
+</div>
+
+<p><strong>运行结果预期:</strong></p>
+<pre>
+Help on function add in module __main__:
+
+add(a, b)
+ 返回两数之和
+</pre>
+<h3>使用 inspect 模块提取文档</h3>
+<p>Python 的标准库提供了 <code>inspect</code> 模块，可以直接提取文档内容：</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: Green;font-weight:bold;">import</span> <span style="color: #05a;">inspect</span><br />
+<br />
+<span style="color: Green;font-weight:bold;">def</span> add<span style="color: Olive;">&#40;</span>a<span style="color: Gray;">,</span> b<span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;返回两数之和&quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a + b<br />
+<br />
+<span style="color: #a50"># 使用 inspect.getdoc() 获取文档</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span><span style="color: #05a;">inspect</span>.<span style="color: #05a;">getdoc</span><span style="color: Olive;">&#40;</span>add<span style="color: Olive;">&#41;</span><span style="color: Olive;">&#41;</span> &nbsp;<span style="color: #a50"># 输出: 返回两数之和</span><br />
+</div>
+</div>
+
+<p><strong>运行结果预期:</strong></p>
+<pre>
+返回两数之和
+</pre>
+<h3>多行 Docstring</h3>
+<p>对于复杂的函数，可以使用多行 Docstring：</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: Green;font-weight:bold;">def</span> calculate<span style="color: Olive;">&#40;</span>a<span style="color: Gray;">,</span> b<span style="color: Gray;">,</span> operation<span style="color: Gray;">=</span><span style="color: #a11;">&quot;add&quot;</span><span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;<br />
+&nbsp; &nbsp; 执行数学运算<br />
+<br />
+&nbsp; &nbsp; 参数:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; a: 第一个数字<br />
+&nbsp; &nbsp; &nbsp; &nbsp; b: 第二个数字<br />
+&nbsp; &nbsp; &nbsp; &nbsp; operation: 操作类型，可选 &quot;add&quot;, &quot;subtract&quot;, &quot;multiply&quot;<br />
+<br />
+&nbsp; &nbsp; 返回:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; 计算结果<br />
+&nbsp; &nbsp; &quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">if</span> operation <span style="color: Gray;">==</span> <span style="color: #a11;">&quot;add&quot;</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a + b<br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">elif</span> operation <span style="color: Gray;">==</span> <span style="color: #a11;">&quot;subtract&quot;</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a - b<br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">elif</span> operation <span style="color: Gray;">==</span> <span style="color: #a11;">&quot;multiply&quot;</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> a * b<br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">else</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Green;font-weight:bold;">raise</span> <span style="color: Teal;">ValueError</span><span style="color: Olive;">&#40;</span><span style="color: #a11;">&quot;不支持的操作&quot;</span><span style="color: Olive;">&#41;</span><br />
+<br />
+<span style="color: #a50"># 查看完整文档</span><br />
+<span style="color: Teal;">help</span><span style="color: Olive;">&#40;</span>calculate<span style="color: Olive;">&#41;</span><br />
+</div>
+</div>
+
+<p><strong>运行结果预期:</strong></p>
+<pre>
+Help on function calculate in module __main__:
+
+calculate(a, b, operation='add')
+ 执行数学运算
+
+ 参数:
+ a: 第一个数字
+ b: 第二个数字
+ operation: 操作类型，可选 "add", "subtract", "multiply"
+
+ 返回:
+ 计算结果
+</pre>
+<h3>类的 Docstring</h3>
+<p>Docstring 也可以用于类：</p>
+
+<div class="example">
+<h2 class="example">实例</h2>
+<div class="example_code">
+<span style="color: Green;font-weight:bold;">class</span> Person:<br />
+&nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;人物类，用于表示一个人的基本信息&quot;&quot;&quot;</span><br />
+<br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">def</span> <span style="color: Navy;">__init__</span><span style="color: Olive;">&#40;</span><span style="color: Teal;">self</span><span style="color: Gray;">,</span> name<span style="color: Gray;">,</span> age<span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; 初始化人物对象<br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; 参数:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; name: 姓名<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; age: 年龄<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Teal;">self</span>.<span style="color: #05a;">name</span> <span style="color: Gray;">=</span> name<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Teal;">self</span>.<span style="color: #05a;">age</span> <span style="color: Gray;">=</span> age<br />
+<br />
+&nbsp; &nbsp; <span style="color: Green;font-weight:bold;">def</span> introduce<span style="color: Olive;">&#40;</span><span style="color: Teal;">self</span><span style="color: Olive;">&#41;</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #a11;">&quot;&quot;&quot;介绍这个人&quot;&quot;&quot;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: Green;font-weight:bold;">return</span> f<span style="color: #a11;">&quot;我叫{self.name}，今年{self.age}岁&quot;</span><br />
+<br />
+<span style="color: #a50"># 访问类的文档</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span>Person.__doc__<span style="color: Olive;">&#41;</span><br />
+<br />
+<span style="color: #a50"># 访问方法的文档</span><br />
+<span style="color: Green;font-weight:bold;">print</span><span style="color: Olive;">&#40;</span>Person.<span style="color: #05a;">introduce</span>.__doc__<span style="color: Olive;">&#41;</span><br />
+</div>
+</div>
+
+<p><strong>运行结果预期:</strong></p>
+<pre>
+人物类，用于表示一个人的基本信息
+介绍这个人
+</pre>
+
+<h3>Docstring 规范</h3>
+<p>Python 中有多种 Docstring 风格，常用的有：</p>
+<ul>
+<li><strong>Google 风格</strong>：使用空格缩进，参数和返回值有明确的标签。</li>
+<li><strong>Sphinx/reST 风格</strong>：使用冒号开头，如 <code>:param name:</code>。</li>
+<li><strong>NumPy 风格</strong>：与 Google 风格类似，但格式略有不同。</li>
+</ul>
+<p>建议在项目中选择一种风格并保持一致。</p>
+</div>
+</body></html>
