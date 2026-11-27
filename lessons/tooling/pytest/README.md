@@ -184,8 +184,8 @@ def test_total_with_fixture(fruit_cart):     # 参数名 = fixture 名
 以第 1 章为例（只测基础题加 `-m basic`，全部运行则去掉 `-m basic`）：
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -m basic -v
-.\.venv\Scripts\python.exe -m pytest lessons/day01-python/01-basic-syntax -v
+.\.venv\Scripts\python.exe -m pytest lessons/01-basic-syntax -m basic -v
+.\.venv\Scripts\python.exe -m pytest lessons/01-basic-syntax -v
 ```
 
 1. 第一次运行，未完成的练习都会显示 `SKIPPED ... 未完成`。

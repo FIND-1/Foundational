@@ -1,5 +1,5 @@
-# 自由实验区：原 lessons/day01-python/str.py（第一章的字符串练习）。
-# 系统整理的版本见 lessons/day01-python/01-basic-syntax/demo_strings.py。
+# 自由实验区：第一章的字符串练习。
+# 系统整理的版本见 lessons/01-basic-syntax/02_strings_demo.py。
 # #!/usr/bin/python3
 # (叫做 Shebang（或者 Hashbang）,
 # 告诉操作系统："请用 /usr/bin/python3 这个路径下的解释器来运行这个文件。"
